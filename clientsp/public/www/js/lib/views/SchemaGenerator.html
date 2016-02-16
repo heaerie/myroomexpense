@@ -1,0 +1,186 @@
+<script>
+var glGroupId    ="1"; 
+var glUserId     ="1"; 
+
+//var glGroupId    ="1"; 
+//var glUserId     ="1";
+</script>
+<style>
+.outerlayer
+{
+	visibility: visible;
+	left: 850px;
+	//top: ;
+	bottom:1px;
+	min-width: 10px;
+	min-height: 40px;
+	position: absolute;
+}
+</style>
+
+	
+
+<script>
+
+	function onPostReq(url,json,id,type)
+	{
+	//	alert("onPostReq");
+	     var rtVal="";
+	   //  sleep(10);
+
+
+//alert("Call Post");
+
+
+
+             $.post( 
+             url,
+             json,
+             function(data) 
+		{
+
+	//	alert(data);
+		try
+		{
+		if(type == 'DIV')
+		{
+
+		$("#"+id).html(data);
+		
+		
+		}
+		else if( type == 'OBJ')
+		{
+		document.getElementById(id).value= data;
+
+		}
+}	
+catch(e)
+{
+	alert("PostReqExp:<"+ id+">" +e);
+}
+
+		}
+          );
+
+	}
+  /*
+   * hoverIntent | Copyright 2011 Brian Cherne
+   * http://cherne.net/brian/resources/jquery.hoverIntent.html
+   * modified by the jQuery UI team
+   */
+
+tips = $( "#validateTips" );
+
+
+	</script>
+<style>
+.test1
+{
+visibility: visible;
+left:10%;
+//text-align:center;
+vertical-align: middle;
+top: 350px;
+margin-left:auto;
+margin-right:auto;
+min-width: 80%;
+min-height: 400px;
+position: absolute;
+}
+
+
+</style>
+
+<div name="middleid" id="middleid" > 
+
+
+
+<!--div id="container"> 
+        <div class="headline">Headline 1</div> 
+        <div class="section"> 
+                content 1 
+        </div> 
+        <div class="headline">Headline 2</div> 
+        <div class="section"> 
+                content 2 
+        </div> 
+        <div class="headline">Headline 3</div> 
+        <div class="section"> 
+                content 3 
+        </div> 
+        <div id="expand">Expand All</div> 
+</div--> 
+
+
+
+
+<script>
+
+
+
+
+
+</script>
+
+
+<script type="text/javascript">
+
+</script>
+<center>
+
+<table>
+	<tr>
+		<td>
+				<textarea id="SchemaJsonTextId" placeholder="SchemaJsonText">
+				[
+	{	
+	group:'ussms',name:'basicDet',label:'Basic Details',task:'ES',desc:'N',htmlType:'PAGE',entitle:'N',enttlname:'',mndf:'N',dataType:'PAGE',cclass:'ctext',validate:'',dflt:'',min:'0',max:'60',tips:'',onkeyup:'onKeyUp(this)',onchange:'onChange(this)',onkeydown:'onKeyDown(this)',onkeypress:'onKeyPress(this)',onclick:'onClick(this)',listVal:'0',help:'N',helpLink:'',xml:'Y',Xpath:'N', childs: []}
+
+]
+			</textarea>
+		</td>
+		<td>
+				<textarea id="SchemaJsonOutputId" placeholder="SchemaJsonOuput">
+		</textarea>
+		</td>
+		
+	</tr>
+</table>
+<!--input type="button" class="button"  parent="hometran" task="EXPAND" value="Expand" onclick="javascript:onClick(this)"-->
+<!--input type="button" class="button" parent="hometran" task="BACK" value="Dashboard" onclick="javascript:onClick(this)"-->
+
+<input type="button"  id="GenListValJson"   parent="hometran" task="GENSJSON" value="Process" onclick="ProcessSJson(this)">
+<input type="button"  id="GenListValJson"   parent="hometran" task="GENSJSON" value="Generate Schema" onclick="GenSJson(this)">
+</center>
+
+<br>
+
+<form name="dynForm" xmlname="Dashboard" class="cform" width="100">
+
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" class="btn btn-default">Left</button>
+  <button type="button" class="btn btn-default">Middle</button>
+  <button type="button" class="btn btn-default">Right</button>
+</div>
+
+<button parentid="container0" type="button" mndf="Y"  onclick="AddContainer(this)"childcount="0" value="onclick" type="container">Add Container</button>
+
+
+<div id="container0" class="bmargin"> </div>
+
+
+</form>
+</uss11>
+
+</form>
+
+</body>
+
+<body class="cbody">
+
+</body>
+
+
+
+<body>
