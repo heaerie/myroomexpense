@@ -1078,8 +1078,8 @@ catch(e)
 	}
   */
   this.clearfix=document.createElement("div");
-  this.clearfix.innerHTML="<div class=\"clearfix visible-xs-block\"></div>"	
-  \this.tableErrorBox=document.createElement("div");
+  this.clearfix.innerHTML="<div class=\"clearfix visible-xs-block\"></div>"	;
+  this.tableErrorBox=document.createElement("div");
 	this.tableErrorBox.id= fieldObj.name +"ErrorBox";
 
 	//this.tableErrorBox.className="ui-state-highlight";
