@@ -1077,7 +1077,9 @@ catch(e)
 			alert("CFCException :" +e);
 	}
   */
-	this.tableErrorBox=document.createElement("div");
+  this.clearfix=document.createElement("div");
+  this.clearfix.innerHTML="<div class=\"clearfix visible-xs-block\"></div>"	
+  \this.tableErrorBox=document.createElement("div");
 	this.tableErrorBox.id= fieldObj.name +"ErrorBox";
 
 	//this.tableErrorBox.className="ui-state-highlight";
@@ -1114,7 +1116,7 @@ catch(e)
 	
   if(fieldObj.mndf  == 'Y' )
   {
-    this.tableBodyElmnt.setAttribute("required"   ,"");
+    this.tableBodyElmnt.setAttribute("required"   ,"" );
   }	
 
   this.tableBodyElmnt.setAttribute("value"   ,fieldObj.dflt);
@@ -1269,6 +1271,7 @@ USSTableRow.appendChild(this.tableBodyTd1);
 }
 if( fieldObj.parentHtmlType != 'HEADER')
 {
+  this.tableBodyTd2.appendChild(this.clearfix);
   this.tableBodyTd2.appendChild(this.tableBodyElmnt);
   this.tableBodyTd2.appendChild(this.tableBodyElmntDesc);
 	this.tableBodyTd2.appendChild(this.tableBodyElmntScript);
