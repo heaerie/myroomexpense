@@ -121,6 +121,89 @@ else
 }
 
 
+function getNextSeq(seqName ,callback)
+{
+
+
+	log.info('getNextSeq<' + seqName +'>');
+	if(seqName != "")
+	{
+		pool.getConnection(function(err, connection) 
+		{
+			var seqInfo = {
+					SEQ_VAL : 0
+					,SEQ_NAME : seqName
+				};
+
+			var query='select SEQ_VAL from DBHSP._SEQUENCE '
+			+ ' WHERE   SEQ_NAME             = ' + connection.escape(seqName) +' ';
+		//var query='select distinct gid.USR_ID,rapgl.ROLE_ID ,PAGE_GRP_TITLE ,PAGE_GRP_KEY ,pggr.PAGE_GRP_ID  from DBHSP.MEMA001MB mem , DBHSP.GID001MB  gid  , DBHSP.RAPG004LB rapgl, DBHSP.PGGR005MB pggr where gid.usr_id  = mem.usr_id and   rapgl.ROLE_ID = mem.ROLE_ID and   rapgl.PRTL_PAGE_GRP_ID = rapgl.PRTL_PAGE_GRP_ID and  gid.USR_ID =' + connection.escape(usr_id) +'' ;
+
+			log.info(query);
+
+			var queryRslt=connection.query(query,function(err, rows, fields) 
+			{
+
+				//if(err)  callback(false,{"message" : err},rows);
+				log.info('SELECT 001');
+				console.log(rows);
+				rows= rows|| [];
+				if ( rows.length ==0 )
+				{
+					log.info('INSERT 002');
+					connection.query('INSERT INTO DBHSP._SEQUENCE SET ?', seqInfo, function(err, result) 
+					{
+					  if (err)  callback(false,{"message" : err},rows);
+					  	//throw err;
+					  console.log(result.insertId);
+					});
+
+				
+				}
+				//else
+				log.info('UPDATE 003');
+				{
+
+					connection.query('UPDATE DBHSP._SEQUENCE SET SEQ_VAL=SEQ_VAL+1  WHERE SEQ_NAME =  ?  '
+						, [seqInfo.SEQ_NAME],
+					 function(err, result) 
+					{
+					  if (err) callback(false,{"message" : err},rows);
+					  	//throw err;
+					  	log.info('UPDATE 003.01');
+					query='select SEQ_VAL from DBHSP._SEQUENCE '
+						+ ' WHERE   SEQ_NAME             = ' + connection.escape(seqName) +' ';
+
+					console.log(query);
+					log.info('SELECT 004');
+					connection.query(query,function(err, rows, fields) 
+					{
+
+						if(err)  callback(false,{"message" : err},rows);
+						rows= rows|| [];
+						if ( rows.length ==0 )
+						{
+								callback(true,{"message" : "success"},rows);	
+						}
+
+					});
+
+					  console.log(result);
+					});
+
+					
+				}
+
+			});
+		});
+		
+	}
+	else
+		{
+			callback(false,{"message" : 'Validation Fail'},rows);
+		}
+}
+
 function doLogin(inUsername, inPassword, callback ){
 
 	log.info("doLogin: LN000");
@@ -1758,6 +1841,49 @@ connection.release();
 
 });
  }
+function registerUser( inUsrId, inGrpId,callback)
+ {
+
+ 	console.log('registerUser');
+ 	getNextSeq('GRP_ID' ,function(respCode,message,rows){
+
+ 		console.log(respCode);
+ 		console.log(message);
+ 		console.log(rows);
+
+ 	});
+
+ 	var GRP_ID=rows[0].SEQ_VAL
+
+ 	pool.getConnection(function(err, connection) {
+
+var query=
+'select f_name First_Name, l_name  Last_Name,  i.acct_type  from DBHSP.GID001MB  i ,  DBHSP.GRP001MB g where g.grp_id  = i.grp_id and  i.acct_type =\'EXPENSE\' and  i.usr_id  = ' + connection.escape(inUsrId) +'';
+
+
+
+
+//var query='select distinct gid.USR_ID,rapgl.ROLE_ID ,PAGE_GRP_TITLE ,PAGE_GRP_KEY ,pggr.PAGE_GRP_ID  from DBHSP.MEMA001MB mem , DBHSP.GID001MB  gid  , DBHSP.RAPG004LB rapgl, DBHSP.PGGR005MB pggr where gid.usr_id  = mem.usr_id and   rapgl.ROLE_ID = mem.ROLE_ID and   rapgl.PRTL_PAGE_GRP_ID = rapgl.PRTL_PAGE_GRP_ID and  gid.USR_ID =' + connection.escape(usr_id) +'' ;
+
+log.info(query);
+
+var queryRslt=connection.query(query,function(err, rows, fields) {
+
+	if(err)  callback(false,{"message" : err},rows);
+	rows= rows|| [];
+	if ( rows.length ==0 )
+	{
+		callback(false,{"message" : "Access Denied"},rows);
+	}
+	else
+	{
+		callback(true,fields,rows);
+	}
+});
+connection.release();
+
+});
+ }
 
 
  function getCardDetail( inUsrId, inGrpId,callback)
@@ -1940,7 +2066,7 @@ app.post('/api/:module/:service', function(req,res)
 				{
 					case  'register' :
 
-							getUserDetail( 1, 1, function(status, respMessage,data)
+							registerUser( 1, 1, function(status, respMessage,data)
 
 							{
 

@@ -1078,7 +1078,8 @@ catch(e)
 	}
   */
   this.clearfix=document.createElement("div");
-  this.clearfix.innerHTML="<div class=\"clearfix visible-xs-block\"></div>"	;
+  this.clearfix.className="clearfix visible-xs-block"	;
+  this.clearfix.innerHTML ="clearfix";
   this.tableErrorBox=document.createElement("div");
 	this.tableErrorBox.id= fieldObj.name +"ErrorBox";
 
@@ -1264,14 +1265,17 @@ this.jsfunc+="json={USRID:glUserId, GROUPID:glGroupId }; onPostReq(url,json,div,
 	}
 
 	this.tableBodyElmntScript.text=jsfunc;
-
+USSTableRow.appendChild(this.clearfix);
 if( fieldObj.parentHtmlType != 'TABLE')
 {
+
+
+
 USSTableRow.appendChild(this.tableBodyTd1);
 }
 if( fieldObj.parentHtmlType != 'HEADER')
 {
-  this.tableBodyTd2.appendChild(this.clearfix);
+
   this.tableBodyTd2.appendChild(this.tableBodyElmnt);
   this.tableBodyTd2.appendChild(this.tableBodyElmntDesc);
 	this.tableBodyTd2.appendChild(this.tableBodyElmntScript);
