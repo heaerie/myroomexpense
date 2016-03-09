@@ -2095,7 +2095,7 @@ app.post('/api/:module/:service', function(req,res)
 
 					break;
 
-					case  'getCardDetail' :
+				/*	case  'getCardDetail' :
 
 							getCardDetail( 1, 1, function(status, respMessage,data)
 
@@ -2125,6 +2125,7 @@ app.post('/api/:module/:service', function(req,res)
 								);
 
 					break;
+					*/
 
 				}
 
