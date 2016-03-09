@@ -20,7 +20,9 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -32,7 +34,7 @@
   </head>
 <!-- NAVBAR
 ================================================== -->
-  <body>
+  <body data-spy="scroll">
 
   
     <div class="navbar-wrapper">
@@ -41,7 +43,7 @@
 
       <div class="container">
 
-        <nav class="navbar navbar-inverse navbar-static-top navbar navbar-custom navbar-fixed-top" data-spy="scroll" data-target=".navbar-fixed-top"  style="height: 101px">
+        <nav class="navbar navbar-inverse navbar-static-top navbar navbar-custom navbar-fixed-top"  data-target=".navbar-fixed-top"  style="height: 101px">
           <div class="container" >
             <div class="navbar-header"    >
               <button type="button" class="navbar-toggle collapsed" style="height: 101px" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -55,8 +57,10 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse" style="margin-top:20px;">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="#myCarousel">Home</a></li>
+                <li><a   href="#products">Products</a></li> 
                 <li><a   href="#about">About</a></li>
+                
                 <li><a   href="#contact">Contact</a></li> 
                 <li><a   href="https://heaerieglobalsolutions.awsapps.com/mail">Webmail</a></li>
                 <li><a   href="#Careers">Careers</a></li>
@@ -100,10 +104,10 @@
 
           <div class="container">
             <div class="carousel-caption">
-              <h1>HEAERIE GLOBAL SOLUTIONS</h1>
+              
               <h2>BUSINESS CONSULTING</h2>
 
-              <p>Established in 2013, Precision Global Solutions is a global IT Solutions company with over 3 years of combined experience specialized in providing IT consulting services. We have full-blown headquarter in Vellore, India.</p>
+              <p>Established in 2013, Precision Global Solutions is a global IT Solutions company with over 3 years of combined experience specialized in providing IT consulting services. </p>
               <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
             </div>
           </div>
@@ -114,7 +118,7 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>HEAERIE GLOBAL SOLUTIONS</h1>
-              <h1>What Can we provide?</h1>
+              
               <p>We offer a complete range of IT services and product solution to ensure your business benefits from enterprise IT. We are always into learning new things, providing fast and accurate response so that you can get the maximum out of everything</p>
               <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
             </div>
@@ -125,8 +129,8 @@
           <img src="slide3.jpg" width="1900" height="1350" alt="follow us" class="bg-fus-img" style="position: relative; max-width: none; min-width: initial; max-height: initial; min-height: initial; width: 1360px; height: 966px;">
           <div class="container">
             <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <h1>Invest your career</h1>
+              <p>Learn , feel the technology, enjoy to explore the things.</p>
               <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
             </div>
           </div>
@@ -146,7 +150,7 @@
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-
+<section id="products" class="container content-section text-center">
     <div class="container marketing">
 
       <!-- Three columns of text below the carousel -->
@@ -166,14 +170,15 @@
         <div class="col-lg-4">
           <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
           <h2>My Card Pay</h2>
-          <p>pay your card bills due.</p>
+          <p>Pay your card bills due. Set reminder for your due date</p>
           <p><a class="btn btn-default" href="#" role="button">Go Card Pay &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
-
+</div>
+</section>
       <!-- START THE FEATURETTES -->
-
+<!--
       <hr class="featurette-divider">
 
       <div class="row featurette">
@@ -209,7 +214,7 @@
           <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
         </div>
       </div>
-
+-->
       <section id="contact" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
@@ -218,23 +223,19 @@
     
 If you are interested in an opportunity with Heaerie GSL, please visit our <a herf="#">  Careers </a>page.  
 </p>
-                <p><a href="mailto:feedback@heaerie.com">feedback@heaerie.com</a>
+                <p><a href="mailto:careers@heaerieglobalsolutions.com">careers@heaerieglobalsolutions.com</a>
                 </p>
                 <ul class="list-inline banner-social-buttons">
                     <li>
                         <a href="https://twitter.com/jayagopal145" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
                     </li>
-                    <!--li>
-                        <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                    </li-->
+                  
                     <li>
-                        <!--a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a-->
-                    </li>
+                                   </li>
                 </ul>
             </div>
         </div>
     </section>
-
 
 <section id="about" class="container content-section text-center">
         <div class="row">
@@ -253,10 +254,15 @@ Heaerie is a upcoming provider of Information Technology and consulting services
 
 
       <!-- FOOTER -->
+
+      <nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container">
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
         <p>&copy; 2015 Heaerie Global solutions (P) Ltd.India &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
+</div>
+</nav>
 
     </div><!-- /.container -->
 
