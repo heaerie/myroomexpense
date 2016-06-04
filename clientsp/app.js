@@ -204,6 +204,13 @@ function getNextSeq(seqName ,callback)
 		}
 }
 
+
+
+function dbError(err)
+{
+	console.log(err);
+}
+
 function doLogin(inUsername, inPassword, callback ){
 
 	log.info("doLogin: LN000");
@@ -216,36 +223,35 @@ function doLogin(inUsername, inPassword, callback ){
 	{
 
 
-		var query='select PROD_NAME , PROD_VERSION , PRTL_NAME, GRP_NAME ,f_name FIRST_NAME, l_name  LAST_NAME,  i.email_id EMAIL  , i.GRP_ID , USR_ID from GID001MB i, GRP001MB g , PRTL002MB prtl ,PROD001MB prod WHERE prtl.prtl_id  = g.prtl_id AND prod.prod_id = prtl.prod_id AND prtl.PRTL_ST =\'ACTIVE\' AND g.grp_id  = i.grp_id AND  i.email_id ='+ connection.escape(inUsername)+' and i.password = '+ connection.escape(inPassword ) + '';
+		var query='select PROD_NAME prodName, PROD_VERSION  prodVersion, PRTL_NAME prtlName, GRP_NAME grpName,f_name firstName, l_name  lastName,  i.email_id email  , i.GRP_ID  grpId, USR_ID  usrId from GID001MB i, GRP001MB g , PRTL002MB prtl ,PROD001MB prod WHERE prtl.prtl_id  = g.prtl_id AND prod.prod_id = prtl.prod_id AND prtl.PRTL_ST =\'ACTIVE\' AND g.grp_id  = i.grp_id AND  i.email_id ='+ connection.escape(inUsername)+' and i.password = '+ connection.escape(inPassword ) + '';
 
 		log.info(query);
 		log.info('call LN:001');
 
-		connection.query(query,function(err, rows, fields){
+		connection.query(query,function(err, loginDetails, fields){
 		log.info('call LN:002');
+		loginDetails = loginDetails || [];
+
+			if(err)  callback(false,{"message" : "SYSTEM ERROR" },loginDetails);
 	
-			if(err)  callback(false,{"message" : "SYSTEM ERROR" },rows);
-	
-			if ( rows.length ==0 )
+			if ( loginDetails.length ==0 )
 			{
 				log.info('call LN:003');
 				log.info('in Query : Nodata Found');
 
-				rows=[ {
-				"USR_ID":0
-				,"GRP_ID":0
-				}];	
+				loginDetails=[];	
 
 				log.info('call LN:004');
-				callback(false,{"message" : "Invalid Username/Password"},rows);
+				callback(false,{"message" : "Invalid Username/Password"},loginDetails);
 			}
 			else
 			{
 				log.info('call LN:005');
-				log.info('in Query : Record Found' + rows.length);
+				log.info('in Query : Record Found' + loginDetails.length);
 
+				console.log(loginDetails);
 				log.info('call LN:006');
-				var query='select gid.USR_ID , rolem.ROLE_NAME  ,rapg.PRTL_PAGE_GRP_ID ,pggr.PAGE_GRP_TITLE ,pggr.PAGE_GRP_KEY  ,rapg.ACCESS_IND'
+				var query='select concat(F_NAME, L_NAME ) name ,gid.USR_ID  usrId, rolem.ROLE_NAME  roleName ,rapg.PRTL_PAGE_GRP_ID  pageGroup,pggr.PAGE_GRP_TITLE  pageGroupTitle ,pggr.PAGE_GRP_KEY  pageGroupKey ,rapg.ACCESS_IND accessInd'
 				 + ' from '
 				 + ' DBHSP.GID001MB  gid     ,'
 				 + ' DBHSP.MEMA001MB mema    ,'
@@ -255,7 +261,7 @@ function doLogin(inUsername, inPassword, callback ){
 				 + ' where gid.USR_ID             = mema.USR_ID '
 				 + ' and   rolem.ROLE_ID          = mema.ROLE_ID'
 				 + ' and   rapg.PRTL_PAGE_GRP_ID  = pggr.PRTL_PAGE_GRP_ID'
-				 + ' and   gid.USR_ID             = ' + connection.escape(rows[0].USR_ID) +' '
+				 + ' and   gid.USR_ID             = ' + connection.escape(loginDetails[0].usrId) +' '
 				 + ' and   rapg.ACCESS_IND        != \'N\' ';
 //var query='select distinct gid.USR_ID,rapgl.ROLE_ID ,PAGE_GRP_TITLE ,PAGE_GRP_KEY ,pggr.PAGE_GRP_ID  from DBHSP.MEMA001MB mem , DBHSP.GID001MB  gid  , DBHSP.RAPG004LB rapgl, DBHSP.PGGR005MB pggr where gid.usr_id  = mem.usr_id and   rapgl.ROLE_ID = mem.ROLE_ID and   rapgl.PRTL_PAGE_GRP_ID = rapgl.PRTL_PAGE_GRP_ID and  gid.USR_ID =' + connection.escape(usr_id) +'' ;
 
@@ -264,23 +270,33 @@ log.info(query);
 
 			log.info('call GN:001');
 			//var queryRslt=
-			connection.query(query,function(err, rows, fields) {
+			connection.query(query,function(err, entitlementDetails, fields) {
 
 				log.info('GN:002');
-				if(err)  callback(false,{"message" : err},rows)
+				entitlementDetails= entitlementDetails|| [];
+					var respObj= {
+							"loginDetails" : loginDetails
+							,"entitlementDetails" :entitlementDetails
+						};	
+
+
+				if(err)  callback(false,{"message" : err},entitlementDetails)
 				else
 				{
-					rows= rows|| [];
 
-					if ( rows.length ==0 )
+					
+
+					if ( entitlementDetails.length ==0 )
 					{
 						log.info('call GN:003');
-						callback(false,{"message" : "Access Denied"},rows);
+						callback(false,{"message" : "Access Denied"},entitlementDetails);
 					}
 					else
 					{
 						log.info('call GN:004');
-						callback(true,{"message" : "success"},rows);
+						
+
+						callback(true,{"message" : "success"},respObj);
 					}
 				}
 			});
@@ -294,7 +310,7 @@ log.info(query);
 }
 else
 {
-	callback(false,{"message" : "Username or Password should not be null" },{});
+	callback(false,{"message" : "Username or Password should not be null" },[]);
 }
 	
 }
@@ -308,7 +324,7 @@ function getGroupNav(usr_id, callback )
 	log.info('getGroupNav');
 pool.getConnection(function(err, connection) {
 
-var query='select gid.USR_ID , rolem.ROLE_NAME  ,rapg.PRTL_PAGE_GRP_ID ,pggr.PAGE_GRP_TITLE ,PAGE_GRP_KEY '
+var query='select CONCAT (gid.f_name, gid.l_name ) Name, gid.USR_ID , rolem.ROLE_NAME  ,rapg.PRTL_PAGE_GRP_ID ,pggr.PAGE_GRP_TITLE ,PAGE_GRP_KEY '
  + ' from '
  + ' DBHSP.GID001MB  gid     ,'
  + ' DBHSP.MEMA001MB mema    ,'
@@ -364,7 +380,7 @@ checkpwd( username,password, function( result,response, record ){
 //app.use(bodyParser.urlencoded);
 
 
-/*
+
 
 app.all('*', function(req, res, next)
 {
@@ -450,16 +466,7 @@ var BrowserInfo=
 };
 
 res.locals.BrowserInfo  = BrowserInfo;
-		fs.readFile('jsonSchema/PersonalInfo1.json', function(err, data)
-		{
-
-			console.log("--Read Schema Data----");
-			console.log(JSON.parse(data));
-			res.locals.PersonalInfo = JSON.parse(data);
-			//console.log('In * locals');
-			//console.log('res.locals.PersonalInfo=' + res.locals.PersonalInfo );
-			//console.log('res.locals.BrowserInfo ='  + res.locals.BrowserInfo );
-		}); 
+		
 
 
 
@@ -468,7 +475,6 @@ res.locals.BrowserInfo  = BrowserInfo;
 
 });   
 
-*/ 
 
 function insertLogin(BrowserInfo)
 {
@@ -1326,7 +1332,7 @@ function token(req,res)
 							//res.statusCode =302;
 							//res.end(302,JSON.stringify(res.respObj));
 							errorRespObj.error=errorArr[2];
-							res.statusCode=302;										
+							res.statusCode=304;										
 							res.send(JSON.stringify(errorRespObj));								
 							
 						}
@@ -1335,7 +1341,34 @@ function token(req,res)
 							log.info("T:001:Sign Token");
 
 							
-							successRespObj.entitlement= {entitle : 'dashboard'};
+
+							var entitlement=[
+								{
+  								'link' :'dashboard'
+								,'linkName' :'dashboard'
+								,'uid' :'dashboard'
+								, 'dataType' :'CONTAINER'
+								, 'child' : [ 
+								{
+								'link' :'dashboard'
+								,'linkName' :'dashboard'
+								,'uid'  :'dashboard2'
+								, 'dataType' :'NODE'
+								,'child'  : []
+								}
+								,
+								{
+								'link' :'basicDetUSSAdd'
+
+								,'linkName' :'basicDetUSSAdd'
+								,'uid'  :'basicDetUSSAdd'
+								, 'dataType' :'NODE'
+								,'child'  : []
+								}]
+							}
+							];
+							/*successRespObj.entitlement= {entitle : 'dashboard'};*/
+							successRespObj.entitlement= entitlement;
 							successRespObj.logindata= logindata;
 /*
 							getGroupNav( logindata[0].USR_ID, function (result,respMessage, grpdata  ) 
@@ -1585,6 +1618,7 @@ function authorizeSSO(req,res)
 						}
 						else
 						{
+							insertLogin(res.locals.BrowserInfo );
 							log.info("T:001:Sign Token");
 
 							console.log(token);
@@ -2052,8 +2086,10 @@ app.post('/api/:module/:service', function(req,res)
 
 //console.log(req.params);
 
+log.info("/api/" +req.params.module +"/"+ req.params.service );
 
 
+log.info("########################");
 		if  (req.params.module  == 'signup' )
 		{
 		
@@ -2079,7 +2115,7 @@ var pageType='NAVI';
 var SchemaJson={Schema:'Dashboard'};
 var DataJson={DataJson:'Dashboard'};
 
-
+/*
 idb.InvokeDB(pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, respDataJson)
 {
 
@@ -2088,6 +2124,8 @@ idb.InvokeDB(pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, r
 	console.log(respDataJson);
 
 });
+
+*/
 								if( status)
 								{
 
@@ -2162,13 +2200,14 @@ idb.InvokeDB(pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, r
 		switch (req.params.module)
 		{
 		case  'dashboard' :
-				//console.log('In dashboard module');
+				console.log('In dashboard module');
+				console.log(req.body);
 
 				switch (req.params.service)
 				{
 					case  'getUserDetail' :
 
-							getUserDetail( 1, 1, function(status, respMessage,data)
+							getUserDetail( req.body.usrId,req.body.grpId , function(status, respMessage,data)
 
 							{
 
@@ -2199,7 +2238,7 @@ idb.InvokeDB(pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, r
 
 					case  'getCardDetail' :
 
-							getCardDetail( 1, 1, function(status, respMessage,data)
+							getCardDetail( req.body.usrId, req.body.grpId , function(status, respMessage,data)
 
 							{
 
@@ -2241,7 +2280,7 @@ idb.InvokeDB(pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, r
 				{
 					case  'register' :
 
-							getUserDetail( 1, 1, function(status, respMessage,data)
+					getUserDetail( 1, 1, function(status, respMessage,data)
 
 							{
 
@@ -2267,13 +2306,49 @@ idb.InvokeDB(pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, r
 								}
 							}
 								);
+				}
+			break;	
 
-					break;
+		case  'basicDet' :
+				console.log(req.params.service);
 
-					case  'getCardDetail' :
+				switch (req.params.service)
+				{
 
-							getCardDetail( 1, 1, function(status, respMessage,data)
 
+
+					case  'Add' :
+
+						console.log(req.body.basicDet);
+
+						respObj={
+							curr_page_id : '1'
+							,currState   :'basicDetUSSAdd'
+							,nextState   :'basicDetUSSView'
+							,respCode    :'0'
+							,respDescr   :'successfully Saved'
+							,basicDet    : req.body.basicDet
+
+						};
+
+						res.send(respObj);
+					case  'save' :
+
+						console.log(req.body.basicDet);
+
+						respObj={
+							curr_page_id : '1'
+							,currState   :'basicDetUSSSave'
+							,nextState   :'basicDetUSSView'
+							,respCode    :'0'
+							,respDescr   :'successfully Saved'
+							,basicDet    : req.body.basicDet
+
+						};
+
+						res.send(respObj);
+						/*
+							getUserDetail( 1, 1, function(status, respMessage,data)
 							{
 
 								//console.log('data');
@@ -2284,11 +2359,11 @@ idb.InvokeDB(pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, r
 								{
 
 										var  respJson={};
-											title="CardDetail";
+											title="UserDetails";
 											//console.log(genSchema('User Details',respMessage));
 											//respJson.schemaJson = respMessage;//genSchema(respMessage);
-											respJson.schemaJson = genSchemaCollection(title,respMessage);//genSchema(respMessage);
-											respJson.jsonData   = [ {CardDetail : data}];
+											respJson.schemaJson = genSchema(title,respMessage);//genSchema(respMessage);
+											respJson.jsonData   = [ {UserDetails : data}];
 ;											res.send(respJson);
 									
 								}
@@ -2298,6 +2373,26 @@ idb.InvokeDB(pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, r
 								}
 							}
 								);
+
+*/
+
+					break;
+
+					case  'new' :
+
+							console.log(req.body.basicDet);
+
+						respObj={
+							curr_page_id : '1'
+							,currState   :'basicDetUSSNew'
+							,nextState   :'basicDetUSSView'
+							,respCode    :'0'
+							,respDescr   :'successfully Saved'
+							,basicDet    : req.body.basicDet
+
+						};
+
+						res.send(respObj);
 
 					break;
 

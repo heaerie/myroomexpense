@@ -1079,7 +1079,7 @@ catch(e)
   */
   this.clearfix=document.createElement("div");
   this.clearfix.className="clearfix visible-xs-block"	;
-  this.clearfix.innerHTML ="clearfix";
+  this.clearfix.innerHTML ="";
   this.tableErrorBox=document.createElement("div");
 	this.tableErrorBox.id= fieldObj.name +"ErrorBox";
 

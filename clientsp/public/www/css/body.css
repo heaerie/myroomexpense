@@ -31,7 +31,6 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
 }
 
 
-
 .bcontainer {
 
 
@@ -120,10 +119,10 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
   text-decoration: none;
 }
 
-.bcontainer: hover {
-	COLOR: #000000; 
+.bcontainer:hover {
+	/*COLOR: #000000; 
 	opacity: 0.3;
-
+*/
 	background-color: yellow;
 } 
 
@@ -131,17 +130,31 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
 	FONT-WEIGHT: bold;
 	COLOR: #caff70;
 	opacity:0.8;
+	text-decoration: none;
 }
+
+.bcontainer a:hover{
+	FONT-WEIGHT: bold;
+	COLOR: #ffffff;
+	opacity:0.8;
+	text-decoration: none;
+}
+
+
 
 .bcontainer a:link {
 	FONT-WEIGHT: bold;
 	COLOR: #104e8b;
+	text-decoration: none;
 }
 .bcontainer a:visited {
-	FONT-WEIGHT: bold; COLOR: #caff70;
+	FONT-WEIGHT: bold; 
+	COLOR: #caff70;
+	text-decoration: none;
 }
 .bcontainer a:active {
 	COLOR: #104e8b;
+	text-decoration: none;
 }
 
 
@@ -213,8 +226,8 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
 
 .pageLayout
 {
-	margin-right: 50px;
-	margin-left: 50px;
+	margin-right: 20px;
+	margin-left: 20px;
 
 	
 }
@@ -235,4 +248,181 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
 	margin-right:0px;
     
 
+}
+
+.TreePane
+{
+margin-left: 40px;
+}
+
+.TreeContainer
+{
+	margin: 5px 15px 25px 25px;
+	height: 40px;
+	padding: 10px 20px;
+
+	background-color:  #242320;
+	color: #FFFFFF;
+
+	-webkit-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+-moz-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+
+
+cursor: pointer;
+}
+
+
+.TreeContainer:hover{
+margin: 5px 15px 25px 25px;
+	height: 40px;
+	padding: 10px 20px;
+
+
+	background-color: #c9c9c9 ;
+	color: #428bca;
+	/*opacity: 0.6;*/
+
+	-webkit-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+-moz-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+
+
+cursor: pointer;
+}
+
+
+.TreeContainerText
+{
+	padding: 2px ;
+}
+
+
+.TreeNodeText
+{
+	padding: 4px ;
+}
+
+.TreeContainer a
+{
+	
+	color: #ffffff;
+	
+}
+
+.TreeContainer a:hover
+{
+
+	/*background-color: #FFFFFF ;*/
+	color: #428bca;
+	text-decoration: none;
+	
+}
+
+
+
+.TreeContainer a:link {
+	FONT-WEIGHT: bold;
+	COLOR: #ffffff;
+	text-decoration: none;
+}
+.TreeContainer a:visited {
+	FONT-WEIGHT: bold; 
+	COLOR: #428bca;
+	text-decoration: none;
+}
+.TreeContainer a:active {
+	COLOR: #ffffff;
+	text-decoration: none;
+}
+
+.TreeNodeDiv
+{
+ margin: -20px 0px 0px 0px;
+}
+
+.TreeNode
+{
+	margin: 5px 15px 5px 25px;
+	height: 40px;
+	
+	padding: 10px 20px;
+
+	background-color:  #3d393d;
+	color: #FFFFFF;
+
+	-webkit-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+	-moz-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+	box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+
+
+	
+
+cursor: pointer;
+}
+
+
+.TreeNode:hover
+{ 
+	margin: 5px 15px 5px 25px;
+	height: 40px;
+	
+	padding: 10px 20px;
+	background-color: #FFFFFF ;
+	color: #428bca;
+
+
+	-webkit-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+	-moz-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+	box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+
+
+cursor: pointer;
+}
+
+
+.TreeNode a
+{
+	
+	color: #428bca;
+	
+}
+
+.TreeNode a:hover
+{
+
+	/*background-color: #FFFFFF ;*/
+	color: #428bca;
+	text-decoration: none;
+	
+}
+
+
+
+.TreeNode a:link {
+	FONT-WEIGHT: bold;
+	COLOR: #428bca;
+	text-decoration: none;
+}
+.TreeNode a:visited {
+	FONT-WEIGHT: bold; 
+	COLOR: #428bca;
+	text-decoration: none;
+}
+.TreeNode a:active {
+	COLOR: #428bca;
+	text-decoration: none;
+}
+
+.ProductVersion
+{
+	COLOR: #428bca;
+	padding: 5px;
+}
+
+.ProductVersion:hover
+{
+	COLOR: #ffffff;
+	background-color: #428bca;
+	padding: 5px;
 }

@@ -2,8 +2,12 @@ define([],
 function()
 {
 
-	return [ '$scope' , 'toaster','dashboardService','$state',function($scope,toaster,dashboardService,$state){
+	return [ '$scope' , 'toaster','dashboardService','$state','$window',function($scope,toaster,dashboardService,$state, $window){
 
+
+
+$scope.usrId    =     $window.sessionStorage.getItem("usrId"  );
+$scope.grpId    =     $window.sessionStorage.getItem("grpId"  );
 
 $scope.$CardDetail=[];
 		$scope.login=function()
@@ -22,7 +26,8 @@ $scope.getCardDetail=function()
           dashboardService.getCardDetail({     "grantType"     : "password" 
                       ,'clientId'    :'CLIENTSP'
                       ,'scope'       : 'GSA'
-                      //,'username'    : $scope.email
+                      ,'usrId'    : $scope.usrId
+                      ,'grpId'    : $scope.grpId
                       //,'password'    : $scope.password
                       ,'redirectURI' : 'http://localhost:5000/'
 
@@ -115,6 +120,9 @@ $scope.getCardDetail=function()
     			dashboardService.getUserDetail({     "grantType"     : "password" 
     									,'clientId'    :'CLIENTSP'
     									,'scope'       : 'GSA'
+                      ,'usrId'    : $scope.usrId
+                      ,'grpId'    : $scope.grpId
+                      
     									//,'username'    : $scope.email
     									//,'password'    : $scope.password
     									,'redirectURI' : 'http://localhost:5000/'

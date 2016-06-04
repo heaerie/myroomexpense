@@ -84,11 +84,29 @@ div[data-role="editor-toolbar"] {
   <div class="row"> 
   <div class="col-md-3">
 
-  <div id="treeDivId" > tree View </div>
+<div id="treeBase1" class="TreeBase">
+ <div id="treeContainer1" class="TreeContainer">
+          <i class="fa fa-folder TreeContainerIcon" aria-hidden="true"></i>
+           <span class="TreeContainerText"> Container</span>
+  </div>         
 
-   </div>
-<div class="col-md-6">
-<div class="container">
+  <div  id="treeNode1" class="TreeNode" parent="treeContainer1">
+      <i class="fa fa-file-o TreeNodeIcon" aria-hidden="true"></i>
+      <span class="TreeNodeText"> Node1
+      </span>
+  </div>
+
+  <div  id="treeNode2" class="TreeNode" parent="treeContainer1">
+      <i class="fa fa-file-o" aria-hidden="true"></i>
+      <span class="TreeNodeText"> Node2
+      </span>
+  </div>
+
+  </div>
+  </div>
+    
+<div class="col-md-9">
+<!--div class="container"-->
   <div class="hero-unit">
   <div class="pull-right">
   <div class="fb-like" data-href="http://facebook.com/durai145" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div><br/>

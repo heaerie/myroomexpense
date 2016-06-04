@@ -380,7 +380,7 @@ app.post('/glbladmin/page/:id' , function(req,res) {
 				checkpwd( req.body.email,req.body.password, function( result,respObj, logindata ){
 
 					  console.log( "Return:" +result );
-					  console.log( "Response:" +response.message );
+					  //console.log( "Response:" +response.message );
 					  console.log( "record:" + logindata );
 
 				//	res.locals.BrowserInfo.USR_ID       =  logindata[0].USR_ID;
@@ -431,7 +431,7 @@ app.post('/glbladmin/page/:id' , function(req,res) {
 								console.log( "Response:" +response.message );
 								console.log( "record:" + grpdata );	
 								sess.email= req.body.email;
-								PersonalInfo = res.locals.PersonalInfo;
+								PersonalInfo = res.locals.PersonalInfo||{};
 								sess.login=  logindata[0];
 								PersonalInfo.login = logindata[0];
 								PersonalInfo.curr_page_id = req.params.id;

@@ -2,9 +2,12 @@ define([],
 function()
 {
 
-	return [ '$scope' , 'toaster','basicDetService','$state',function($scope,toaster,basicDetService,$state){
+	return [ '$scope' , 'toaster','basicDetService','$state' ,'$window',function($scope,toaster,basicDetService,$state,$window){
 
 var ufivalidate=require("ufi.validate");
+
+
+//$window.sessionStorage.
 
  var VAL=new ufivalidate.VAL();
 
@@ -34,13 +37,31 @@ var onClick          =VAL.onClick         ;
 var fnValidate       =VAL.fnValidate      ;
 */
 
+console.log($window.sessionStorage);
 
+ 
 $scope.basicDetUSSAdd=function()
 {
 
   //alert('Start here');
-    //console.log($basicDet);
-    console.log($scope);
+  $scope.$basicDet=$scope.$basicDet||{};
+
+        basicDetService.Add({     "grantType"     : "password" 
+                      ,'clientId'    :'CLIENTSP'
+                      ,'scope'       : 'GSA'
+                      ,'basicDet'   : $scope.$basicDet
+                      ,'redirectURI' : 'http://localhost:5000/'
+
+                      },function  (resp) {
+ toaster.pop('success','this', JSON.stringify(resp));
+
+        $scope.$basicDet=resp.basicDet;
+        $state.params=$scope.$basicDet;
+         $state.go(resp.nextState,{
+     $basicDet: $scope.$basicDet
+            });
+        });
+
 }
 
 onClick=   function onClick(obj)
@@ -99,7 +120,28 @@ VAL.onKeyPress(obj);
 
 }
 
+$scope.$watch('$viewContentLoaded', function(){
+    //Here your view content is fully loaded !!
+   // 2 alert('on viewContentLoaded watch');
 
+
+   ///console.log($state.params);
+//alert('Content Type');
+
+
+
+  $scope.$basicDet = $scope.$basicDet||{};
+ 
+
+//console.log($state.params);
+
+
+  $scope.$basicDet=$state.params.$basicDet|| {};
+
+
+   // $scope.getUserDetail();
+   // $scope.getCardDetail();
+  });
 
       // alert("basicDetService");
 	
@@ -107,36 +149,26 @@ VAL.onKeyPress(obj);
     	{
 
 
-       // console.log($scope);
-
-    			
-    		alert('basicDetEditSave :name =' + $scope.name);
+      
+        $scope.$basicDet=$scope.$basicDet||{};
 
         basicDetService.save({     "grantType"     : "password" 
           /*loginService.authorizeSSO({     "grantType"     : "password" */
                       ,'clientId'    :'CLIENTSP'
                       ,'scope'       : 'GSA'
-                      ,'username'    : $scope.email
-                      ,'password'    : $scope.password
+                      ,'basicDet'   : $scope.$basicDet
                       ,'redirectURI' : 'http://localhost:5000/'
 
                       },function  (resp) {
-          // body...
-          //console.log($state);
-         // $state.go('dashboard');
+ toaster.pop('success','this', JSON.stringify(resp));
 
-
-          //console.log(resp);
-          toaster.pop('success','this', JSON.stringify(resp));
-
-          //alert('resp');
+        $scope.$basicDet=resp.basicDet;
+        $state.params=$scope.$basicDet;
+         $state.go(resp.nextState,{
+     $basicDet: $scope.$basicDet
+            });
         });
 
-
-          //basicDetService.save()
-    		
-
-    		//alert("I am in uss_submit");
     	};
     
 	}];

@@ -2,7 +2,7 @@ define([],
 function()
 {
 
-  return [ '$scope' , 'toaster','loginService','$state' ,'$dashboardState',function($scope,toaster,loginService,$state,$dashboardState){
+  return [ '$scope' , 'toaster','loginService','$state' ,'$dashboardState' ,'$window',function($scope,toaster,loginService,$state,$dashboardState,$window){
 
     $scope.login=function()
     {
@@ -25,6 +25,9 @@ function()
           // body...
           console.log($state);
           console.log(resp);
+            
+
+
 
 
           var states = $state.get();
@@ -65,11 +68,56 @@ function()
              }
             */
 
+            /*
+              ACCESS_IND: "Y"
+Name: "DURAIMURUGANGOVINDARAJ"
+PAGE_GRP_KEY: "basicDet"
+PAGE_GRP_TITLE: "BASIC DETAILS"
+PRTL_PAGE_GRP_ID: 1
+ROLE_NAME: "SEC_ADMIN"
+USR_ID: 1
+            */
             var states = $state.get();
 
           $dashboardState.addState('faq', null, 'content');
 
+ /*
+           email: "durai145@live.in"
+firstName: "DURAIMURUGAN"
+grpId: 1
+grpName: "TEST PRODCUCT"
+lastName: "GOVINDARAJ"
+prodName: "HOMESPACE"
+prodVersion: "1"
+prtlName: "Product"
+usrId: 1
 
+[
+accessInd: "Y"
+name: "DURAIMURUGANGOVINDARAJ"
+pageGroup: 1
+pageGroupKey: "basicDet"
+pageGroupTitle: "BASIC DETAILS"
+roleName: "SEC_ADMIN"
+usrId: 1
+]
+            */
+          
+
+            
+            $window.sessionStorage.setItem("firstName"  ,resp.logindata.loginDetails[0].firstName);
+            $window.sessionStorage.setItem("grpName"    ,resp.logindata.loginDetails[0].grpName);
+            $window.sessionStorage.setItem("firstName"  ,resp.logindata.loginDetails[0].firstName);
+            $window.sessionStorage.setItem("lastName"   ,resp.logindata.loginDetails[0].lastName);
+            $window.sessionStorage.setItem("prodVersion",resp.logindata.loginDetails[0].prodVersion);
+            $window.sessionStorage.setItem("prtlName"   ,resp.logindata.loginDetails[0].prtlName);
+            $window.sessionStorage.setItem("prodName"   ,resp.logindata.loginDetails[0].prodName);
+            $window.sessionStorage.setItem("usrId"      ,resp.logindata.loginDetails[0].usrId);
+            $window.sessionStorage.setItem("grpId"      ,resp.logindata.loginDetails[0].grpId);
+          
+
+
+          $window.sessionStorage.setItem( "treeViewJson" ,JSON.stringify(resp.entitlement));
           $state.go('dashboard');
 
 

@@ -303,6 +303,10 @@ webApp.config(["heaerieUssServiceProvider", function(heaerieUssServiceProvider) 
                // templateUrl : 'view/loginView.html'
               }
             }
+            ,params: {
+    $basicDet: { }
+            }
+
         });
 
 
@@ -357,8 +361,10 @@ $stateProvider.state('SchemaGenerator',
                 //template : 'this is test'
                // templateUrl : 'view/loginView.html'
               }
+
             }
-        });
+          }
+              );
 $stateProvider.state('KeyBoard', 
         {
             url         : '/KeyBoard/'
@@ -409,6 +415,9 @@ $stateProvider.state('basicDetUSSSave',
                // templateUrl : 'view/loginView.html'
               }
             }
+             ,params: {
+    $basicDet: { }
+            }
         });
 
   $stateProvider.state('basicDetUSSNew', 
@@ -434,6 +443,9 @@ $stateProvider.state('basicDetUSSSave',
                // templateUrl : 'view/loginView.html'
               }
             }
+             ,params: {
+    $basicDet: { }
+            }
         });
 
   $stateProvider.state('basicDetUSSView', 
@@ -458,6 +470,9 @@ $stateProvider.state('basicDetUSSSave',
                 //template : 'this is test'
                // templateUrl : 'view/loginView.html'
               }
+            }
+             ,params: {
+    $basicDet: { }
             }
         });
 
@@ -485,6 +500,9 @@ $stateProvider.state('basicDetUSSEdit',
                 ,controller :  'basicDetController'//template : 'this is test'
                // templateUrl : 'view/loginView.html'
               }
+            }
+            ,params: {
+    $basicDet: { }
             }
         });
 
@@ -544,10 +562,34 @@ $stateProvider.state('basicDetUSSEdit',
 
                console.log(response);
             if (response.status == 302){
+
+                $window.sessionStorage.clear();
                 //var SessionService = $injector.get('SessionService');
                 var $http = $injector.get('$http');
                 var deferred = $q.defer();
                 toaster.pop('error','this', 'session is expired');
+
+             //   uss.Test('Test');
+                // Create a new session (recover the session)
+                // We use login method that logs the user in using the current credentials and
+                // returns a promise
+                //SessionService.login().then(deferred.resolve, deferred.reject);
+
+                // When the session recovered, make the same backend call again and chain the request
+
+                $injector.get('$state').go('login');
+
+                return deferred.promise.then(function() {
+                    return $http(response.config);
+                });
+            }
+            else if (response.status == 304){
+
+                $window.sessionStorage.clear();
+                //var SessionService = $injector.get('SessionService');
+                var $http = $injector.get('$http');
+                var deferred = $q.defer();
+                toaster.pop('error','Error:', 'Invalid User Id / Password');
 
              //   uss.Test('Test');
                 // Create a new session (recover the session)
@@ -676,7 +718,7 @@ webApp.provider('$dashboardState', function($stateProvider,heaerieUssServiceProv
         }
     });
 
-webApp.run(['$rootScope','$q', '$injector', function($rootScope,$q, $injector) {
+webApp.run(['$rootScope','$q', '$injector' , '$window', function($rootScope,$q, $injector ,$window) {
 
     //$rootScope.$state = $state;
     $rootScope.goUrl= function(stateToGo)
@@ -689,6 +731,12 @@ webApp.run(['$rootScope','$q', '$injector', function($rootScope,$q, $injector) {
       if(stateToGo == 'registerUSSBack')
       {
 
+         $injector.get('$state').go('login');
+      }
+      else if(stateToGo == 'logout')
+      {
+
+          $window.sessionStorage.clear();
          $injector.get('$state').go('login');
       }
      else

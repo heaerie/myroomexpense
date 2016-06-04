@@ -1,13 +1,26 @@
 A:link {
 	FONT-WEIGHT: bold;
 	COLOR: #caff70;
+	color: #428bca;
+	text-decoration: none;
 }
 A:visited {
 	FONT-WEIGHT: bold; COLOR: #caff70;
+	color: #428bca;
+	text-decoration: none;
 }
 A:active {
 	COLOR: #caff70;
+	color: #428bca;
+	text-decoration: none;
 }
+
+A:hover {
+	/*BACKGROUND: #00ffff;*/
+	color: #ffffff;
+	text-decoration: none;
+}
+
 .hiddenLayer {
 	VISIBILITY: hidden; POSITION: absolute
 }
@@ -230,11 +243,9 @@ INPUT.normal {
 HR {
 	COLOR: #666600
 }
-/*[
-A:hover {
-	BACKGROUND: #00ffff
-}
-]*/
+
+
+
 TABLE {
 	FONT-SIZE: 11px; VERTICAL-ALIGN: top; FONT-FAMILY: Verdana, Arial, Helvetica, Geneva, sans-serif; horizontal-align: left
 }

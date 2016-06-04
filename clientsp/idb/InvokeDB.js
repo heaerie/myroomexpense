@@ -1,4 +1,11 @@
 var mapper= require('./mapper').mapper;
+var mysql = require('mysql');
+var pool  = mysql.createPool({
+  host     : 'localhost',
+  user     : 'u1021977_admin',
+  password : 'india' ,
+  database : 'DBHSP'
+});
 
 console.log(mapper);
 
@@ -24,25 +31,28 @@ try {
 }
 
 
-var  InvokeDB = function(pageId,pageType,SchemaJson,DataJson,calback) {
+var  InvokeDB = function(pool,pageId,pageType,SchemaJson,DataJson,calback) {
         pageId && (this.pageId = pageId);
+
+
+        console.log('PageId' + pageId);
 try
 {
 	if( pageType == 'NAVI')
 	{
-		require('./map/' + mapper[pageId].map).navi( SchemaJson, DataJson,  calback);
+		require('./map/' + mapper[pageId].map).navi(pool, SchemaJson, DataJson,  calback);
 	}
 	else if ( pageType == 'CRIT')
 	{
-		require('./map/' + mapper[pageId].map).crit( SchemaJson, DataJson,  calback);
+		require('./map/' + mapper[pageId].map).crit( pool,SchemaJson, DataJson,  calback);
 	}
 	else if ( pageType == 'DTIL')
 	{
-		require('./map/' + mapper[pageId].map).dtil( SchemaJson, DataJson,  calback);
+		require('./map/' + mapper[pageId].map).dtil(pool, SchemaJson, DataJson,  calback);
 	}
 	else if ( pageType == 'RSLT')
 	{
-		require('./map/' + mapper[pageId].map).rslt( SchemaJson, DataJson,  calback);
+		require('./map/' + mapper[pageId].map).rslt(pool, SchemaJson, DataJson,  calback);
 	}
 }
 catch(e)
@@ -56,13 +66,12 @@ catch(e)
 
 };
 
-var pageId=1;
-var pageType='NAVI';
+var pageId=4;
+var pageType='CRIT';
 var SchemaJson={Schema:'Dashboard'};
 var DataJson={DataJson:'Dashboard'};
 
-
-InvokeDB(pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, respDataJson)
+InvokeDB(pool,pageId,pageType,SchemaJson,DataJson,function(rslt,respSchemaJson, respDataJson)
 {
 
 	console.log(rslt);
