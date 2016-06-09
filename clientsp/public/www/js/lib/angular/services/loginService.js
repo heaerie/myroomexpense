@@ -6,7 +6,7 @@ return ['$resource',function  ($resource) {
     {
          authorize    : { method:'POST', params:{"action" : "auth"}      }
         ,authorizeSSO : { method:'POST', params:{"action" : "authorize"} }
-        ,tokenSSO     : { method:'POST', params:{"action" : "token"}     }
+        ,tokenSSO     : { method:'POST', params:{"action" : "tokenSSO"}     }
     });
 	
 }

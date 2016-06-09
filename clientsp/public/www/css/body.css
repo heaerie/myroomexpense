@@ -257,9 +257,9 @@ margin-left: 40px;
 
 .TreeContainer
 {
-	margin: 5px 15px 25px 25px;
+	margin: 5px 5px 25px 15px;
 	height: 40px;
-	padding: 10px 5px;
+	padding: 10px 20px;
 
 	background-color:  #242320;
 	color: #FFFFFF;
@@ -274,9 +274,9 @@ cursor: pointer;
 
 
 .TreeContainer:hover{
-margin: 5px 15px 25px 25px;
+margin: 5px 5px 25px 15px;
 	height: 40px;
-	padding: 10px 5px;
+	padding: 10px 20px;
 
 
 	background-color: #c9c9c9 ;
@@ -343,7 +343,7 @@ cursor: pointer;
 
 .TreeNode
 {
-	margin: 5px 15px 5px 25px;
+	margin: 5px 5px 5px 15px;
 	height: 40px;
 	
 	padding: 10px 5px;
@@ -364,7 +364,7 @@ cursor: pointer;
 
 .TreeNode:hover
 { 
-	margin: 5px 15px 5px 25px;
+	margin: 5px 5px 5px 15px;
 	height: 40px;
 	
 	padding: 10px 5px;
