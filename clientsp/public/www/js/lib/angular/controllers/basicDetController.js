@@ -149,7 +149,15 @@ $scope.$watch('$viewContentLoaded', function(){
     	{
 
 
-      
+        if ($scope.fnValidate() == true )
+        {
+
+          alert("Validate success");
+        }
+        else
+        {
+          alert("validate is fail");
+        }
         $scope.$basicDet=$scope.$basicDet||{};
 
         basicDetService.save({     "grantType"     : "password" 

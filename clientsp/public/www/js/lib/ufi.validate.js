@@ -3,8 +3,8 @@ define(function(require, exports, module) {
 
 
 var USS=require("ufi.core").USS;
-var XML=require("ufi.xml").XML;
-<!--
+var xmlObj = new require("ufi.xml").XML();
+
 
 //alert("import validate");
 
@@ -454,7 +454,7 @@ var elmnts = document.forms[0].elements;
 				
 			}
 	}
-	XML.genXml();
+	xmlObj.genXml();
 	return true;
 
 }

@@ -1,4 +1,3 @@
-<!--
 define(function(require, exports, module) {
 "use strict";
 
@@ -205,4 +204,4 @@ XML.prototype.genChilTagJson=  function (parantName)
 exports.XML=XML;
 
 });
--->
+

@@ -1365,27 +1365,79 @@ function token(req,res)
 							var entitlement=[
 								{
   								'link' :'dashboard'
-								,'linkName' :'dashboard'
+								,'linkName' :'Home'
 								,'uid' :'dashboard'
 								, 'dataType' :'CONTAINER'
 								, 'child' : [ 
-								{
-								'link' :'dashboard'
-								,'linkName' :'dashboard'
-								,'uid'  :'dashboard2'
-								, 'dataType' :'NODE'
-								,'child'  : []
+										{
+										'link' :'dashboard'
+										,'linkName' :'Dashboard'
+										,'uid'  :'dashboard2'
+										, 'dataType' :'NODE'
+										,'child'  : []
+										}
+										,
+										{
+										'link' :'basicDetUSSAdd'
+
+										,'linkName' :'Basic Details'
+										,'uid'  :'basicDetUSSAdd'
+										, 'dataType' :'NODE'
+										,'child'  : []
+										}
+
+									]
 								}
 								,
 								{
-								'link' :'basicDetUSSAdd'
+  								'link' :'group'
+								,'linkName' :'Group Service'
+								,'uid' :'groupservice'
+								, 'dataType' :'CONTAINER'
+								, 'child' : [ 
+										{
+										'link' :'groupUSSView'
+										,'linkName' :'Group'
+										,'uid'  :'group'
+										, 'dataType' :'NODE'
+										,'child'  : []
+										}
+										,
+										{
+										'link' :'rollUSSView'
+										,'linkName' :'Roll Details'
+										,'uid'  :'SchemaGenerator'
+										, 'dataType' :'NODE'
+										,'child'  : []
+										}
 
-								,'linkName' :'basicDetUSSAdd'
-								,'uid'  :'basicDetUSSAdd'
-								, 'dataType' :'NODE'
-								,'child'  : []
-								}]
-							}
+									]
+								}
+								,
+								{
+  								'link' :'admin'
+								,'linkName' :'Admin Service'
+								,'uid' :'admin'
+								, 'dataType' :'CONTAINER'
+								, 'child' : [ 
+										{
+										'link' :'SchemaGenerator'
+										,'linkName' :'Schema Generator'
+										,'uid'  :'SchemaGenerator'
+										, 'dataType' :'NODE'
+										,'child'  : []
+										}
+										,
+										{
+										'link' :'SchemaGeneratorView'
+										,'linkName' :'Schema Generator View'
+										,'uid'  :'SchemaGenerator'
+										, 'dataType' :'NODE'
+										,'child'  : []
+										}
+
+									]
+								}
 							];
 							/*successRespObj.entitlement= {entitle : 'dashboard'};*/
 							successRespObj.entitlement= entitlement;
@@ -1727,23 +1779,19 @@ function authorize(req,res)
 					});
 
 		
-				
-				
-
-	
 		}
 		else
 		{
 
 				if(respObj.isClientIdFound == false)
-							{
-								errorRespObj.error=errorArr[1];
-							}
-							else if (respObj.isValidGrantType ==false)
-							{
-								errorRespObj.error=errorArr[0];
-							
-							}
+				{
+					errorRespObj.error=errorArr[1];
+				}
+				else if (respObj.isValidGrantType ==false)
+				{
+					errorRespObj.error=errorArr[0];
+				
+				}
 
 				errorRespObj.error=errorArr[3];
 							res.statusCode=302;										
