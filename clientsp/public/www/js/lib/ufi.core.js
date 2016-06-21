@@ -147,7 +147,7 @@ USS.prototype.USSIncludeLinks_=function(filename)
 USS.prototype.USSField_=function()
 {
 
-this.group      = 'USS', /*it has been chabged by durai on 02-Feb-2010*/
+this.group      = 'USS', /*it has been changed by author on 02-Feb-2010*/
 this.name       = '',
 this.label      = '',
 this.task       = 'NONE',
@@ -1336,6 +1336,7 @@ var elementCount=0;
           var  NameId       = document.getElementById(baseid  + "Name"       + "Id");
           var  LabelId      = document.getElementById(baseid  + "Label"      + "Id");
           var  ListValId    = document.getElementById(baseid  + "ListVal"    + "Id");
+          var  TaskId    = document.getElementById(baseid  + "Task"    + "Id");
           var  MndfId       = document.getElementById(baseid  + "Mndf"       + "Id");
           var  EntitleId    = document.getElementById(baseid  + "Entitle"    + "Id");
           var  DfltId       = document.getElementById(baseid  + "Dflt"       + "Id");
@@ -1352,20 +1353,21 @@ var elementCount=0;
             fieldObj.htmlType   = HtmlTypeId.value;
             fieldObj.dataType   = DataTypeId.value;
             fieldObj.listVal    = ListValId.value;
+            fieldObj.task       = TaskId.value;
             fieldObj.mndf       = MndfId.value;
             fieldObj.dflt       = DfltId.value;
             fieldObj.max        = MaxId.value;
             fieldObj.min        = MinId.value;
             fieldObj.tips       = TipsId.value;
             fieldObj.entitle    = EntitleId.value;
-            fieldObj.xml       = XmlId.value;
+            fieldObj.xml        = XmlId.value;
             
 
             
             if ( HtmlTypeId.value == "CONTAINER" || HtmlTypeId.value == "PAGE") 
             {
 
-              fieldObj.task ="ES";// need to fix
+              //fieldObj.task ="ES";// need to fix
                 
               fieldObj.childs  = new Array();
               var childsJson=this.GenSJson(IdName.value)
@@ -1480,6 +1482,7 @@ var baseid =obj.getAttribute("baseid") ;
            var NameId      = document.getElementById(baseid  + "Name" +"Id");
            var LabelId     = document.getElementById(baseid  + "Label" +"Id");
            var ListValId   = document.getElementById(baseid  + "ListVal" +"Id");
+           var TaskId      = document.getElementById(baseid  + "Task" +"Id");
            var MndfId      = document.getElementById(baseid  + "Mndf" +"Id");
            var EntitleId    = document.getElementById(baseid + "Entitle"      + "Id");
            var DfltId       = document.getElementById(baseid + "Dflt"       + "Id");
@@ -1495,6 +1498,7 @@ var baseid =obj.getAttribute("baseid") ;
             fieldObj.htmlType   = HtmlTypeId.value;
             fieldObj.dataType   = DataTypeId.value;
             fieldObj.listVal    = ListValId.value;
+            fieldObj.task       = TaskId.value;
             fieldObj.mndf       = MndfId.value;
             fieldObj.dflt       = DfltId.value;
             fieldObj.max        = MaxId.value;
@@ -1539,30 +1543,35 @@ USS.prototype.AddSubling = function(fieldObj,parentid)
   var childDiv= document.createElement('div');
 
     childDiv.id = "Container" + this.ContinerCount++||1;
+
+
+
+  var childHideDiv= document.createElement('div');
+
+    childHideDiv.id = "ContainerHide" + childDiv.id ;
+     childHideDiv.className ="ContainerHide";
+
+  var childShowDiv= document.createElement('div');
+
+    childShowDiv.id = "ContainerShow" + childDiv.id ;
+    childShowDiv.className ="ContainerShow";
+
+
     //childDiv.class="bfield";
-
-
-
-
-
-
     
-    
-    
-
 parentid=parentid;
 
 var divCurrDivName=document.createElement("input");
-  divCurrDivName.setAttribute("parentid"        ,parentid);
+  divCurrDivName.setAttribute("parentid"         ,parentid);
   divCurrDivName.setAttribute("attribute"        ,"name");
   divCurrDivName.setAttribute("id"               ,childDiv.id+ "Name" + "Id"  );
-  divCurrDivName.setAttribute("baseid"        ,childDiv.id );
+  divCurrDivName.setAttribute("baseid"           ,childDiv.id );
   divCurrDivName.setAttribute("mndf"             ,"Y");
   divCurrDivName.setAttribute("childCount"       ,"0");
   //divCurrDivName.setAttribute("type"             ,"hidden");
-  divCurrDivName.setAttribute("placeholder"             ,"name");
-  divCurrDivName.setAttribute("value"             ,fieldObj.name);
-  divCurrDivName.setAttribute("title","Id");
+  divCurrDivName.setAttribute("placeholder"      ,"name");
+  divCurrDivName.setAttribute("value"            ,fieldObj.name);
+  divCurrDivName.setAttribute("title"            ,"Id");
 
 
 var divCurrDivIdName=document.createElement("input");
@@ -1599,6 +1608,8 @@ var divCurrDivMax=document.createElement("input");
   divCurrDivMax.setAttribute("id"               ,childDiv.id +"Max"+"Id");
   divCurrDivMax.setAttribute("mndf"             ,"Y");
   divCurrDivMax.setAttribute("childCount"       ,"0");
+  divCurrDivMax.setAttribute("size"          ,"3");
+
   divCurrDivMax.setAttribute("type"             ,"container");
   divCurrDivMax.setAttribute("placeholder"      ,"Max");
   divCurrDivMax.setAttribute("value"             ,fieldObj.max);
@@ -1614,6 +1625,7 @@ var divCurrDivMin=document.createElement("input");
   divCurrDivMin.setAttribute("type"             ,"container");
   divCurrDivMin.setAttribute("placeholder"             ,"Min");
   divCurrDivMin.setAttribute("value"             ,fieldObj.min);
+   divCurrDivMax.setAttribute("size"          ,"3");
     divCurrDivMin.setAttribute("title","Min");
 
 var divCurrDivTips=document.createElement("input");
@@ -1640,7 +1652,7 @@ var divCurrDivLabel=document.createElement("input");
   divCurrDivLabel.setAttribute("type"             ,"container");
   divCurrDivLabel.setAttribute("placeholder"             ,"label");
   divCurrDivLabel.setAttribute("value"             ,fieldObj.label);
-    divCurrDivLabel.setAttribute("title","Label");
+  divCurrDivLabel.setAttribute("title","Label");
 
 
 
@@ -1754,7 +1766,17 @@ var divCurrDivListVal=document.createElement("input");
   divCurrDivListVal.setAttribute("placeholder"             ,"List Val");
   divCurrDivListVal.setAttribute("value"             ,fieldObj.listVal);
     divCurrDivListVal.setAttribute("title","ListVal");
-
+//task
+var divCurrDivTask=document.createElement("input");
+    divCurrDivTask.setAttribute("parentid"        ,parentid);
+    divCurrDivTask.setAttribute("baseid"        ,childDiv.id );
+    divCurrDivTask.setAttribute("id"               ,childDiv.id +"Task"+"Id");
+    divCurrDivTask.setAttribute("mndf"             ,"Y");
+    divCurrDivTask.setAttribute("childCount"       ,"0");
+    divCurrDivTask.setAttribute("type"             ,"container");
+    divCurrDivTask.setAttribute("placeholder"             ,"Task");
+    divCurrDivTask.setAttribute("value"             ,fieldObj.task);
+    divCurrDivTask.setAttribute("title","Task");
 
 // Entitle
 
@@ -1767,7 +1789,7 @@ var divCurrDivEntitle=document.createElement("select");
   divCurrDivEntitle.setAttribute("type"             ,"container");
   divCurrDivEntitle.setAttribute("placeholder"             ,"Entitle");
   divCurrDivEntitle.setAttribute("value"             ,fieldObj.entitle);
-    divCurrDivEntitle.setAttribute("title","editable ");
+  divCurrDivEntitle.setAttribute("title","editable ");
 
 
 
@@ -1923,6 +1945,25 @@ this.fontawesome = document.createElement('i');
    divButtonDelete.appendChild(this.fontawesome);
 
 
+var divButtonHide=document.createElement("button");
+  divButtonHide.setAttribute("parentid"        ,parentid );
+  divButtonHide.setAttribute("baseid"         ,childDiv.id  );
+  divButtonHide.type ="button";
+  divButtonHide.setAttribute("mndf"             ,"N");
+  divButtonHide.setAttribute("childCount"       ,"0");
+  divButtonHide.setAttribute("value"       ,"onclick");
+  divButtonHide.setAttribute("type"             ,"button");
+ // divButtonDelete.textContent = "Delete";
+    divButtonHide.setAttribute("onclick" ,"HideThis(this)");
+this.fontawesome = document.createElement('i');
+   //this.fontawesome.className       = "fa fa-repeat";
+   //<i class="fa fa-eye-slash" aria-hidden="true"></i>
+   this.fontawesome.className       = "fa fa-eye-slash";
+  
+   divButtonHide.appendChild(this.fontawesome);
+
+
+
 
 var divButtonAddChild=document.createElement("button");
   divButtonAddChild.setAttribute("parentid"        ,parentid );
@@ -1979,7 +2020,8 @@ var divCurrDivPreViewHeader=document.createElement("div");
   divCurrDivPreViewHeader.setAttribute("childCount"       ,"0");
   divCurrDivPreViewHeader.setAttribute("type"             ,"container");
   divCurrDivPreViewHeader.setAttribute("placeholder"             ,"name");
-  divCurrDivPreViewHeader.setAttribute("class"             ,"bheader row");
+  //divCurrDivPreViewHeader.setAttribute("class"             ,"bheader row");
+  divCurrDivPreViewHeader.setAttribute("class"             ,"TreeContainerSchema");
 
 
 var divCurrDivPreViewSession=this.CreateField(fieldObj,divCurrDivPreViewSession);
@@ -2015,55 +2057,61 @@ var divCurrDivPreViewSession=this.CreateField(fieldObj,divCurrDivPreViewSession)
 
 if ( fieldObj.htmlType =="CONTAINER" || fieldObj.htmlType =="PAGE"  )
 {
-  childDiv.setAttribute("class","bcont");
+  childDiv.setAttribute("class","bTreeContainer");
 }
 else
 {
-  childDiv.setAttribute("class","bfield");
+  //childDiv.setAttribute("class","bTreefield");
+  childDiv.className = "bmargin";
 }
 
-              divCurrDivPreViewHeader.appendChild(divCurrDivIdName);
-              divCurrDivPreViewHeader.appendChild(divCurrDivIdParentName);
-              divCurrDivPreViewHeader.appendChild(divCurrDivName);
-              
-              divCurrDivPreViewHeader.appendChild(divCurrDivLabel);
-              divCurrDivPreViewHeader.appendChild(divCurrDivXml);
-              divCurrDivPreViewHeader.appendChild(divCurrDivEntitle);
-              divCurrDivPreViewHeader.appendChild(divCurrDivTips);
-              divCurrDivPreViewHeader.appendChild(divCurrDivMndf);
-              divCurrDivPreViewHeader.appendChild(divCurrDivMin);
-              divCurrDivPreViewHeader.appendChild(divCurrDivMax);
-              divCurrDivPreViewHeader.appendChild(divCurrDivDflt);
-              divCurrDivPreViewHeader.appendChild(divCurrDivDataType);
-              divCurrDivPreViewHeader.appendChild(divCurrDivHtmlType);
+              childHideDiv.appendChild(divCurrDivIdName);
+              childHideDiv.appendChild(divCurrDivIdParentName);
+              childHideDiv.appendChild(divCurrDivName);
               
               
-              divCurrDivPreViewHeader.appendChild(divCurrDivListVal);
+              childShowDiv.appendChild(divCurrDivLabel);
+              childShowDiv.appendChild(divCurrDivTask);
+              childShowDiv.appendChild(divCurrDivXml);
+              childShowDiv.appendChild(divCurrDivEntitle);
+              childShowDiv.appendChild(divCurrDivTips);
+              childShowDiv.appendChild(divCurrDivMndf);
+              childShowDiv.appendChild(divCurrDivMin);
+              childShowDiv.appendChild(divCurrDivMax);
+              childShowDiv.appendChild(divCurrDivDflt);
+              childShowDiv.appendChild(divCurrDivDataType);
+              childShowDiv.appendChild(divCurrDivHtmlType);
+             
+              
+              childShowDiv.appendChild(divCurrDivListVal);
               if(fieldObj.htmlType !="PAGE"  )
               {
                 
-                divCurrDivPreViewHeader.appendChild(divButton);
+                childHideDiv.appendChild(divButton);
               
 
               }
 
               
-              divCurrDivPreViewHeader.appendChild(divButtonDelete);
+              childHideDiv.appendChild(divButtonDelete);
+              childHideDiv.appendChild(divButtonHide);
 
 
               if(fieldObj.htmlType=="CONTAINER" || fieldObj.htmlType =="PAGE"  )
               {
-                divCurrDivPreViewHeader.appendChild(divButtonAddChild);
+                childHideDiv.appendChild(divButtonAddChild);
               
               
 
               }
 
-              divCurrDivPreViewHeader.appendChild(divButtonPreview);
-
+              childHideDiv.appendChild(divButtonPreview);
+              divCurrDivPreViewHeader.appendChild(childHideDiv);
+              childShowDiv.appendChild(divCurrDivPreViewSession);
+              divCurrDivPreViewHeader.appendChild(childShowDiv);
 
               childDiv.appendChild(divCurrDivPreViewHeader);
-              childDiv.appendChild(divCurrDivPreViewSession);
+             // childDiv.appendChild(divCurrDivPreViewSession);
 
 
   return childDiv;
@@ -2120,6 +2168,33 @@ USS.prototype.DeleteThis=function(obj)
 
 
 curObj.parentNode.removeChild(curObj);
+    //Container2IdParentNameId
+
+  
+
+ 
+
+
+}
+
+
+USS.prototype.HideThis=function(obj)
+{
+
+   //alert("hide");
+
+    var baseid   =obj.getAttribute("baseid");
+    
+    var curObj    = document.getElementById("ContainerShow" + baseid );
+
+    console.log(curObj.style.display);
+    if ( curObj.style.display  == '' || curObj.style.display  == 'block' )
+    curObj.style.display = 'none';
+    else
+      curObj.style.display = 'block';
+   // obj.style.display = 'block';
+    //setAttribute("display" ,"none");
+//curObj.parentNode.removeChild(curObj);
     //Container2IdParentNameId
 
   

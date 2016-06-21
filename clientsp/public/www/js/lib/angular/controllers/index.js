@@ -15,7 +15,7 @@ define([
 ], function (loginController,basicDetController,dashboardController,SchemaGeneratorController,naviController,signupController,keyBoardController) {
     'use strict';
 
-    console.log(angular);
+    //console.log(angular);
 
     var controllers= angular.module('controllers', []);
         controllers.controller("loginController",loginController);

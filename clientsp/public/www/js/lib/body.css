@@ -145,7 +145,14 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
    
 }
 
-
+.ContainerShow
+{
+	color: blue;
+}
+.ContainerHide
+{
+	color: red;
+}
 
 .bmandatory{
 	COLOR: #104e8b;

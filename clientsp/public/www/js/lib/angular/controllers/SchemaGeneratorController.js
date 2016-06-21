@@ -32,9 +32,9 @@ newdiv2.id="middleid";
 $scope.GenJsonB= function (obj)
 {
 
-alert('GenJsonB');
+//alert('GenJsonB');//SchemaJsonInputId/SchemaJsonInputId
 obj=this;
-    var SchemaJsonTextId=document.getElementById("SchemaJsonTextId");
+    var SchemaJsonInputId=document.getElementById("SchemaJsonInputId");
     var OutJsonTextId=document.getElementById("OutJsonTextId");
     var MultiLang=document.getElementById("MultiLang"); 
 
@@ -42,7 +42,7 @@ obj=this;
   var PageNameIdLabel=document.getElementById("PageNameIdLabel"); 
 try
 {
-    schemaJson=eval(SchemaJsonTextId.value);
+    schemaJson=eval(SchemaJsonInputId.value);
 
 
  var  ufiframegen= require('ufi.frameGen');
@@ -66,7 +66,7 @@ $scope.GenFrameB =function (obj)
 
 
 obj=this;
-var SchemaJsonTextId=document.getElementById("SchemaJsonTextId");
+var SchemaJsonInputId=document.getElementById("SchemaJsonInputId");
 var OutJsonTextId=document.getElementById("OutJsonTextId");
 var readOnlyFlgId=document.getElementById("readOnlyFlgId");
 var LangResoureId=document.getElementById("LangResoureId");
@@ -79,7 +79,7 @@ try
 {
 
     resourceJson= eval(LangResoureId.value);
-    recSch=eval(SchemaJsonTextId.value);
+    recSch=eval(SchemaJsonInputId.value);
 
     rec=eval(OutJsonTextId.value);
     
@@ -128,14 +128,14 @@ $scope.genResourceB=function ()
     //alert("Gen Resource");
 var us = new ufiframegen.FG(); 
 
-    var SchemaJsonTextId=document.getElementById("SchemaJsonTextId");
+    var SchemaJsonInputId=document.getElementById("SchemaJsonInputId");
     var LangResoureId=document.getElementById("LangResoureId");
     var MultiLang=document.getElementById("MultiLang"); 
     var PageNameId=document.getElementById("PageNameId"); 
 
 try
 {
-    schemaJson=eval(SchemaJsonTextId.value);
+    schemaJson=eval(SchemaJsonInputId.value);
 
 
 
@@ -174,7 +174,7 @@ $scope.GenXmlJsonB =function ()
 $scope.GenListValJsonB=function ()
 {
     
-    var SchemaJsonTextId=document.getElementById("SchemaJsonTextId");
+    var SchemaJsonInputId=document.getElementById("SchemaJsonInputId");
     var ListValId=document.getElementById("ListValId");
   var MultiLang=document.getElementById("MultiLang"); 
   var PageNameId=document.getElementById("PageNameId"); 
@@ -182,7 +182,7 @@ $scope.GenListValJsonB=function ()
  var us = new ufiframegen.FG();
 try
 {
-    schemaJson=eval(SchemaJsonTextId.value);
+    schemaJson=eval(SchemaJsonInputId.value);
 
 
 
@@ -628,9 +628,9 @@ var Sibling=0;
  // var us= new USS();
 
   var parentObj=document.getElementById('container0');
-  var SchemaJsonTextId=document.getElementById('SchemaJsonTextId');
+  var SchemaJsonInputId=document.getElementById('SchemaJsonDfltId');
 
-  var SchemaJson = eval(SchemaJsonTextId.value);
+  var SchemaJson = eval(SchemaJsonInputId.value);
   parentObj.appendChild( us.ProcessSJson(SchemaJson , parentObj.id));
 
 
@@ -654,6 +654,14 @@ DeleteThis=function(obj)
   us.DeleteThis(obj);
 }
 
+HideThis=function(obj)
+{
+
+ // alert('DeleteThis');
+ // var us=new ufiuss.USS();
+  us.HideThis(obj);
+}
+
 
 
 
@@ -662,10 +670,11 @@ GenSJson=function (obj)
  // var us= new USS();
 
   var parentObj=document.getElementById('container0');
-  var SchemaJsonTextId=document.getElementById('SchemaJsonTextId');
+  var SchemaJsonInputId=document.getElementById('SchemaJsonDfltId');
   var SchemaJsonOuputId=document.getElementById('SchemaJsonOutputId');
+  var SchemaJsonInputId=document.getElementById('SchemaJsonInputId');
 
-  var SchemaJson = eval(SchemaJsonTextId.value);
+  var SchemaJson = eval(SchemaJsonInputId.value);
   
 
     var  outPut =us.GenSJson(parentObj.id);
@@ -674,8 +683,13 @@ GenSJson=function (obj)
 
     //alert(jsonOutPut);
        SchemaJsonOuputId.value =jsonOutPut;
-
+       SchemaJsonInputId.value =jsonOutPut;
+       $scope.genResourceB();
+       $scope.GenJsonB();
+       $scope.GenListValJsonB();
+       $scope.GenFrameB();
 }
+
 
 
 PreView=function(obj)

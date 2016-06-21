@@ -185,7 +185,7 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
 
 .bmargin
 {
-   border-radius: 25px;
+   border-radius: 5px;
     border: 2px solid #8AC007;
     padding: 20px; 
    
@@ -195,7 +195,7 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
 
 .bfield
 {
-   border-radius: 25px;
+   border-radius: 5px;
     border: 2px solid #8AC007;
     padding: 20px; 
    
@@ -210,6 +210,32 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
 }
 
 
+
+.ContainerShow
+{
+	color: blue;
+	display: none;
+}
+.ContainerHide
+{
+	color: red;
+	display: 'block';
+}
+
+.bTreeField
+{
+   border-radius: 5px;
+    border: 2px solid #8AC007;
+    padding: 20px;
+   
+}
+
+.bTreeContainer
+{
+	 border-radius: 5px;
+    border: 2px solid #0066FF;
+    padding: 20px;
+}
 
 .bmandatory{
 	COLOR: #104e8b;
@@ -226,6 +252,7 @@ box-shadow: 2px 2px 17px 0px rgba(0,0,0,0.75);
 
 .pageLayout
 {
+	margin-top: 40px;
 	margin-right: 20px;
 	margin-left: 20px;
 
@@ -273,9 +300,45 @@ cursor: pointer;
 }
 
 
+.TreeContainerSchema
+{
+	margin: 5px 5px 25px 15px;
+	height: 80px;
+	padding: 10px 20px;
+
+	background-color:  #242320;
+	color: #FFFFFF;
+
+	-webkit-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+-moz-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+
+
+cursor: pointer;
+}
+
 .TreeContainer:hover{
 margin: 5px 5px 25px 15px;
 	height: 40px;
+	padding: 10px 20px;
+
+
+	background-color: #c9c9c9 ;
+	color: #428bca;
+	/*opacity: 0.6;*/
+
+	-webkit-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+-moz-box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+box-shadow: 2px 4px 5px 0px rgba(194,170,194,1);
+
+
+cursor: pointer;
+}
+
+
+.TreeContainerSchema:hover{
+margin: 5px 5px 25px 15px;
+	height: 80px;
 	padding: 10px 20px;
 
 
@@ -425,4 +488,10 @@ cursor: pointer;
 	COLOR: #ffffff;
 	background-color: #428bca;
 	padding: 5px;
+}
+
+
+.treeBase
+{
+
 }
