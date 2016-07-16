@@ -1,0 +1,55 @@
+name
+json
+name
+urlencoded
+name
+bodyParser
+name
+compress
+name
+cookieSession
+name
+session
+name
+logger
+name
+cookieParser
+name
+favicon
+name
+responseTime
+name
+errorHandler
+name
+timeout
+name
+methodOverride
+name
+vhost
+name
+csrf
+name
+directory
+name
+limit
+name
+multipart
+name
+staticCache
+{ '0': { pageId: '0', PageModel: 'CDR', map: '0CdrDashboard' },
+  '1': { pageId: '1', PageModel: 'CDR', map: '1CdrDashboard' } }
+true
+{ Name: 'Schema' }
+{ Name: 'Json' }
+true
+{ Schema: 'Dashboard' }
+{ DataJson: 'Dashboard' }
+Thu Jul 07 2016 20:12:22 GMT-0400 (EDT)
+info: [mre/app.js] call get connection..
+/home/durai/node/mre
+Listening on port 3000
+info: [mre/app.js] select PROD_NAME , PROD_VERSION , PRTL_NAME, GRP_NAME ,f_name FIRST_NAME, l_name  LAST_NAME,  i.email_id EMAIL  , i.GRP_ID , USR_ID from GID001MB i, GRP001MB g , PRTL002MB prtl ,PROD001MB prod WHERE prtl.prtl_id  = g.prtl_id AND prod.prod_id = prtl.prod_id AND prtl.PRTL_ST ='ACTIVE' AND g.grp_id  = i.grp_id AND  i.email_id ='durai145@live.in' and i.password = '1qaz2wsx'
+info: [mre/app.js] in Query
+info: [mre/app.js] in Query : Record Found1
+Return:true
+Response:[object Object]

@@ -2145,10 +2145,10 @@ function registerUser( inUsrId, inGrpId,callback)
 
  	var GRP_ID=rows[0].SEQ_VAL
 
- 	pool.getConnection(function(err, connection) {
+ 	pool.getConnection(function(err, connection) 
+ 	{
 
-var query=
-'select f_name First_Name, l_name  Last_Name,  i.acct_type  from DBHSP.GID001MB  i ,  DBHSP.GRP001MB g where g.grp_id  = i.grp_id and  i.acct_type =\'EXPENSE\' and  i.usr_id  = ' + connection.escape(inUsrId) +'';
+var query='select f_name First_Name, l_name  Last_Name,  i.acct_type  from DBHSP.GID001MB  i ,  DBHSP.GRP001MB g where g.grp_id  = i.grp_id and  i.acct_type =\'EXPENSE\' and  i.usr_id  = ' + connection.escape(inUsrId) +'';
 //var query='select distinct gid.USR_ID,rapgl.ROLE_ID ,PAGE_GRP_TITLE ,PAGE_GRP_KEY ,pggr.PAGE_GRP_ID  from DBHSP.MEMA001MB mem , DBHSP.GID001MB  gid  , DBHSP.RAPG004LB rapgl, DBHSP.PGGR005MB pggr where gid.usr_id  = mem.usr_id and   rapgl.ROLE_ID = mem.ROLE_ID and   rapgl.PRTL_PAGE_GRP_ID = rapgl.PRTL_PAGE_GRP_ID and  gid.USR_ID =' + connection.escape(usr_id) +'' ;
 
 log.info(query);

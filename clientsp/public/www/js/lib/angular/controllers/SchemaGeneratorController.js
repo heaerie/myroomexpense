@@ -756,3 +756,47 @@ us.Preview(obj);
     };
 
 ]*/
+
+
+onPostReq=function (url,json,id,type)
+  {
+  //  alert("onPostReq");
+       var rtVal="";
+     //  sleep(10);
+
+
+//alert("Call Post");
+
+
+
+             $.post( 
+             url,
+             json,
+             function(data) 
+    {
+
+  //  alert(data);
+    try
+    {
+    if(type == 'DIV')
+    {
+
+    $("#"+id).html(data);
+    
+    
+    }
+    else if( type == 'OBJ')
+    {
+    document.getElementById(id).value= data;
+
+    }
+} 
+catch(e)
+{
+  alert("PostReqExp:<"+ id+">" +e);
+}
+
+    }
+          );
+
+  }

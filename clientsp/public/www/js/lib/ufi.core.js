@@ -1855,6 +1855,16 @@ var divCurrDivEntitleOption="";
 
           }
 
+var divCurrDivDataTypeLabel=document.createElement("select");
+  divCurrDivDataTypeLabel.setAttribute("parentid"         ,parentid);
+  divCurrDivDataTypeLabel.setAttribute("baseid"           ,childDiv.id );
+  divCurrDivDataTypeLabel.setAttribute("id"               ,childDiv.id +"DataType"+"Label"+"Id");
+  divCurrDivDataTypeLabel.setAttribute("mndf"             ,"Y");
+  divCurrDivDataTypeLabel.setAttribute("childCount"       ,"0");
+  divCurrDivDataTypeLabel.setAttribute("type"             ,"container");
+  divCurrDivDataTypeLabel.setAttribute("placeholder"             ,"Data Type");
+  divCurrDivDataTypeLabel.setAttribute("value"             ,fieldObj.dataType);
+  divCurrDivDataTypeLabel.setAttribute("title","dataType");
 
 var divCurrDivDataType=document.createElement("select");
   divCurrDivDataType.setAttribute("parentid"         ,parentid);
@@ -2069,7 +2079,7 @@ else
               childHideDiv.appendChild(divCurrDivIdParentName);
               childHideDiv.appendChild(divCurrDivName);
               
-              
+              childShowDiv.appendChild(divCurrDivDataTypeLabel);
               childShowDiv.appendChild(divCurrDivLabel);
               childShowDiv.appendChild(divCurrDivTask);
               childShowDiv.appendChild(divCurrDivXml);
@@ -2105,10 +2115,17 @@ else
 
               }
 
+
               childHideDiv.appendChild(divButtonPreview);
               divCurrDivPreViewHeader.appendChild(childHideDiv);
               childShowDiv.appendChild(divCurrDivPreViewSession);
               divCurrDivPreViewHeader.appendChild(childShowDiv);
+
+              document.getElementById("properityWindow").appendChild(childShowDiv);
+
+            //  document.getElementById("properityWindow").innerHTML
+              
+         // alert(     document.getElementById("properityWindow").innerHTML );
 
               childDiv.appendChild(divCurrDivPreViewHeader);
              // childDiv.appendChild(divCurrDivPreViewSession);
@@ -2188,10 +2205,28 @@ USS.prototype.HideThis=function(obj)
     var curObj    = document.getElementById("ContainerShow" + baseid );
 
     console.log(curObj.style.display);
-    if ( curObj.style.display  == '' || curObj.style.display  == 'block' )
-    curObj.style.display = 'none';
+
+    if( curObj.style.display == 'none')
+    {
+       curObj.style.display = 'block';
+    }
     else
-      curObj.style.display = 'block';
+    {
+      curObj.style.display = 'none'
+    }
+    /*
+    if ( document.getElementById("properityWindow").innerHTML == "NONE" )
+    {
+      document.getElementById("properityWindow").innerHTML=curObj.innerHTML;
+   // curObj.style.display = 'none';
+    }
+    else
+    {
+    //  curObj.style.display = 'block';
+    document.getElementById("properityWindow").innerHTML="NONE";
+    }
+    */
+
    // obj.style.display = 'block';
     //setAttribute("display" ,"none");
 //curObj.parentNode.removeChild(curObj);
