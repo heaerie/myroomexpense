@@ -1572,6 +1572,7 @@ var divCurrDivName=document.createElement("input");
   divCurrDivName.setAttribute("placeholder"      ,"name");
   divCurrDivName.setAttribute("value"            ,fieldObj.name);
   divCurrDivName.setAttribute("title"            ,"Id");
+  divCurrDivName.setAttribute("onChange", "javascript:document.getElementById('"+childDiv.id +"ProperityWindow"+"Div"+"Id"+ "').innerHTML = this.value")
 
 
 var divCurrDivIdName=document.createElement("input");
@@ -1855,7 +1856,21 @@ var divCurrDivEntitleOption="";
 
           }
 
-var divCurrDivDataTypeLabel=document.createElement("select");
+
+   var properityWindowLabel=document.createElement("div");       
+ properityWindowLabel.setAttribute("parentid"         ,parentid);
+  properityWindowLabel.setAttribute("baseid"           ,childDiv.id );
+  properityWindowLabel.setAttribute("id"               ,childDiv.id +"ProperityWindow"+"Label"+"Id");
+
+var properityWindowDiv =document.createElement("div");
+  properityWindowDiv.className="TreeContainer";
+ properityWindowDiv.setAttribute("id"               ,childDiv.id +"ProperityWindow"+"Div"+"Id");
+properityWindowDiv.innerHTML=fieldObj.name;
+properityWindowLabel.appendChild(properityWindowDiv);
+properityWindowLabel.className= "bmargin";
+
+
+var divCurrDivDataTypeLabel=document.createElement("div");
   divCurrDivDataTypeLabel.setAttribute("parentid"         ,parentid);
   divCurrDivDataTypeLabel.setAttribute("baseid"           ,childDiv.id );
   divCurrDivDataTypeLabel.setAttribute("id"               ,childDiv.id +"DataType"+"Label"+"Id");
@@ -2079,21 +2094,21 @@ else
               childHideDiv.appendChild(divCurrDivIdParentName);
               childHideDiv.appendChild(divCurrDivName);
               
-              childShowDiv.appendChild(divCurrDivDataTypeLabel);
-              childShowDiv.appendChild(divCurrDivLabel);
-              childShowDiv.appendChild(divCurrDivTask);
-              childShowDiv.appendChild(divCurrDivXml);
-              childShowDiv.appendChild(divCurrDivEntitle);
-              childShowDiv.appendChild(divCurrDivTips);
-              childShowDiv.appendChild(divCurrDivMndf);
-              childShowDiv.appendChild(divCurrDivMin);
-              childShowDiv.appendChild(divCurrDivMax);
-              childShowDiv.appendChild(divCurrDivDflt);
-              childShowDiv.appendChild(divCurrDivDataType);
-              childShowDiv.appendChild(divCurrDivHtmlType);
+              properityWindowLabel.appendChild(divCurrDivDataTypeLabel);
+              properityWindowLabel.appendChild(divCurrDivLabel);
+              properityWindowLabel.appendChild(divCurrDivTask);
+              properityWindowLabel.appendChild(divCurrDivXml);
+              properityWindowLabel.appendChild(divCurrDivEntitle);
+              properityWindowLabel.appendChild(divCurrDivTips);
+              properityWindowLabel.appendChild(divCurrDivMndf);
+              properityWindowLabel.appendChild(divCurrDivMin);
+              properityWindowLabel.appendChild(divCurrDivMax);
+              properityWindowLabel.appendChild(divCurrDivDflt);
+              properityWindowLabel.appendChild(divCurrDivDataType);
+              properityWindowLabel.appendChild(divCurrDivHtmlType);
              
               
-              childShowDiv.appendChild(divCurrDivListVal);
+              properityWindowLabel.appendChild(divCurrDivListVal);
               if(fieldObj.htmlType !="PAGE"  )
               {
                 
@@ -2118,8 +2133,12 @@ else
 
               childHideDiv.appendChild(divButtonPreview);
               divCurrDivPreViewHeader.appendChild(childHideDiv);
-              childShowDiv.appendChild(divCurrDivPreViewSession);
-              divCurrDivPreViewHeader.appendChild(childShowDiv);
+              properityWindowLabel.appendChild(divCurrDivPreViewSession);
+              divCurrDivPreViewHeader.appendChild(properityWindowLabel);
+
+
+              childShowDiv.appendChild(properityWindowLabel);
+
 
               document.getElementById("properityWindow").appendChild(childShowDiv);
 
@@ -2206,7 +2225,7 @@ USS.prototype.HideThis=function(obj)
 
     console.log(curObj.style.display);
 
-    if( curObj.style.display == 'none')
+    if( curObj.style.display != 'block')
     {
        curObj.style.display = 'block';
     }

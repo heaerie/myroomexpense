@@ -1434,6 +1434,13 @@ function token(req,res)
 										,'uid'  :'SchemaGenerator'
 										, 'dataType' :'NODE'
 										,'child'  : []
+										},
+										{
+										'link' :'KeyBoard'
+										,'linkName' :'Documents'
+										,'uid'  :'KeyBoard'
+										, 'dataType' :'NODE'
+										,'child'  : []
 										}
 
 									]

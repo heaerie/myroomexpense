@@ -410,6 +410,45 @@ $scope.ByteSubstr2 = function(byteArr,start,endlength)
 
   return rtbyte;
 }
+ $scope.getTagDescr=function(tag)
+ {
+  var tagLib={
+
+ "C1" :"ID"
+,"C2" :"group"
+,"C3" :"name"
+,"C4" :"label"
+,"C5" :"task"
+,"C6" :"desc"
+,"C7" :"htmlType"
+,"C8" :"entitle"
+,"C9" :"enttlname"
+,"C10"  :"mndf"
+,"C11"  :"dataType"
+,"C12"  :"cclass"
+,"C13"  :"parent"
+,"C14"  :"parentHtmlType"
+,"C15"  :"validate"
+,"C16"  :"dflt"
+,"C17"  :"min"
+,"C18"  :"max"
+,"C19"  :"tips"
+,"C20"  :"onkeyup"
+,"C21"  :"onchange"
+,"C22"  :"onkeydown"
+,"C23"  :"onkeypress"
+,"C24"  :"onclick"
+,"C25"  :"onblure"
+,"C26"  :"listVal"
+,"C27"  :"help"
+,"C28"  :"helpLink"
+,"C29"  :"xml"
+,"C30"  :"xmlname"   
+,"E1"   :"childs" 
+  };
+
+  return tagLib[tag.toUpperCase()]; 
+ }
 $scope.parseTVL = function(inpBytes)
 {
 
@@ -627,6 +666,8 @@ $scope.parseTVL = function(inpBytes)
                     ,'primitiveOrConst' : primitiveOrConst
                     //,'tagByte'          : tagByte
                     ,'tag'              : tag
+                    ,'tagDescr'         :  $scope.getTagDescr(tag)
+                    
                     //,'len'              : len
                     ,'lenByte'          : lenByte 
                     ,'lenVal'           : lenVal
@@ -634,6 +675,7 @@ $scope.parseTVL = function(inpBytes)
                     //,'dataByte'         : dataByte
                     ,'remData'          : remData
                     ,'value'            : value
+                  //  ,'ASCII'            : $scope.hexArrToString($scope.hexToBytes(dataHex))
                     //, 'valueByte'       : valueByte
                     , 'remDataByte'     : remDataByte
                     ,'childs' : []
