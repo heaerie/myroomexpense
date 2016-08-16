@@ -675,7 +675,7 @@ $scope.parseTVL = function(inpBytes)
                     //,'dataByte'         : dataByte
                     ,'remData'          : remData
                     ,'value'            : value
-                  //  ,'ASCII'            : $scope.hexArrToString($scope.hexToBytes(dataHex))
+                    ,'ASCII'            : ascii //$scope.hexArrToString($scope.hexToBytes(dataHex))
                     //, 'valueByte'       : valueByte
                     , 'remDataByte'     : remDataByte
                     ,'childs' : []
@@ -695,8 +695,9 @@ if(remDataByte.length >0)
 {
  if(remDataByte[0] != 0x90 && remDataByte[1] != 0x00)
   {
-    //var childJson = 
-     parentJson.push($scope.parseTVL(remDataByte));
+    var childJsonS = $scope.parseTVL(remDataByte);
+    for(var c=0; c< childJsonS.length ; c++)
+     parentJson.push(childJsonS[c]);
   }
 
 }
@@ -910,6 +911,81 @@ document.getElementById('pad').value=compileValue;
 
 
 
+}
+
+$scope.tvlToSchema=function()
+{
+
+  //alert("Alert");
+
+  var jsonObj=eval(document.getElementById('json').value);
+
+  //alert(jsonObj);
+ var compileValue=$scope.pareseTvlToSchema(jsonObj);
+
+//document.getElementById('schemaJson').value=JSON.stringify(compileValue) ;
+console.log(compileValue);
+document.getElementById('schemaJson').value=JSON.stringify(compileValue[0].childs);
+}
+
+$scope.pareseTvlToSchema=function(jsonObj)
+{
+  var schemaJson = [];
+  var  j=0;
+
+ // alert(jsonObj.length);
+var tempJsonstr= '[{';
+  for(var i=0; i<jsonObj.length ; i++)
+  {
+    //  alert("1");
+      //jsonObj[i]["tag"]);
+
+        var tag= jsonObj[i]["tag"];
+        var value= jsonObj[i]["value"];
+        var key =jsonObj[i]["tagDescr"];
+        var childs =jsonObj[i]["childs"];
+        var ascii =jsonObj[i]["ascii"];
+
+      if(tag =="e1")
+      {
+       var childJson= $scope.pareseTvlToSchema(childs);
+       // key = "childs";
+         //schemaJson.push({'childs':childJson});
+          if( j==0 )
+        {
+         tempJsonstr+= ' "' + key +'" : ' +  JSON.stringify(childJson)+ '';
+       }
+       else
+       {
+          tempJsonstr+= ', "' + key +'" : ' +  JSON.stringify(childJson)+ '';
+     
+       }
+       j++;
+       //schemaJson["childs"]=$scope.pareseTvlToSchema(childs);
+      }
+      else 
+      {
+
+       //alert( key +" " +value);
+        if( j==0 )
+        {
+          tempJsonstr+= ' "' + key +'" : "' +  value+ '"';
+        }
+        else
+        {
+          tempJsonstr+= ', "'+ key +'" : "' +  value+ '"';
+        }
+        j++;
+
+      }
+  }
+
+  tempJsonstr+= "}]";
+
+var tempJson= eval(tempJsonstr);
+
+        schemaJson.push(tempJson[0]);
+  return schemaJson;
 }
 
 
