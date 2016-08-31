@@ -361,8 +361,10 @@ else
 {
   for(var i=1; i< inp.length ; i++)
   {
+    inp[i] =inp[i] & 0x7F;
+
   //retVal= retVal+ (inp[i] << (inp.length-i+1)*8 ) ;
-    retVal= retVal+ (inp[i] << ((inp.length-(i+1))*8 ) );
+    retVal= retVal+ (inp[i] << ((inp.length-(i+1))*7 ) );
   }
 }
 
@@ -410,45 +412,132 @@ $scope.ByteSubstr2 = function(byteArr,start,endlength)
 
   return rtbyte;
 }
- $scope.getTagDescr=function(tag)
+
+ $scope.getDataType=function(tag)
  {
   var tagLib={
-
- "C1" :"ID"
-,"C2" :"group"
-,"C3" :"name"
-,"C4" :"label"
-,"C5" :"task"
-,"C6" :"desc"
-,"C7" :"htmlType"
-,"C8" :"entitle"
-,"C9" :"enttlname"
-,"C10"  :"mndf"
-,"C11"  :"dataType"
-,"C12"  :"cclass"
-,"C13"  :"parent"
-,"C14"  :"parentHtmlType"
-,"C15"  :"validate"
-,"C16"  :"dflt"
-,"C17"  :"min"
-,"C18"  :"max"
-,"C19"  :"tips"
-,"C20"  :"onkeyup"
-,"C21"  :"onchange"
-,"C22"  :"onkeydown"
-,"C23"  :"onkeypress"
-,"C24"  :"onclick"
-,"C25"  :"onblure"
-,"C26"  :"listVal"
-,"C27"  :"help"
-,"C28"  :"helpLink"
-,"C29"  :"xml"
-,"C30"  :"xmlname"   
-,"E1"   :"childs" 
+  ﻿      "C1"     :   ﻿"ascii"
+,      "C2"     :   ﻿"ascii"
+,      "C3"     :   ﻿"ascii"
+,      "C4"     :   ﻿"ascii"
+,      "C5"     :   ﻿"ascii"
+,      "C6"     :   ﻿"ascii"
+,      "C7"     :   ﻿"ascii"
+,      "C8"     :   ﻿"ascii"
+,      "C9"     :   ﻿"ascii"
+,      "CA"   :   ﻿"ascii"
+,      "CB"   :   ﻿"ascii"
+,      "CC"   :   ﻿"ascii"
+,      "CD"   :   ﻿"ascii"
+,      "CF"   :   ﻿"ascii"
+,      "DF01"   :   ﻿"ascii"
+,      "DF02"   :   ﻿"ascii"
+,      "DF03"   :   ﻿"ascii"
+,      "DF04"   :   ﻿"ascii"
+,      "DF05"   :   ﻿"ascii"
+,      "DF06"   :   ﻿"ascii"
+,      "DF07"   :   ﻿"ascii"
+,      "DF08"   :   ﻿"ascii"
+,      "DF09"   :   ﻿"ascii"
+,      "DF0A"   :   ﻿"ascii"
+,      "DF0B"   :   ﻿"ascii"
+,      "DF0C"   :   ﻿"ascii"
+,      "DF0D"   :   ﻿"ascii"
+,      "DF0E"   :   ﻿"ascii"
+,      "DF0F"   :   ﻿"ascii"
+,      "DF11"   :   ﻿"ascii"
+,      "DF12"   :   ﻿"ascii"
+,      "DF13"   :   ﻿"ascii"
+,      "E1"   :   ﻿"ascii"
   };
 
   return tagLib[tag.toUpperCase()]; 
  }
+
+ $scope.getTagDescr=function(tag)
+ {
+  var tagLib={
+  ﻿      "C1"     :   "group"
+,      "C2"     :   "name"
+,      "C3"     :   "label"
+,      "C4"     :   "task"
+,      "C5"     :   "desc"
+,      "C6"     :   "htmlType"
+,      "C7"     :   "entitle"
+,      "C8"     :   "enttlname"
+,      "C9"     :   "mndf"
+,      "CA"   :   "dataType"
+,      "CB"   :   "cclass"
+,      "CC"   :   "parent"
+,      "CD"   :   "parentHtmlType"
+,      "CF"   :   "validate"
+,      "DF01"   :   "dflt"
+,      "DF02"   :   "min"
+,      "DF03"   :   "max"
+,      "DF04"   :   "tips"
+,      "DF05"   :   "onkeyup"
+,      "DF06"   :   "onchange"
+,      "DF07"   :   "onkeydown"
+,      "DF08"   :   "onkeypress"
+,      "DF09"   :   "onclick"
+,      "DF0A"   :   "onblure"
+,      "DF0B"   :   "listVal"
+,      "DF0C"   :   "help"
+,      "DF0D"   :   "helpLink"
+,      "DF0E"   :   "xml"
+,      "DF0F"   :   "xmlname"   
+,      "DF11"   : "Xpath"
+,      "DF12"   : "maxCol"
+,      "DF13"   : "col"
+,      "E1"   : "childs"
+  };
+
+  return  tagLib[tag.toUpperCase()]; 
+ }
+
+
+
+ $scope.getTag =function(tag)
+ {
+  var tagLib={
+        "group" : ﻿      "C1"   
+,   "name"  :      "C2"   
+,   "label" :      "C3"   
+,   "task"  :      "C4"   
+,   "desc"  :      "C5"   
+,   "htmlType"  :      "C6"   
+,   "entitle" :      "C7"   
+,   "enttlname" :      "C8"   
+,   "mndf"  :      "C9"   
+,   "dataType"  :      "CA"  
+,   "cclass"  :      "CB"  
+,   "parent"  :      "CC"  
+,   "parentHtmlType"  :      "CD"  
+,   "validate"  :      "CF"  
+,   "dflt"  :      "DF01"  
+,   "min" :      "DF02"  
+,   "max" :      "DF03"  
+,   "tips"  :      "DF04"  
+,   "onkeyup" :      "DF05"  
+,   "onchange"  :      "DF06"  
+,   "onkeydown" :      "DF07"  
+,   "onkeypress"  :      "DF08"  
+,   "onclick" :      "DF09"  
+,   "onblure" :      "DF0A"  
+,   "listVal" :      "DF0B"  
+,   "help"  :      "DF0C"  
+,   "helpLink"  :      "DF0D"  
+,   "xml" :      "DF0E"  
+,   "xmlname"     :      "DF0F"  
+, "Xpath" :      "DF11"  
+, "maxCol"  :      "DF12"  
+, "col" :      "DF13"  
+, "childs"  :      "E1"                          
+  }
+
+  return tagLib[tag]; 
+ }
+
 $scope.parseTVL = function(inpBytes)
 {
 
@@ -581,11 +670,13 @@ $scope.parseTVL = function(inpBytes)
     else 
     if(modeCnt ==1) //length 
     {
-        if(  leadingOctet == 1)
+        /*if(  leadingOctet == 1)
         {
           if(firstBit ==1 )
           {
             lengthHeaderCnt=1;
+
+
           }
           else
           {
@@ -601,6 +692,17 @@ $scope.parseTVL = function(inpBytes)
         {
           nextSubsequent=1;
         }
+        */
+         if(firstBit ==1 )
+         {
+          lengthSize+=1;
+          nextSubsequent=1;
+         }
+         else
+         {
+          nextSubsequent=0;
+         }
+
     }
 
     //Action Part
@@ -631,7 +733,14 @@ $scope.parseTVL = function(inpBytes)
            tagLen++;
         }
     }
-     
+     if(( modeCnt == 1 && nextSubsequent == 0 ) && (leadingOctet !=1))
+     {
+          len.push(d2h(highByte));
+           len.push(d2h(lowByte));
+           lenByte.push(highByte<<4|lowByte);
+           lengthSize--;
+           tagLen++;
+     }
   // post procesing   
      if(leadingOctet ==1)
      {
@@ -666,16 +775,18 @@ $scope.parseTVL = function(inpBytes)
                     ,'primitiveOrConst' : primitiveOrConst
                     //,'tagByte'          : tagByte
                     ,'tag'              : tag
+                   //  ,'lenVal'              : lenVal
                     ,'tagDescr'         :  $scope.getTagDescr(tag)
                     
-                    //,'len'              : len
-                    ,'lenByte'          : lenByte 
+                   // ,'len'              : len
+                   // ,'lengthSize'              : lengthSize
+                  //  ,'lenByte'          : lenByte 
                     ,'lenVal'           : lenVal
                     ,'data'             : dataHex
                     //,'dataByte'         : dataByte
                     ,'remData'          : remData
                     ,'value'            : value
-                    ,'ASCII'            : ascii //$scope.hexArrToString($scope.hexToBytes(dataHex))
+                    ,'ASCII'            : $scope.hexArrToString(ascii) //$scope.hexArrToString($scope.hexToBytes(dataHex))
                     //, 'valueByte'       : valueByte
                     , 'remDataByte'     : remDataByte
                     ,'childs' : []
@@ -941,10 +1052,17 @@ var tempJsonstr= '[{';
       //jsonObj[i]["tag"]);
 
         var tag= jsonObj[i]["tag"];
+        var valueKey=$scope.getDataType(tag);
         var value= jsonObj[i]["value"];
         var key =jsonObj[i]["tagDescr"];
         var childs =jsonObj[i]["childs"];
-        var ascii =jsonObj[i]["ascii"];
+        var ascii =jsonObj[i]["ASCII"];
+
+
+        if( valueKey.toUpperCase() == "ASCII")
+        {
+          value=ascii;
+        }
 
       if(tag =="e1")
       {
@@ -1000,6 +1118,155 @@ document.getElementById('pad').value=compileValue;
 
 }
 
+$scope.stringToHexStr=function(str) {
+    var hex = '';
+    for(var i=0;i<str.length;i++) {
+        hex += ''+str.charCodeAt(i).toString(16);
+    }
+    return hex;
+}
+
+
+$scope.schemaToTvl=function()
+{
+
+ var schemaJsonStr=  document.getElementById('schemaJson').value; 
+ var schemaJson = eval(schemaJsonStr);
+  document.getElementById('pad').value = $scope.encodeSchemaToTvl(schemaJson);
+}
+
+$scope.intToHexChar= function(inp)
+{
+  var lib=
+  {
+     0:'0'
+    ,1:'1'
+    ,2:'2'
+    ,3:'3'
+    ,4:'4'
+    ,5:'5'
+    ,6:'6'
+    ,7:'7'
+    ,8:'8'
+    ,8:'8'
+    ,9:'9'
+    ,10:'A'
+    ,11:'B'
+    ,12:'C'
+    ,13:'D'
+    ,14:'E'
+    ,15:'F'
+  }
+
+  return lib[inp];
+}
+
+$scope.intToHexString=function(inValue)
+{
+
+  var outHexStr="";
+  var intValue=parseInt(inValue);
+var h1=0x0; var h2= 0x0; h3=0x0; h4= 0x0 ,h5=0x0 ,h6=0x0;
+
+  if( intValue <= 0x7F)
+  {
+      h1 = intValue & 0x000F;
+      h2 = intValue & 0x00F0;
+      h2 = h2>>4;
+      outHexStr+=$scope.intToHexChar(h2);
+      outHexStr+=$scope.intToHexChar(h1);
+     
+  }
+  else if(  intValue <= 0x7FFF )
+  {
+
+      h1 = intValue & 0x000F;
+      h2 = intValue & 0x0070;
+      h2 = h2>>4;
+      h3 = intValue & 0x0780;
+      h3 = h3>>7;
+      h4 = intValue & 0x7800;
+      h4 = h4>>11;
+      h4 = h4 |0x8;
+      outHexStr+=$scope.intToHexChar(h4);
+      outHexStr+=$scope.intToHexChar(h3);
+      outHexStr+=$scope.intToHexChar(h2);
+      outHexStr+=$scope.intToHexChar(h1);
+
+
+  }
+  else if( intValue <= 0x7FFFFF  )
+  {
+
+      h1 = intValue & 0x000F;
+      h2 = intValue & 0x0070;
+      h2 = h2>>4;
+      h3 = intValue & 0x0780;
+      h3 = h3>>7;
+      h4 = intValue & 0x7800;
+      h4 = h4>>11;
+      h4 = h4 |0x8;
+
+      h5 = intValue & 0x078000;//->   1000 0000 0000 0000
+      h5 = h5>>15;
+      h6 = intValue & 0x780000;
+      h6 = h6>>19;
+      h6 = h6 |0x8;
+
+      outHexStr+=$scope.intToHexChar(h6);
+      outHexStr+=$scope.intToHexChar(h5);
+      outHexStr+=$scope.intToHexChar(h4);
+      outHexStr+=$scope.intToHexChar(h3);
+      outHexStr+=$scope.intToHexChar(h2);
+      outHexStr+=$scope.intToHexChar(h1);
+  }
+
+  
+  return outHexStr;
+}
+
+$scope.encodeSchemaToTvl=function(schemaJson)
+{
+
+  var Tag="";
+  var Value="";
+  var valueHex="";
+
+  var rtStr="";
+
+
+  var Len=0;
+  for(var i=0; i< schemaJson.length; i++)
+  {
+
+//$scope.getTag
+   for( key in schemaJson[i])
+    {
+        if ( key == "childs")
+        {
+          if(schemaJson[i].childs.length !=0)
+          {
+          var value1=$scope.encodeSchemaToTvl(schemaJson[i].childs);
+          rtStr += "E1" +  $scope.intToHexString(value1.length) + value1;
+          }
+        }
+        else
+        {
+          Tag       =$scope.getTag(key);
+          Value     =schemaJson[i][key];
+          valueHex  =$scope.stringToHexStr(Value);
+          Len       =valueHex.length/2;
+          tagLen    = $scope.intToHexString(Len);
+
+          rtStr += Tag + tagLen + valueHex;
+        
+        }
+    }
+    
+  }
+
+return  "E1" +$scope.intToHexString(rtStr.length/2) + rtStr;
+}
 
 $scope.keyBoard=function()
 {
