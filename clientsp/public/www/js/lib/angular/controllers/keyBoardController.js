@@ -359,12 +359,12 @@ retVal=inp[0]
 }
 else
 {
-  for(var i=1; i< inp.length ; i++)
+  for(var i=inp.length; i>=0  ; i--)
   {
-    inp[i] =inp[i] & 0x7F;
+    inp[i-1] =inp[i-1] & 0x7F;
 
   //retVal= retVal+ (inp[i] << (inp.length-i+1)*8 ) ;
-    retVal= retVal+ (inp[i] << ((inp.length-(i+1))*7 ) );
+    retVal= retVal+ (inp[i-1] << (inp.length-i)*7 );
   }
 }
 
@@ -666,6 +666,16 @@ $scope.parseTVL = function(inpBytes)
       {
         nextSubsequent=1;
       }
+      else
+      {
+        nextSubsequent=0;
+      }
+/*
+      if(firstBit ==1)
+      {
+        nextSubsequent=1;
+      }
+      */
     }
     else 
     if(modeCnt ==1) //length 
@@ -710,39 +720,48 @@ $scope.parseTVL = function(inpBytes)
     {
         if (modeCnt ==0)
         {
-          tagByte.push(d2h(highByte));
-          tagByte.push(d2h(lowByte));
+          tagByte.push($scope.intToHexChar(highByte));
+          tagByte.push($scope.intToHexChar(lowByte));
        // nextSubsequent=1;
           tagLen++;
         }
         else if (modeCnt ==1)
         {
-           len.push(d2h(highByte));
-           len.push(d2h(lowByte));
+           len.push($scope.intToHexChar(highByte));
+           len.push($scope.intToHexChar(lowByte));
            lenByte.push(highByte<<4|lowByte);
            lengthSize--;
            tagLen++;
         }
         else if (modeCnt >= 2)
         {
-           data.push(d2h(highByte));
-           data.push(d2h(lowByte));
+           data.push($scope.intToHexChar(highByte));
+           data.push($scope.intToHexChar(lowByte));
 
-           ascii.push(String.fromCharCode(inpBytes[i])) ;
+          // ascii.push(String.fromCharCode(inpBytes[i])) ;
            dataByte.push(inpBytes[i]);
            tagLen++;
         }
     }
+
+    if (modeCnt ==0 && nextSubsequent ==0 && leadingOctet ==0)
+        {
+          tagByte.push($scope.intToHexChar(highByte));
+          tagByte.push($scope.intToHexChar(lowByte));
+       // nextSubsequent=1;
+          tagLen++;
+        }
+
      if(( modeCnt == 1 && nextSubsequent == 0 ) && (leadingOctet !=1))
      {
-          len.push(d2h(highByte));
-           len.push(d2h(lowByte));
+          len.push($scope.intToHexChar(highByte));
+           len.push($scope.intToHexChar(lowByte));
            lenByte.push(highByte<<4|lowByte);
            lengthSize--;
            tagLen++;
      }
   // post procesing   
-     if(leadingOctet ==1)
+     if(leadingOctet ==1 )
      {
       leadingOctet=0;
      }
@@ -770,25 +789,25 @@ $scope.parseTVL = function(inpBytes)
       var valueByte   =$scope.ByteSubstr2(dataByte,0,lenVal);
       var remDataByte =$scope.ByteSubstr1(dataByte,lenVal);
       var tag         =$scope.hexArrToString(tagByte);
-
+          ascii=$scope.bytesToAscii(valueByte) ;
      parentObj={    'class'             : classVal 
                     ,'primitiveOrConst' : primitiveOrConst
                     //,'tagByte'          : tagByte
                     ,'tag'              : tag
-                   //  ,'lenVal'              : lenVal
+                     ,'lenVal'              : lenVal
                     ,'tagDescr'         :  $scope.getTagDescr(tag)
                     
                    // ,'len'              : len
                    // ,'lengthSize'              : lengthSize
                   //  ,'lenByte'          : lenByte 
                     ,'lenVal'           : lenVal
-                    ,'data'             : dataHex
+                   // ,'data'             : dataHex
                     //,'dataByte'         : dataByte
-                    ,'remData'          : remData
+                  //  ,'remData'          : remData
                     ,'value'            : value
-                    ,'ASCII'            : $scope.hexArrToString(ascii) //$scope.hexArrToString($scope.hexToBytes(dataHex))
+                    ,'ASCII'            : ascii //$scope.hexArrToString($scope.hexToBytes(dataHex))
                     //, 'valueByte'       : valueByte
-                    , 'remDataByte'     : remDataByte
+                   // , 'remDataByte'     : remDataByte
                     ,'childs' : []
                };
 
@@ -832,6 +851,16 @@ bodyElement.appendChild(asciiElement);
 
    return   bodyElement;
 
+}
+$scope.bytesToAscii =function(inpBytes)
+{
+  var rtString= "";
+  for (var i=0; i< inpBytes.length; i++)
+  {
+      rtString+= String.fromCharCode(inpBytes[i]);
+  }
+
+  return rtString;
 }
 $scope.createTreeHeader = function(parentObj)
 {
@@ -1064,7 +1093,7 @@ var tempJsonstr= '[{';
           value=ascii;
         }
 
-      if(tag =="e1")
+      if(tag =="e1" ||tag =="E1" )
       {
        var childJson= $scope.pareseTvlToSchema(childs);
        // key = "childs";
