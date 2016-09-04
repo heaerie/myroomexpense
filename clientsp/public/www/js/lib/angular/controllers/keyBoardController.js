@@ -823,7 +823,11 @@ $scope.parseTVL = function(inpBytes)
 
 if(remDataByte.length >0)
 {
- if(remDataByte[0] != 0x90 && remDataByte[1] != 0x00)
+ if(remDataByte[0] == 0x90 && remDataByte[1] == 0x00 && remDataByte.length ==2 )
+  {
+    alert("No more ");
+  }
+  else
   {
     var childJsonS = $scope.parseTVL(remDataByte);
     for(var c=0; c< childJsonS.length ; c++)
@@ -1072,7 +1076,7 @@ $scope.pareseTvlToSchema=function(jsonObj)
 {
   var schemaJson = [];
   var  j=0;
-
+  var NeedEmptyChilds=true;
  // alert(jsonObj.length);
 var tempJsonstr= '[{';
   for(var i=0; i<jsonObj.length ; i++)
@@ -1095,6 +1099,7 @@ var tempJsonstr= '[{';
 
       if(tag =="e1" ||tag =="E1" )
       {
+        NeedEmptyChilds=false;
        var childJson= $scope.pareseTvlToSchema(childs);
        // key = "childs";
          //schemaJson.push({'childs':childJson});
@@ -1126,9 +1131,20 @@ var tempJsonstr= '[{';
 
       }
   }
+if(NeedEmptyChilds == true)
+{
+  if( j==0 )
+  {
+    tempJsonstr+=  " 'childs':[]";
+  }
+  else
+  {
+    tempJsonstr+= ", 'childs':[]";
+  }
 
-  tempJsonstr+= "}]";
+}
 
+tempJsonstr+= "}]";
 var tempJson= eval(tempJsonstr);
 
         schemaJson.push(tempJson[0]);
