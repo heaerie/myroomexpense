@@ -1292,7 +1292,10 @@ $scope.encodeSchemaToTvl=function(schemaJson)
           if(schemaJson[i].childs.length !=0)
           {
           var value1=$scope.encodeSchemaToTvl(schemaJson[i].childs);
-          rtStr += "E1" +  $scope.intToHexString(value1.length/2) + value1;
+          //rtStr += "E1" +  $scope.intToHexString(value1.length/2) + value1;
+          rtStr +=  value1;
+
+
           }
         }
         else
