@@ -246,7 +246,51 @@ catch(e)
 
   var ContinerCount=1;
 
+$scope.encodeSchemaToTvl=function(schemaJson)
+{
 
+  var Tag="";
+  var Value="";
+  var valueHex="";
+
+  var rtStr="";
+
+
+  var Len=0;
+  for(var i=0; i< schemaJson.length; i++)
+  {
+
+//$scope.getTag
+   for( key in schemaJson[i])
+    {
+        if ( key == "childs")
+        {
+          if(schemaJson[i].childs.length !=0)
+          {
+          var value1=$scope.encodeSchemaToTvl(schemaJson[i].childs);
+          //rtStr += "E1" +  $scope.intToHexString(value1.length/2) + value1;
+          rtStr +=  value1;
+
+
+          }
+        }
+        else
+        {
+          Tag       =$scope.getTag(key);
+          Value     =schemaJson[i][key];
+          valueHex  =$scope.stringToHexStr(Value);
+          Len       =valueHex.length/2;
+          tagLen    = $scope.intToHexString(Len);
+
+          rtStr += Tag + tagLen + valueHex;
+        
+        }
+    }
+    
+  }
+
+return  "E1" +$scope.intToHexString(rtStr.length/2) + rtStr;
+}
 
  $scope.AddContainerField=function(obj,field)
 {
