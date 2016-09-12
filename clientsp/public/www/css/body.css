@@ -495,3 +495,10 @@ cursor: pointer;
 {
 
 }
+
+.ui-state-highlight
+{
+	COLOR:#FF0000;
+	padding: 5px;
+	
+}

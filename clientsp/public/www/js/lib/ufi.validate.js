@@ -3,8 +3,8 @@ define(function(require, exports, module) {
 
 
 var USS=require("ufi.core").USS;
-var xmlObj = new require("ufi.xml").XML();
-
+var XML =  require("ufi.xml").XML;
+var xmlObj = new XML();
 
 //alert("import validate");
 
@@ -17,16 +17,18 @@ var sysDate=new Date();
 
   var VAL=USS;
 
-VAL.prototype.ErrorBox=function ( obj, text ) {
+VAL.prototype.ErrorBox=function ( param) {
+ 	//var param=params[0];
  	
- 	//alert(obj.id);
-       $("#"+ obj.getAttribute("ErrorBox"))
-         .text( text )
+ 	alert(param.obj.id);
+ 	alert(param.errMsg);
+       $("#"+ param.obj.getAttribute("ErrorBox"))
+         .text( param.errMsg )
          .addClass( "ui-state-highlight" );
  
        setTimeout(function() {
  //	alert("1");
-         $("#"+ obj.getAttribute("ErrorBox")).text("").removeClass( "ui-state-highlight",1500);
+         $("#"+ param.obj.getAttribute("ErrorBox")).text("").removeClass( "ui-state-highlight",1500);
  	//$("#"+ obj.getAttribute("ErrorBox")).text("");
        }, 100*120 );
      }
@@ -228,7 +230,7 @@ VAL.prototype.valAmount=  function (obj)
 	{
 		//alert(obj.getAttribute('label') + VLDOKU00004);
 
-		ErrorBox(obj,obj.getAttribute('label') + VLDOKU00004);
+		ErrorBox({"obj":obj,"errMsg": obj.getAttribute('label') + VLDOKU00004});
 		obj.value="";
 		obj.focus();
 	}
@@ -240,7 +242,7 @@ VAL.prototype.valNumber=   function (obj)
 	if(IsPositiveNumber(obj.value)== false)
 	{
 		//alert(obj.getAttribute('label') + VLDOKU00002);
-		ErrorBox(obj,obj.getAttribute('label') + VLDOKU00002);
+		ErrorBox({"obj":obj,"errMsg":obj.getAttribute('label') + VLDOKU00002});
 		obj.value="";
 		obj.focus();
 	}
@@ -396,6 +398,8 @@ VAL.prototype.onClick=   function onClick(obj)
 
 VAL.prototype.fnValidate=  function ()
 {
+
+
 var elmnts = document.forms[0].elements;
 	
 	for ( var i=0; i<elmnts.length;i++)
@@ -433,7 +437,7 @@ var elmnts = document.forms[0].elements;
 						if (lvFlg  == true)
 						{
 							//alert( VLDOKU00003 + radioButtons[0].getAttribute('label') );
-							ErrorBox( radioButtons[0],VLDOKU00003 + radioButtons[0].getAttribute('label') );
+							ErrorBox({ "obj":radioButtons[0], "errMsg": VLDOKU00003 + radioButtons[0].getAttribute('label')} );
 							radioButtons[1].focus();
 							return false;
 						}
@@ -446,8 +450,8 @@ var elmnts = document.forms[0].elements;
 				}
 				else if(elmnts[i].value.length==0)
 				{
-					//alert( VLDOKU00003 + elmnts[i].getAttribute('label') );
-					ErrorBox(elmnts[i], VLDOKU00003 + elmnts[i].getAttribute('label') );
+					var Msg= VLDOKU00003 + elmnts[i].getAttribute('label') ;
+					ErrorBox({"obj":elmnts[i] , "errMsg":Msg });
 					elmnts[i].focus();
 					return false;
 				}

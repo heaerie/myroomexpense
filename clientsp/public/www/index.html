@@ -21,24 +21,26 @@
   <script src="js/Resource.js"></script>  
   <script src="js/lib/external/requirejs/require.js" data-main="js/main.js"></script>
 <body class="login_background">
-	
+	 <form  novalidate>
 	<div class="fluid-container">
-  <toaster-container toaster-options="{'close-button': true}"></toaster-container>
-	<div id="pageId" ui-view="pageMainContext">
+ 
+   <toaster-container toaster-options="{'close-button': true}"></toaster-container>
+	
+    <div id="pageId" ui-view="pageMainContext">
 	</div>
-  <form name="subForm" class="form-signin" id="subForm" novalidate>
-  <div id="subPageId" ui-view="pageSubContext">
+    
+ <div id="subPageId" ui-view="pageSubContext">
       
   </div>
+  </div>
+
+  
+
   <center>
   <div class="copyrightLayout">
   All Copyright Reserved &copy 2013-2019 Heaerie Global Solutions (P) Ltd.Vellore.India.
   </div>
   </center>
-  </div>
-  <!--/form-->
-	</div>
-
 	<!--footer class="footer">
       <div class="container">
        	
@@ -47,6 +49,7 @@
       </center>
       </div>
     </footer-->
+    </form>
 </body>
 <!--script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=wckTek8mKblSQqMu18XFmxpj8OBvVGJkaeSbUUdZtep4eMkRgn3J1AMbDaki"></script-->
 

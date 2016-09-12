@@ -11,7 +11,7 @@ var ufivalidate=require("ufi.validate");
 
  var VAL=new ufivalidate.VAL();
 
-$scope.ErrorBox         =VAL.ErrorBox        ;
+//$scope.ErrorBox         =VAL.ErrorBox        ;
 $scope.onKeyUp          =VAL.onKeyUp         ;
 $scope.onKeyDown        =VAL.onKeyDown       ;
 $scope.onKeyPress       =VAL.onKeyPress      ;
@@ -156,7 +156,9 @@ $scope.$watch('$viewContentLoaded', function(){
         }
         else
         {
-          alert("validate is fail");
+
+          return false;
+        //  alert("validate is fail");
         }
         $scope.$basicDet=$scope.$basicDet||{};
 
@@ -173,7 +175,7 @@ $scope.$watch('$viewContentLoaded', function(){
         $scope.$basicDet=resp.basicDet;
         $state.params=$scope.$basicDet;
          $state.go(resp.nextState,{
-     $basicDet: $scope.$basicDet
+                        $basicDet: $scope.$basicDet
             });
         });
 
