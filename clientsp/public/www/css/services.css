@@ -347,7 +347,7 @@ A.tab:active {
 	padding-bottom: 3px;
 	padding-left: 15px;
 	padding-right: 15px;
-	height: 50px;
+	min-height: 50px;/*: 50px; /* fix */
 }
 
 ul.makeMenu,
