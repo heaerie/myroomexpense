@@ -20,8 +20,8 @@ var sysDate=new Date();
 VAL.prototype.ErrorBox=function ( param) {
  	//var param=params[0];
  	
- 	alert(param.obj.id);
- 	alert(param.errMsg);
+ //	alert(param.obj.id);
+ //	alert(param.errMsg);
        $("#"+ param.obj.getAttribute("ErrorBox"))
          .text( param.errMsg )
          .addClass( "ui-state-highlight" );
