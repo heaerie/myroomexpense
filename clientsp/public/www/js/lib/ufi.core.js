@@ -1490,6 +1490,7 @@ var baseid =obj.getAttribute("baseid") ;
            var MinId        = document.getElementById(baseid + "Min"        + "Id");
            var TipsId       = document.getElementById(baseid + "Tips"       + "Id");
            var XmlId       = document.getElementById(baseid + "Xml"       + "Id");
+            var MaxColId       = document.getElementById(baseid + "MaxCol"       + "Id");
 
 
             fieldObj.fieldObj       = "Y";
@@ -1506,6 +1507,7 @@ var baseid =obj.getAttribute("baseid") ;
             fieldObj.tips       = TipsId.value;
             fieldObj.entitle    = EntitleId.value;
             fieldObj.xml        = XmlId.value;
+            fieldObj.maxCol     = MaxColId.value;
 
   var child=this.AddSubling(fieldObj,obj.getAttribute("parentid"));
 
@@ -1535,6 +1537,46 @@ USS.prototype.NewChild=function(obj)
   parentObj.appendChild(child);
 
 
+}
+USS.prototype.createLabelElement=function(parentId,childId,LabelId,value)
+{
+var divCurrDivName=document.createElement("div");
+  divCurrDivName.setAttribute("parentid"         ,parentId);
+  divCurrDivName.setAttribute("attribute"        ,"name");
+  divCurrDivName.setAttribute("id"               ,childId+ LabelId+"Label" + "Id"  );
+  divCurrDivName.setAttribute("baseid"           ,childId );
+  divCurrDivName.setAttribute("mndf"             ,"Y");
+  divCurrDivName.setAttribute("childCount"       ,"0");
+  divCurrDivName.setAttribute("class","properityLabelBox");
+  //divCurrDivName.setAttribute("type"             ,"hidden");
+  divCurrDivName.setAttribute("placeholder"      ,"name");
+  divCurrDivName.setAttribute("title"            ,"Id");
+
+  divCurrDivName.appendChild(document.createTextNode(value));
+ // divCurrDivName.setAttribute("onChange", "javascript:document.getElementById('"+childDiv.id +"ProperityWindow"+"Div"+"Id"+ "').innerHTML = this.value")
+
+return divCurrDivName;
+}
+USS.prototype.genRowElement=function( fieldObj)
+{
+  return  this.createRowElement(this.createLabelElement(fieldObj.getAttribute("parentid"),fieldObj.getAttribute("baseid"),fieldObj.id, fieldObj.getAttribute("placeholder") ) ,fieldObj);
+}
+
+
+USS.prototype.createRowElement=function( labelObj, fieldObj)
+{
+  this.retObj=document.createElement("div");
+  this.retObj.className="row properityWindow";
+  this.retRow1=document.createElement("div");
+  this.retRow1.appendChild(labelObj);
+  this.retRow1.className="col-sm-6 ";
+  this.retRow2=document.createElement("div");
+  this.retRow2.appendChild(fieldObj);
+  this.retRow2.className="col-sm-6";
+  this.retObj.appendChild(this.retRow1);
+  this.retObj.appendChild(this.retRow2);
+
+  return this.retObj;
 }
 USS.prototype.AddSubling = function(fieldObj,parentid)
 {
@@ -1640,6 +1682,19 @@ var divCurrDivTips=document.createElement("input");
   divCurrDivTips.setAttribute("placeholder"             ,"Tips");
   divCurrDivTips.setAttribute("value"             ,fieldObj.tips);
     divCurrDivTips.setAttribute("title","Tips");
+
+
+var divCurrDivMaxCol=document.createElement("input");
+  divCurrDivMaxCol.setAttribute("parentid"        ,parentid);
+  divCurrDivMaxCol.setAttribute("baseid"          ,childDiv.id );
+  divCurrDivMaxCol.setAttribute("attribute"        ,"MaxCol");
+  divCurrDivMaxCol.setAttribute("id"               ,childDiv.id +"MaxCol"+"Id");
+  divCurrDivMaxCol.setAttribute("mndf"             ,"Y");
+  divCurrDivMaxCol.setAttribute("childCount"       ,"0");
+  divCurrDivMaxCol.setAttribute("type"             ,"container");
+  divCurrDivMaxCol.setAttribute("placeholder"             ,"MaxCol");
+  divCurrDivMaxCol.setAttribute("value"             ,fieldObj.tips);
+    divCurrDivMaxCol.setAttribute("title","MaxCol");
 
 
 
@@ -2093,22 +2148,30 @@ else
               childHideDiv.appendChild(divCurrDivIdName);
               childHideDiv.appendChild(divCurrDivIdParentName);
               childHideDiv.appendChild(divCurrDivName);
+
               
-              properityWindowLabel.appendChild(divCurrDivDataTypeLabel);
-              properityWindowLabel.appendChild(divCurrDivLabel);
-              properityWindowLabel.appendChild(divCurrDivTask);
-              properityWindowLabel.appendChild(divCurrDivXml);
-              properityWindowLabel.appendChild(divCurrDivEntitle);
-              properityWindowLabel.appendChild(divCurrDivTips);
-              properityWindowLabel.appendChild(divCurrDivMndf);
-              properityWindowLabel.appendChild(divCurrDivMin);
-              properityWindowLabel.appendChild(divCurrDivMax);
-              properityWindowLabel.appendChild(divCurrDivDflt);
-              properityWindowLabel.appendChild(divCurrDivDataType);
-              properityWindowLabel.appendChild(divCurrDivHtmlType);
+              //properityWindowLabel.appendChild(this.genRowElement(divCurrDivDataTypeLabel));
+                properityWindowLabel.appendChild(this.createRowElement( divButtonPreview, divButtonDelete));
+               // properityWindowLabel.appendChild(divButtonDelete);
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivLabel));
+            
+
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivTask));
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivXml));
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivMaxCol));
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivEntitle));
+              
+             // properityWindowLabel.appendChild(divCurrDivEntitle);
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivTips));
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivMndf));
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivMin));
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivMax));
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivDflt));
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivDataType));
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivHtmlType));
              
               
-              properityWindowLabel.appendChild(divCurrDivListVal);
+              properityWindowLabel.appendChild(this.genRowElement(divCurrDivListVal));
               if(fieldObj.htmlType !="PAGE"  )
               {
                 
