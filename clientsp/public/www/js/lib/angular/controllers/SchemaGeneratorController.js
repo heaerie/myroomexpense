@@ -5,8 +5,6 @@ function()
 	return [ '$scope' , 'toaster','SchemaGeneratorService','$state',function($scope,toaster,SchemaGeneratorService,$state){
 
 
-
-
 var ufiuss = require('ufi.core');
 var ufiframegen = require('ufi.frameGen');
 var ufixml = require('ufi.xml');
@@ -113,6 +111,9 @@ script.type='text/javascript';
 script.text=commonHeader + vcommonFrameGen + commonTailer;
 document.getElementById('middleid').appendChild(script);
 
+
+ 
+        
 
 }
 catch(e)
@@ -917,6 +918,16 @@ DeleteThis=function(obj)
  // var us=new ufiuss.USS();
   us.DeleteThis(obj);
 }
+
+DeletePreview=function(obj)
+{
+
+ //alert('DeleteThis');
+ // var us=new ufiuss.USS();
+  us.DeletePreview(obj);
+}
+
+
 
 HideThis=function(obj)
 {

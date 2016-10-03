@@ -1344,6 +1344,7 @@ var elementCount=0;
           var  MinId        = document.getElementById(baseid  + "Min"        + "Id");
           var  TipsId       = document.getElementById(baseid  + "Tips"       + "Id");
           var  XmlId        = document.getElementById(baseid  + "Xml"       + "Id");
+          var  MaxColId        = document.getElementById(baseid  + "MaxCol"       + "Id");
             
 
             
@@ -1361,6 +1362,8 @@ var elementCount=0;
             fieldObj.tips       = TipsId.value;
             fieldObj.entitle    = EntitleId.value;
             fieldObj.xml        = XmlId.value;
+            fieldObj.maxCol       = MaxColId.value;
+            
             
 
             
@@ -1433,7 +1436,10 @@ USS.prototype.Preview=function(obj)
     var DfltId       = document.getElementById(baseid + "Dflt"       + "Id");
     var MaxId        = document.getElementById(baseid + "Max"        + "Id");
     var MinId        = document.getElementById(baseid + "Min"        + "Id");
-    var TipsId       = document.getElementById(baseid + "Tips"       + "Id");
+    var TipsId       = document.getElementById(baseid + "Tips"       + "Id"); 
+    var MaxColId       = document.getElementById(baseid + "MaxCol"       + "Id");
+    var TaskId       = document.getElementById(baseid + "Task"       + "Id");
+    var EntitleId       = document.getElementById(baseid + "Entitle"       + "Id");
 
     //EntitleId       = document.getElementById(baseid + "Entitle"       + "Id");
 
@@ -1441,21 +1447,24 @@ USS.prototype.Preview=function(obj)
     PreviewId.innerHTML= "<div> </div>";
     var fieldObj= new  this.USSField_();  
 
-    fieldObj.label    = LabelId.value;
-    fieldObj.listVal  = ListValId.value;
-    fieldObj.dataType = DataTypeId.value;
-    fieldObj.htmlType = HtmlTypeId.value;
-    fieldObj.dflt     = DfltId.value;
-    fieldObj.mndf     = MndfId.value;
-    fieldObj.max      = MaxId.value;
-    fieldObj.min      = MinId.value;
-    fieldObj.tips     = TipsId.value;
-    fieldObj.entitle  = EntitleId.value;
+    fieldObj.label     = LabelId.value;
+    fieldObj.listVal   = ListValId.value;
+    fieldObj.dataType  = DataTypeId.value;
+    fieldObj.htmlType  = HtmlTypeId.value;
+    fieldObj.dflt      = DfltId.value;
+    fieldObj.mndf      = MndfId.value;
+    fieldObj.max       = MaxId.value;
+    fieldObj.min       = MinId.value;
+    fieldObj.tips      = TipsId.value;
+    fieldObj.entitle   = EntitleId.value;
+    fieldObj.maxCol    = MaxColId.value;
+    fieldObj.task      = TaskId.value;
+    fieldObj.entitle   = EntitleId.value;
 //task fix
     
-    fieldObj.task     = "ES";
+    //fieldObj.task     = "ES"; bnmnnnnnnnnnnhvfhjm,;kiu/jk ,./\ m
 
-    fieldObj.entitle  = "NOREADONLY";
+  // fieldObj.entitle  = "NOREADONLY";
 
     this.CreateField( fieldObj,PreviewId);   
 
@@ -1693,7 +1702,7 @@ var divCurrDivMaxCol=document.createElement("input");
   divCurrDivMaxCol.setAttribute("childCount"       ,"0");
   divCurrDivMaxCol.setAttribute("type"             ,"container");
   divCurrDivMaxCol.setAttribute("placeholder"             ,"MaxCol");
-  divCurrDivMaxCol.setAttribute("value"             ,fieldObj.tips);
+  divCurrDivMaxCol.setAttribute("value"             ,fieldObj.maxCol);
     divCurrDivMaxCol.setAttribute("title","MaxCol");
 
 
@@ -1764,7 +1773,7 @@ var divCurrDivHtmlType=document.createElement("select");
   divCurrDivHtmlType.setAttribute("mndf"             ,"Y");
   divCurrDivHtmlType.setAttribute("childCount"       ,"0");
   divCurrDivHtmlType.setAttribute("type"             ,"container");
-  divCurrDivHtmlType.setAttribute("placeholder"             ,"label");
+  divCurrDivHtmlType.setAttribute("placeholder"             ,"HtmlType");
   divCurrDivHtmlType.setAttribute("value"             ,fieldObj.htmlType);
     divCurrDivHtmlType.setAttribute("title","HtmlType");
     divCurrDivHtmlType.setAttribute("class", "bmandatory");
@@ -1883,7 +1892,7 @@ var divCurrDivXml=document.createElement("select");
   divCurrDivXml.setAttribute("childCount"       ,"0");
   divCurrDivXml.setAttribute("type"             ,"container");
   divCurrDivXml.setAttribute("placeholder"             ,"Xml");
-  divCurrDivXml.setAttribute("value"             ,fieldObj.entitle);
+  divCurrDivXml.setAttribute("value"             ,fieldObj.xml);
     divCurrDivXml.setAttribute("title","Xml");
 
 
@@ -2090,6 +2099,7 @@ var divCurrDivPreViewSession=document.createElement("div");
   divCurrDivPreViewSession.setAttribute("type"             ,"container");
   divCurrDivPreViewSession.setAttribute("placeholder"             ,"name");
   divCurrDivPreViewSession.setAttribute("class"             ,"bsession row");
+ 
 
 
 var divCurrDivPreViewHeader=document.createElement("div");
@@ -2108,32 +2118,6 @@ var divCurrDivPreViewSession=this.CreateField(fieldObj,divCurrDivPreViewSession)
 
 
 
-//childDiv.textContent =fieldObj.name +
-//'|' +fieldObj.label        +    
-//'|' +fieldObj.task         
-//'|' +fieldObj.desc        +
-//'|' +fieldObj.htmlType    +
-//'|' +fieldObj.entitle     +
-//'|' +fieldObj.enttlname   +
-//'|' +fieldObj.mndf        +
-//'|' +fieldObj.dataType    +
-//'|' +fieldObj.cclass      +
-//'|' +fieldObj.parent      +
-//'|' +fieldObj.validate    +
-//'|' +fieldObj.dflt        +
-//'|' +fieldObj.min         +
-//'|' +fieldObj.max         +
-//'|' +fieldObj.tips        +
-//'|' +fieldObj.onkeyup     +
-//'|' +fieldObj.onchange    +
-//'|' +fieldObj.onkeydown   +
-//'|' +fieldObj.onkeypress  +
-//'|' +fieldObj.onclick     +
-//'|' +fieldObj.listVal     +
-//'|' +fieldObj.help        +
-//'|' +fieldObj.helpLink    +
-//'|' +fieldObj.xml             
-              ;
 
 if ( fieldObj.htmlType =="CONTAINER" || fieldObj.htmlType =="PAGE"  )
 {
@@ -2151,6 +2135,7 @@ else
 
               
               //properityWindowLabel.appendChild(this.genRowElement(divCurrDivDataTypeLabel));
+               
                 properityWindowLabel.appendChild(this.createRowElement( divButtonPreview, divButtonDelete));
                // properityWindowLabel.appendChild(divButtonDelete);
               properityWindowLabel.appendChild(this.genRowElement(divCurrDivLabel));
@@ -2195,7 +2180,23 @@ else
 
 
               childHideDiv.appendChild(divButtonPreview);
+
+              this.fontawesome = document.createElement('i');
+              this.fontawesome.className       = "fa fa-eraser";
+
+             // this.divDeletePreview=
+
+
+             this.divClosePreview=document.createElement("div");
+              this.divClosePreview.setAttribute("onclick","DeletePreview('"+childShowDiv.id+"');");
+  
+              this.divClosePreview.appendChild(this.fontawesome);
+              childShowDiv.appendChild(this.divClosePreview);
               divCurrDivPreViewHeader.appendChild(childHideDiv);
+
+             
+  
+              
               properityWindowLabel.appendChild(divCurrDivPreViewSession);
               divCurrDivPreViewHeader.appendChild(properityWindowLabel);
 
@@ -2274,6 +2275,45 @@ curObj.parentNode.removeChild(curObj);
  
 
 
+}
+
+USS.prototype.DeletePreview=function(objId)
+{
+
+//Container1ProperityWindowLabelId
+    
+    var curObj    = document.getElementById(objId );
+
+
+curObj.parentNode.removeChild(curObj);
+    //Container2IdParentNameId
+
+  
+
+ 
+
+
+}
+
+
+
+USS.prototype.onClickLink=function (objId,Link,title)
+{
+//  alert("onClickLink");
+  
+  try
+  {
+    var url="../helpWin/";
+    url+=Link; 
+    url+="?helpWin.sysDate=" +document.getElementById(objId).value;
+    
+      window.showModalDialog(url,title); 
+  }
+  catch(e)
+  {
+      alert("OCLExceprion:"+e);
+  }
+    
 }
 
 

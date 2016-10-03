@@ -2,12 +2,13 @@ define([],
 function()
 {
 
-	return [ '$scope' , 'toaster','SchemaGeneratorService','$state',function($scope,toaster,SchemaGeneratorService,$state){
+	return [ '$scope' , 'toaster','SchemaGeneratorService','$state','ussService',function($scope,toaster,SchemaGeneratorService,$state,ussService){
 
 
 
 
-      // alert("SchemaGeneratorService");
+     alert("ussService");
+     alert(ussService);
 	
 		$scope.basicDetEditSave=function()
     	{
