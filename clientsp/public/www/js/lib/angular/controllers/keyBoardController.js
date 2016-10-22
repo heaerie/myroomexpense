@@ -1521,6 +1521,21 @@ function d2h(d) {return d.toString(16);}
 function h2d(h) {return parseInt(h,16);}
 
 
+getLengthValue=function(obj)
+{
+//alert(obj.value);
+
+
+ document.getElementById('getLengthValueId').value=   $scope.intToHexString(obj.value);
+}
+getIntToHexString=function(obj)
+{
+//alert(obj.value);
+
+
+ document.getElementById('getLengthId').value=   $scope.intToHexString(obj.value);
+}
+
 
  offsetReplaceComb=function()
 {

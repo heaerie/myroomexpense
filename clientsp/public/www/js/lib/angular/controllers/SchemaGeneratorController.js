@@ -980,7 +980,10 @@ us.Preview(obj);
 }
 
 
+getLengthValue=function(obj)
+{
 
+}
 
     
 	}];

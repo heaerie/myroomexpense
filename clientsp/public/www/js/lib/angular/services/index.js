@@ -12,7 +12,10 @@ define([
     ,'./signupService'
     ,'./SchemaGeneratorService'
     ,'./keyBoardService'
-], function (loginService,basicDetService,dashboardService,signupService,SchemaGeneratorService,keyBoardService) {
+   // ,'./ussService'
+], function (loginService,basicDetService,dashboardService,signupService,SchemaGeneratorService,keyBoardService
+   // ,ussService
+    ) {
     'use strict';
 
     console.log(angular);
@@ -24,6 +27,7 @@ define([
         services.factory("signupService",signupService);
         services.factory("SchemaGeneratorService",SchemaGeneratorService);
         services.factory("keyBoardService",keyBoardService);
+        //services.factory("ussService",ussService);
   
 
     return services;
