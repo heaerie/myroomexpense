@@ -6,6 +6,7 @@ var useragent = require('useragent');
 var geoip = require('geoip-lite');
 var cookieParser  = require('cookie-parser');
 
+var config = require('./config/config.json');
 var device     = require('express-device')
 var ms     = require('ms');
 
@@ -25,12 +26,7 @@ var http = require('http');
 var fs = require('fs');
 
 var mysql = require('mysql');
-var pool  = mysql.createPool({
-  host     : 'localhost',
-  user     : 'u1021977_admin',
-  password : 'india' ,
-  database : 'DBHSP'
-});
+var pool  = mysql.createPool(config.mysql);
 
 /*--- Invoke DB --*/
 

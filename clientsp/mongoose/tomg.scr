@@ -1,3 +1,40 @@
+function camleCase(arr)
+{
+		rtStr=""
+		split(arr, chars, "")
+		for (i=1; i <= length(arr); i++) {
+			if( chars[i-1] != "_") {
+			chars[i]= tolower(chars[i])
+		}
+		if(chars[i] != "_") {
+		  	rtStr= rtStr chars[i]
+		}
+	}
+return rtStr;
+
+}
+function primaryKeyParse(arr)
+{
+		rtStr="{"
+		split(arr, params, "(")
+		paramArr = params[2];
+		split(paramArr, list, ")")
+		listArr= list[1];
+		len=split(listArr, value, ",")
+		
+		for (i=1; i <= len; i++) {
+			col=  value[i]
+			rslt=gsub(/[``]/,"",col)
+			if( i == 1 ) {
+				rtStr= rtStr   col    ": 1"
+			} else {
+				rtStr= rtStr    ","    col   ": 1"
+			}
+		}
+		rtStr= rtStr  "}"
+		return rtStr;
+}
+
 BEGIN	{
 NFS=""
 
@@ -12,13 +49,16 @@ column_name ="";
 str=0;
 start=0;
 startCount=0;
-print "File\tOwner" 
+print "//File\tOwner" 
 prev_startCount =0;
 init =1;
+primaryKey= "false";
+primaryStr= "";
 
 print " // tomg.scr generated version 1.0"
 
 }
+
 { 
 col1=$1 
 col2=$2 
@@ -42,32 +82,37 @@ col7=$7
 	str=1
 	start=1
 	startCount=0;
+	
 		rslt=gsub(/[``]/,"",col6)
 		rslt=gsub(/[.]/,"_",col6)
 		
-			if ( 	init == 1 )
-			{
-			if ( prev_table_name != "" ) 
-			{
-			printf ( "\n  });" , col6 );
-			printf ( "\n\n var %s_Model = mongoose.model('%s', %s);" , prev_table_name, prev_table_name, prev_table_name );
-			printf ( " \n module.exports.%s_Model = %s_Model; " , prev_table_name , prev_table_name ) ;
-			}
-			printf ( "\n\n var %s  = new Schema({ " , col6 );
-			prev_table_name = col6;
+			if ( 	init == 1 ) {
+				if ( prev_table_name != "" ) 
+				{
+#					printf ( "\n }, { autoIndex: false , _id : false });" , col6 );
+					printf ( "\n }, { autoIndex: false});" , col6 );
+					if( primaryKey == "true" ) {
+						printf ( "\n\n  %s.index(%s ,{unique: true});" , prev_table_name,primaryKeyParse(primaryStr));
+					}
+					printf ( "\n\n var %s_Model = mongoose.model('%s', %s);" , prev_table_name, prev_table_name, prev_table_name );
+					printf ( " \n module.exports.%s_Model = %s_Model; " , prev_table_name , prev_table_name ) ;
+				}
+				printf ( "\n\n var %s  = new Schema({ " , col6 );
+				prev_table_name = col6;
 			}
 			else
 			{
 			printf ( "\n var %s  = new Schema({ " , col6 );
 			}
 				init =1
+				primaryKey="false"
 	}	
 	else
 	{
 	str =0 
 	}
 
-#	print str , col1 , col2 , col3 , col4 , col5
+#	print "\n" ,str , col1 , col2 , col3 , col4 , col5
 
 	if ( start = 1 )
 	{
@@ -76,6 +121,8 @@ col7=$7
 	if ( str == 0 )
 	{
 		column_name = col1
+		
+		
 		column_type = col2
    		
 		column_dflt = col3
@@ -84,28 +131,52 @@ col7=$7
 		column_uniq  = col4
 #		split(column_type, column_type_ , "(" )
 		gsub(/[(0-9)]/,"",column_type) 		
-		rslt=gsub(/[``]/,"",column_name) 		
+		rslt1=gsub(/[``]/,"",column_name) 		
 		rslt=gsub(/[,]/,"",col4) 		
 		rslt=gsub(/[,]/,"",col5) 		
+		rslt=gsub(/[)]/,"",col5) 		
+		rslt=gsub(/[;]/,"",col5) 		
+		rslt=gsub(/[,]/,"",col6) 		
+		rslt=gsub(/[)]/,"",col6) 		
+		rslt=gsub(/[;]/,"",col6) 		
 		
-		switch ( column_type )
-		{
-		case  "VARCHAR":
+
+		if( column_type == "VARCHAR") {
 			column_type= "String"
-			break
-		case  "INT":
+		} else if ( column_type == "INT") {
 			column_type= "Number"
-			break
-		case  "DATE":
+		} else if ( column_type == "DATE") {
 			column_type= "Date"
-			break
-		case  "DOUBLE":
+		} else if ( column_type == "DOUBLE") {
 			column_type= "Number"
-			break
-		default :
+		}  else {
 			column_type= "String"
 		}
 
+#		switch ( column_type ) 
+#		{
+#		case  "VARCHAR" :
+#			column_type= "String"
+#			break;
+#		case  "INT" 
+#			column_type= "Number"
+#			break;
+#		case  "DATE" :
+#			column_type= "Date"
+#			break;
+#		case  "DOUBLE" :
+#			column_type= "Number"
+#			break;
+#		default :
+#			column_type= "String"
+#		}
+
+		if(col1 == "PRIMARY" && col2 == "KEY")
+		{
+			
+			primaryKey="true"			
+			primaryStr=$0
+		}
 		if ( col3 == "NOT" &&  col4 == "NULL" )
 		{
 			
@@ -114,7 +185,7 @@ col7=$7
 			{
 				
 				column_dflt = "''"		
-			}
+			} 
 			else
 			{
 				column_dflt =	col6	
@@ -128,43 +199,56 @@ col7=$7
 				
 				column_dflt = "''"		
 			}
+			else if ( col4 == "DEFAULT" &&  col5 == "CURRENT_TIMESTAMP" )
+			{
+				
+				column_dflt = "Date.now"		
+			}
 			else
 			{
-				if ( col5  == "" )
-				{
-				column_dflt =	col5	
-				}
-				else
-				{
-					column_dflt = "''";
-				}
+					if ( col5  != "" )
+					{
+					column_dflt =	col5	
+					}
+					else
+					{
+						column_dflt = "''";
+					}
 			}
+		}
+
+		if( col5 == "COMMENT" ) {
+			column_dflt="''"
 		}
 	
 	
-		if ( rslt != 0 ) 
+		if ( rslt1 != 0 ) 
 		{
 
 			if (startCount == 0 )
 			{
 
 				comma =" "
+				startCount= startCount + 1
 			}
 			else
 			{
 				comma =","
 			}
-		
+		}
 	 	if (	column_dflt == "" ) 
 		{
 			column_dflt = "''" 
+		} else if (    column_dflt == "NULL" ) {
+			column_dflt = "''" 
 		}
-
+		if(rslt1 !=0) {
+			column_name=camleCase(column_name)
 
 			printf ("\n %s  %s: {type: %s, unique: %s, required: %s, default: %s  }" ,comma, column_name, column_type, column_reqd,column_reqd, column_dflt );
-	startCount= startCount + 1
 		}
-	}
+		}
+
 
 	}
 	

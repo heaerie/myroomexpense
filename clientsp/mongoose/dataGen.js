@@ -4,6 +4,7 @@ var UserModel           = require('./libs/mongoose').UserModel;
 var ClientModel         = require('./libs/mongoose').ClientModel;
 var AccessTokenModel    = require('./libs/mongoose').AccessTokenModel;
 var RefreshTokenModel   = require('./libs/mongoose').RefreshTokenModel;
+var GPASSO_MMM001MB_Model   = require('./libs/gpassov3').GPASSO_MMM001MB_Model;
 var faker               = require('Faker');
 
 UserModel.remove({}, function(err) {

@@ -752,7 +752,7 @@ var tempJson= eval(tempJsonstr);
 
   var result=$.ajax({
         type: "POST",
-        url: "/jsonSchema/"+jsonSchema+".bson",
+        url: "/jsonSchema/"+jsonSchema+".json",
         cache: false,
         async: false
     }).responseText;
@@ -764,10 +764,12 @@ var tempJson= eval(tempJsonstr);
  //alert(this.parseTVL(this.hexToBytes(result)));
 
 //alert("Inital Load: "+ "/jsonSchema/"+jsonSchema+".bson" +": "+result);
+/*
 var genObj=this.pareseTvlToSchema(this.parseTVL(this.hexToBytes(result)));
 //alert(JSON.stringify(genObj[0].childs));
 console.log(JSON.stringify(genObj[0].childs));
-  schemaJson=genObj[0].childs;
+ */
+  schemaJson=eval(result);//genObj[0].childs;
     GenHtmlTemplateFromSJson =USS;
 
     

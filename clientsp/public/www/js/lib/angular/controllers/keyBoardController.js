@@ -1206,7 +1206,7 @@ $scope.intToHexChar= function(inp)
   return lib[inp];
 }
 
-$scope.intToHexString=function(inValue)
+$scope.intToTLVLengthHexString=function(inValue)
 {
 
   var outHexStr="";
@@ -1222,15 +1222,15 @@ var h1=0x0; var h2= 0x0; h3=0x0; h4= 0x0 ,h5=0x0 ,h6=0x0;
       outHexStr+=$scope.intToHexChar(h1);
      
   }
-  else if(  intValue <= 0x7FFF )
+  else if(  intValue <= 0x3FFF )
   {
 
-      h1 = intValue & 0x000F;
-      h2 = intValue & 0x0070;
+      h1 = intValue & 0x000F; //0000 0000 0000 1111
+      h2 = intValue & 0x0070; //0000 0000 0111 0000
       h2 = h2>>4;
-      h3 = intValue & 0x0780;
+      h3 = intValue & 0x0780; //0000 0111 1000 0000
       h3 = h3>>7;
-      h4 = intValue & 0x7800;
+      h4 = intValue & 0x3800; //1111 1000 0000 0000
       h4 = h4>>11;
       h4 = h4 |0x8;
       outHexStr+=$scope.intToHexChar(h4);
@@ -1243,19 +1243,19 @@ var h1=0x0; var h2= 0x0; h3=0x0; h4= 0x0 ,h5=0x0 ,h6=0x0;
   else if( intValue <= 0x7FFFFF  )
   {
 
-      h1 = intValue & 0x000F;
-      h2 = intValue & 0x0070;
+      h1 = intValue & 0x0000000F;
+      h2 = intValue & 0x00000070; // 4
       h2 = h2>>4;
-      h3 = intValue & 0x0780;
+      h3 = intValue & 0x00000780; // 3
       h3 = h3>>7;
-      h4 = intValue & 0x7800;
+      h4 = intValue & 0x00003800; // 4 0011 1000 0000 0000
       h4 = h4>>11;
-      h4 = h4 |0x8;
+      //h4 = h4 |0x8;
 
-      h5 = intValue & 0x078000;//->   1000 0000 0000 0000
-      h5 = h5>>15;
-      h6 = intValue & 0x780000;
-      h6 = h6>>19;
+      h5 = intValue & 0x0003C000;//  3 ->  0x00 03 C0 00
+      h5 = h5>>14;
+      h6 = intValue & 0x001C0000; // 4 
+      h6 = h6>>17;
       h6 = h6 |0x8;
 
       outHexStr+=$scope.intToHexChar(h6);
@@ -1292,7 +1292,7 @@ $scope.encodeSchemaToTvl=function(schemaJson)
           if(schemaJson[i].childs.length !=0)
           {
           var value1=$scope.encodeSchemaToTvl(schemaJson[i].childs);
-          //rtStr += "E1" +  $scope.intToHexString(value1.length/2) + value1;
+          //rtStr += "E1" +  $scope.intToTLVLengthHexString(value1.length/2) + value1;
           rtStr +=  value1;
 
 
@@ -1304,7 +1304,7 @@ $scope.encodeSchemaToTvl=function(schemaJson)
           Value     =schemaJson[i][key];
           valueHex  =$scope.stringToHexStr(Value);
           Len       =valueHex.length/2;
-          tagLen    = $scope.intToHexString(Len);
+          tagLen    = $scope.intToTLVLengthHexString(Len);
 
           rtStr += Tag + tagLen + valueHex;
         
@@ -1313,7 +1313,7 @@ $scope.encodeSchemaToTvl=function(schemaJson)
     
   }
 
-return  "E1" +$scope.intToHexString(rtStr.length/2) + rtStr;
+return  "E1" +$scope.intToTLVLengthHexString(rtStr.length/2) + rtStr;
 }
 
 $scope.keyBoard=function()
@@ -1520,20 +1520,43 @@ return rtStr;
 function d2h(d) {return d.toString(16);}
 function h2d(h) {return parseInt(h,16);}
 
+getInteger=function(obj)
+{
+document.getElementById('getLengthId').value=   $scope.intToTLVLengthHexString(obj.value);
+}
 
 getLengthValue=function(obj)
 {
-//alert(obj.value);
+var inpStrArr=$scope.stringToByteArray(obj.value);
+
+  var respJson=[];
+var j=0;
+
+var pattern=/[0-9A-Fa-f]/i;
 
 
- document.getElementById('getLengthValueId').value=   $scope.intToHexString(obj.value);
+
+if( pattern.test(inpStrArr))
+{
+
+if(inpStrArr.length %2 == 0)
+{
+var inpBytes = $scope.hexToBytes(inpStrArr);
+
+document.getElementById('integerId').value=   $scope.getLengthVal(inpBytes);
+
+ //respJson= $scope.parseTVL(inpBytes);
+
+}
+}
+
 }
 getIntToHexString=function(obj)
 {
 //alert(obj.value);
 
 
- document.getElementById('getLengthId').value=   $scope.intToHexString(obj.value);
+ document.getElementById('getLengthId').value=   $scope.intToTLVLengthHexString(obj.value);
 }
 
 

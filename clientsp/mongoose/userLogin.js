@@ -7,6 +7,7 @@ var DBHSP_GID001MB_Model     = require('./libs/mongoose').DBHSP_GID001MB_Model;
 var DBHSP_GRP001MB_Model     = require('./libs/mongoose').DBHSP_GRP001MB_Model;
 var AccessTokenModel    = require('./libs/mongoose').AccessTokenModel;
 var RefreshTokenModel   = require('./libs/mongoose').RefreshTokenModel;
+var GPASSO_GID001MB_Model   = require('./libs/gpassov3').GPASSO_GID001MB_Model;
 var faker               = require('Faker');
 
 
@@ -14,7 +15,7 @@ var inarg="durai";
 function checkpwd(inUsername, inPassword, callback ){
 
 
-DBHSP_GID001MB_Model.findOne({EMAIL_ID: inUsername ,PASSWORD :inPassword } ,function(err, gid001mb) 
+GPASSO_GID001MB_Model.findOne({EMAIL_ID: inUsername ,PASSWORD :inPassword } ,function(err, gid001mb) 
 {
             if (err) { 
 			console.log("error"); 

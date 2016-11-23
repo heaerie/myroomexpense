@@ -1,9 +1,17 @@
 define([],function(){
 
 
-	this.myFunc = function (x) {
-        return x.toString(16);
-    }
+	var factory = {}; 
+
+	factory.ussAlert = function() {
+			alert("Uss:method1");
+		}
+
+	factory.method2 = function() {
+			//..
+		}
+
+	return factory;
 
 
 });

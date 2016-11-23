@@ -12,9 +12,9 @@ define([
     ,'./signupService'
     ,'./SchemaGeneratorService'
     ,'./keyBoardService'
-   // ,'./ussService'
+    ,'./ussService'
 ], function (loginService,basicDetService,dashboardService,signupService,SchemaGeneratorService,keyBoardService
-   // ,ussService
+   ,ussService
     ) {
     'use strict';
 
@@ -27,7 +27,7 @@ define([
         services.factory("signupService",signupService);
         services.factory("SchemaGeneratorService",SchemaGeneratorService);
         services.factory("keyBoardService",keyBoardService);
-        //services.factory("ussService",ussService);
+        services.factory("ussService",ussService);
   
 
     return services;

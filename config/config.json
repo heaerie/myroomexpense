@@ -1,0 +1,9 @@
+{
+"mysql" : {
+  "host"     : "localhost",
+  "user"     : "u1021977_admin",
+  "password" : "india" ,
+  "database" : "DBHSP"
+} 
+
+}

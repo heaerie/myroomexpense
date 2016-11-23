@@ -2,7 +2,7 @@ define([],
 function()
 {
 
-	return [ '$scope' , 'toaster','dashboardService','$state','$window',function($scope,toaster,dashboardService,$state, $window){
+	return [ '$scope' , 'toaster','dashboardService','$state','$window' ,function($scope,toaster,dashboardService,$state, $window){
 
 
 
