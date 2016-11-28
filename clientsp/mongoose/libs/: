@@ -17,4 +17,4 @@ var Schema = mongoose.Schema;
 
 
 //File	Owner
-module.exports.mongoose=mongoose;
+export.mongoose=mongoose;

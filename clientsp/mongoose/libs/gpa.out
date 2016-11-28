@@ -1,3 +1,5 @@
+/* Generated from gpassov8.sql by n.js  Don't change */
+/* All copyrights © 2016 Heaerie Global solutions (P) Ltd.India  */
  var GPASSO_timestamps  = new Schema({
   createTime: { type: String, unique: false, required: false, default: Date.now  } 
 , updateTime: { type: String, unique: false, required: false, default: ''  } 
@@ -76,9 +78,29 @@
  var GPASSO_GRP001MB_Model = mongoose.model('GPASSO_GRP001MB', GPASSO_GRP001MB); 
  module.exports.GPASSO_GRP001MB_Model = GPASSO_GRP001MB_Model; 
  
+ var GPASSO_PROD001MB  = new Schema({
+  prodName: { type: String, unique: false, required: false, default: ''  } 
+, prodVersion: { type: String, unique: false, required: false, default: ''  } 
+, prodStDt: { type: String, unique: false, required: false, default: ''  } 
+, mkrId: { type: Number, unique: false, required: false, default: ''  } 
+, dtCreated: { type: Date, unique: false, required: false, default: ''  } 
+, athId: { type: Number, unique: false, required: false, default: ''  } 
+, dtModified: { type: Date, unique: false, required: false, default: ''  } 
+, dbname: { type: String, unique: false, required: false, default: ''  } 
+, hostname: { type: String, unique: false, required: false, default: ''  } 
+, baseHome: { type: String, unique: false, required: false, default: ''  } 
+, port: { type: String, unique: false, required: false, default: ''  } 
+, protocal: { type: String, unique: false, required: false, default: ''  } 
+});
+
+ GPASSO_PROD001MB.index({ 
+    _id : 1 
+});
+ var GPASSO_PROD001MB_Model = mongoose.model('GPASSO_PROD001MB', GPASSO_PROD001MB); 
+ module.exports.GPASSO_PROD001MB_Model = GPASSO_PROD001MB_Model; 
+ 
  var GPASSO_SID001MB  = new Schema({
-  _id: { type: Number, unique: false, required: true, default: ''  } 
-, fName: { type: String, unique: false, required: false, default: ''  } 
+  fName: { type: String, unique: false, required: false, default: ''  } 
 , lName: { type: String, unique: false, required: false, default: ''  } 
 , username: { type: String, unique: false, required: false, default: ''  } 
 , password: { type: String, unique: false, required: false, default: ''  } 
@@ -89,7 +111,7 @@
 , status: { type: String, unique: false, required: false, default: ''  } 
 , primaryId: { type: String, unique: false, required: false, default: ''  } 
 , primaryIdType: { type: String, unique: false, required: false, default: ''  } 
-, prodId: { type: Number, unique: false, required: false, default: ''  } 
+, prodId:  { type: Schema.ObjectId, ref: 'GPASSO_PROD001MB' }   
 });
 
  GPASSO_SID001MB.index({ 
@@ -103,9 +125,9 @@
 , dtCreated: { type: Date, unique: false, required: false, default: ''  } 
 , athId: { type: Number, unique: false, required: false, default: ''  } 
 , dtModified: { type: Date, unique: false, required: false, default: ''  } 
-, forUsrId:  { type: Schema.ObjectId, ref: 'SID001MB' }   
+, forUsrId:  { type: Schema.ObjectId, ref: 'GPASSO_SID001MB' }   
 , usrId: { type: Number, unique: false, required: true, default: ''  } 
-, grpId:  { type: Schema.ObjectId, ref: 'GRP001MB' }   
+, grpId:  { type: Schema.ObjectId, ref: 'GPASSO_GRP001MB' }   
 , acctType: { type: String, unique: false, required: false, default: ''  } 
 , adminFlg: { type: String, unique: false, required: false, default: ''  } 
 , empId: { type: String, unique: false, required: false, default: ''  } 
@@ -166,31 +188,8 @@
  var GPASSO_GID001TB_Model = mongoose.model('GPASSO_GID001TB', GPASSO_GID001TB); 
  module.exports.GPASSO_GID001TB_Model = GPASSO_GID001TB_Model; 
  
- var GPASSO_PROD001MB  = new Schema({
-  _id: { type: Number, unique: false, required: true, default: ''  } 
-, prodName: { type: String, unique: false, required: false, default: ''  } 
-, prodVersion: { type: String, unique: false, required: false, default: ''  } 
-, prodStDt: { type: String, unique: false, required: false, default: ''  } 
-, mkrId: { type: Number, unique: false, required: false, default: ''  } 
-, dtCreated: { type: Date, unique: false, required: false, default: ''  } 
-, athId: { type: Number, unique: false, required: false, default: ''  } 
-, dtModified: { type: Date, unique: false, required: false, default: ''  } 
-, dbname: { type: String, unique: false, required: false, default: ''  } 
-, hostname: { type: String, unique: false, required: false, default: ''  } 
-, baseHome: { type: String, unique: false, required: false, default: ''  } 
-, port: { type: String, unique: false, required: false, default: ''  } 
-, protocal: { type: String, unique: false, required: false, default: ''  } 
-});
-
- GPASSO_PROD001MB.index({ 
-    _id : 1 
-});
- var GPASSO_PROD001MB_Model = mongoose.model('GPASSO_PROD001MB', GPASSO_PROD001MB); 
- module.exports.GPASSO_PROD001MB_Model = GPASSO_PROD001MB_Model; 
- 
  var GPASSO_PRTL002MB  = new Schema({
-  _id: { type: Number, unique: false, required: true, default: ''  } 
-, prodId:  { type: Schema.ObjectId, ref: 'PROD001MB' }   
+  prodId:  { type: Schema.ObjectId, ref: 'GPASSO_PROD001MB' }   
 , prtlName: { type: String, unique: false, required: false, default: ''  } 
 , prtlVersion: { type: String, unique: false, required: false, default: ''  } 
 , prtlSt: { type: String, unique: false, required: false, default: ''  } 
@@ -215,7 +214,7 @@
  var GPASSO_GRBL001MB  = new Schema({
   pendQCnt: { type: Number, unique: false, required: false, default: ''  } 
 , apvdQCnt: { type: Number, unique: false, required: false, default: ''  } 
-, grpId:  { type: Schema.ObjectId, ref: 'GRP001MB' }   
+, grpId:  { type: Schema.ObjectId, ref: 'GPASSO_GRP001MB' }   
 , holdAmt: { type: Number, unique: false, required: false, default: ''  } 
 , holdCnt: { type: Number, unique: false, required: false, default: ''  } 
 , splHoldAmt: { type: Number, unique: false, required: false, default: ''  } 
@@ -251,7 +250,7 @@
  module.exports.GPASSO_GRP001TB_Model = GPASSO_GRP001TB_Model; 
  
  var GPASSO_GTRN002MB  = new Schema({
-  grpId:  { type: Schema.ObjectId, ref: 'GRP001MB' }   
+  grpId:  { type: Schema.ObjectId, ref: 'GPASSO_GRP001MB' }   
 , gbktTxnId: { type: Number, unique: false, required: true, default: '0'  } 
 , tranSt: { type: String, unique: false, required: false, default: ''  } 
 , drAmt: { type: Number, unique: false, required: false, default: ''  } 
@@ -292,7 +291,7 @@
 , clientHost: { type: String, unique: false, required: false, default: ''  } 
 , geoCountry: { type: String, unique: false, required: false, default: ''  } 
 , lang: { type: Number, unique: false, required: false, default: ''  } 
-, usrId:  { type: Schema.ObjectId, ref: 'SID001MB' }   
+, usrId:  { type: Schema.ObjectId, ref: 'GPASSO_SID001MB' }   
 , grpId: { type: Number, unique: false, required: false, default: ''  } 
 , prodId: { type: Number, unique: false, required: false, default: ''  } 
 , geoCity: { type: String, unique: false, required: false, default: ''  } 
@@ -322,8 +321,7 @@
  module.exports.GPASSO_ROLA003MB_Model = GPASSO_ROLA003MB_Model; 
  
  var GPASSO_ROLE001MB  = new Schema({
-  _id: { type: Number, unique: false, required: true, default: ''  } 
-, prtlId: { type: Number, unique: false, required: true, default: ''  } 
+  prtlId:  { type: Schema.ObjectId, ref: 'GPASSO_PRTL002MB' }   
 , roleName: { type: String, unique: false, required: false, default: ''  } 
 , status: { type: String, unique: false, required: false, default: ''  } 
 , dtCreated: { type: Date, unique: false, required: false, default: ''  } 
@@ -340,13 +338,13 @@
  module.exports.GPASSO_ROLE001MB_Model = GPASSO_ROLE001MB_Model; 
  
  var GPASSO_MEMA001MB  = new Schema({
-  _id:  { type: Schema.ObjectId, ref: 'ROLE001MB' }   
-, usrId:  { type: Schema.ObjectId, ref: 'SID001MB' }   
+  usrId:  { type: Schema.ObjectId, ref: 'GPASSO_SID001MB' }   
 , activeFlg: { type: String, unique: false, required: false, default: ''  } 
 , dtCreated: { type: Date, unique: false, required: false, default: ''  } 
 , mkrId: { type: Number, unique: false, required: false, default: ''  } 
 , dtModified: { type: Date, unique: false, required: false, default: ''  } 
 , athId: { type: Number, unique: false, required: false, default: ''  } 
+, roleId:  { type: Schema.ObjectId, ref: 'GPASSO_ROLE001MB' }   
 });
 
  var GPASSO_MEMA001MB_Model = mongoose.model('GPASSO_MEMA001MB', GPASSO_MEMA001MB); 
@@ -369,8 +367,7 @@
  module.exports.GPASSO_PDPG002MB_Model = GPASSO_PDPG002MB_Model; 
  
  var GPASSO_PGDT006MB  = new Schema({
-  _id: { type: Number, unique: false, required: false, default: ''  } 
-, pageBase: { type: String, unique: false, required: false, default: ''  } 
+  pageBase: { type: String, unique: false, required: false, default: ''  } 
 , pageKey: { type: String, unique: false, required: false, default: ''  } 
 , pageName: { type: String, unique: false, required: false, default: ''  } 
 , pageType: { type: String, unique: false, required: false, default: ''  } 
@@ -391,12 +388,14 @@
 , mkrId: { type: Number, unique: false, required: false, default: ''  } 
 });
 
+ GPASSO_PGDT006MB.index({ 
+    _id : 1 
+});
  var GPASSO_PGDT006MB_Model = mongoose.model('GPASSO_PGDT006MB', GPASSO_PGDT006MB); 
  module.exports.GPASSO_PGDT006MB_Model = GPASSO_PGDT006MB_Model; 
  
  var GPASSO_PGGR005MB  = new Schema({
-  _id: { type: Number, unique: false, required: true, default: ''  } 
-, prtlId:  { type: Schema.ObjectId, ref: 'PRTL002MB' }   
+  prtlId:  { type: Schema.ObjectId, ref: 'GPASSO_PRTL002MB' }   
 , pageGrpId: { type: String, unique: false, required: false, default: ''  } 
 , pageGrpTitle: { type: String, unique: false, required: false, default: ''  } 
 , dtCreated: { type: Date, unique: false, required: false, default: ''  } 
@@ -413,8 +412,8 @@
  module.exports.GPASSO_PGGR005MB_Model = GPASSO_PGGR005MB_Model; 
  
  var GPASSO_PGPD009LB  = new Schema({
-  _id: { type: Number, unique: false, required: false, default: ''  } 
-, prtlPageGrpId:  { type: Schema.ObjectId, ref: 'PGGR005MB' }   
+  pageGrpId:  { type: Schema.ObjectId, ref: 'GPASSO_PGGR005MB' }   
+, pageId:  { type: Schema.ObjectId, ref: 'GPASSO_PGDT006MB' }   
 , accessInd: { type: String, unique: false, required: false, default: 'N'  } 
 , mkrId: { type: Number, unique: false, required: false, default: ''  } 
 , dtCreated: { type: Date, unique: false, required: false, default: ''  } 
@@ -426,10 +425,8 @@
  module.exports.GPASSO_PGPD009LB_Model = GPASSO_PGPD009LB_Model; 
  
  var GPASSO_RAPG004LB  = new Schema({
-  _id: { type: String, unique: false, required: false, default: ''  } 
-, pageGrpId: { type: Number, unique: false, required: false, default: ''  } 
-, prtlPageGrpId:  { type: Schema.ObjectId, ref: 'PGGR005MB' }   
-, roleId:  { type: Schema.ObjectId, ref: 'ROLE001MB' }   
+  pageGrpId:  { type: Schema.ObjectId, ref: 'GPASSO_PGGR005MB' }   
+, roleId:  { type: Schema.ObjectId, ref: 'GPASSO_ROLE001MB' }   
 , dtCreated: { type: Date, unique: false, required: false, default: ''  } 
 , mkrId: { type: Number, unique: false, required: false, default: ''  } 
 , dtModified: { type: Date, unique: false, required: false, default: ''  } 
@@ -441,7 +438,7 @@
  module.exports.GPASSO_RAPG004LB_Model = GPASSO_RAPG004LB_Model; 
  
  var GPASSO_CNTY001MB  = new Schema({
-  prodId:  { type: Schema.ObjectId, ref: 'PROD001MB' }   
+  prodId:  { type: Schema.ObjectId, ref: 'GPASSO_PROD001MB' }   
 , countryId: { type: String, unique: false, required: false, default: ''  } 
 , countryCode: { type: Number, unique: false, required: false, default: ''  } 
 , countryIso: { type: String, unique: false, required: false, default: ''  } 
@@ -483,7 +480,7 @@
  
  var GPASSO_STAT002MB  = new Schema({
   stateId: { type: Number, unique: false, required: true, default: ''  } 
-, countryId:  { type: Schema.ObjectId, ref: 'CNTY001MB' }   
+, countryId:  { type: Schema.ObjectId, ref: 'GPASSO_CNTY001MB' }   
 , stateCode: { type: String, unique: false, required: false, default: ''  } 
 , stateName: { type: String, unique: false, required: false, default: ''  } 
 , timezone: { type: String, unique: false, required: false, default: ''  } 
@@ -502,7 +499,7 @@
  module.exports.GPASSO_STAT002MB_Model = GPASSO_STAT002MB_Model; 
  
  var GPASSO_GIBL002MB  = new Schema({
-  usrId:  { type: Schema.ObjectId, ref: 'GID001MB' }   
+  usrId:  { type: Schema.ObjectId, ref: 'GPASSO_GID001MB' }   
 , curBal: { type: Number, unique: false, required: false, default: ''  } 
 , pendAmt: { type: Number, unique: false, required: false, default: ''  } 
 , pendQCnt: { type: Number, unique: false, required: false, default: ''  } 

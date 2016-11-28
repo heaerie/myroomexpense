@@ -1,21 +1,4 @@
-// Header
- // tomg.scr generated version 1.0
-var mongoose    = require('mongoose');
-var log         = require('./log')(module);
-var config      = require('./config');
-var crypto      = require('crypto');
-mongoose.connect(config.get('mongoose:uri'));
-var db = mongoose.connection;
-db.on('error', function (err) {
-    log.error('connection error:', err.message);
-});
-db.once('open', function callback () {
-    log.info("Connected to DB!i");
-});
-
-var Schema = mongoose.Schema;
-
-/* Generated from gpassov8.sql by n.js  Don't change */
+/* Generated from gpassov7.sql by n.js  Don't change */
 /* All copyrights © 2016 Heaerie Global solutions (P) Ltd.India  */
  var GPASSO_timestamps  = new Schema({
   createTime: { type: String, unique: false, required: false, default: Date.now  } 
@@ -338,7 +321,7 @@ var Schema = mongoose.Schema;
  module.exports.GPASSO_ROLA003MB_Model = GPASSO_ROLA003MB_Model; 
  
  var GPASSO_ROLE001MB  = new Schema({
-  prtlId:  { type: Schema.ObjectId, ref: 'GPASSO_PRTL002MB' }   
+  prtlId: { type: Number, unique: false, required: true, default: ''  } 
 , roleName: { type: String, unique: false, required: false, default: ''  } 
 , status: { type: String, unique: false, required: false, default: ''  } 
 , dtCreated: { type: Date, unique: false, required: false, default: ''  } 
@@ -361,7 +344,6 @@ var Schema = mongoose.Schema;
 , mkrId: { type: Number, unique: false, required: false, default: ''  } 
 , dtModified: { type: Date, unique: false, required: false, default: ''  } 
 , athId: { type: Number, unique: false, required: false, default: ''  } 
-, roleId:  { type: Schema.ObjectId, ref: 'GPASSO_ROLE001MB' }   
 });
 
  var GPASSO_MEMA001MB_Model = mongoose.model('GPASSO_MEMA001MB', GPASSO_MEMA001MB); 
@@ -405,9 +387,6 @@ var Schema = mongoose.Schema;
 , mkrId: { type: Number, unique: false, required: false, default: ''  } 
 });
 
- GPASSO_PGDT006MB.index({ 
-    _id : 1 
-});
  var GPASSO_PGDT006MB_Model = mongoose.model('GPASSO_PGDT006MB', GPASSO_PGDT006MB); 
  module.exports.GPASSO_PGDT006MB_Model = GPASSO_PGDT006MB_Model; 
  
@@ -429,8 +408,7 @@ var Schema = mongoose.Schema;
  module.exports.GPASSO_PGGR005MB_Model = GPASSO_PGGR005MB_Model; 
  
  var GPASSO_PGPD009LB  = new Schema({
-  pageGrpId:  { type: Schema.ObjectId, ref: 'GPASSO_PGGR005MB' }   
-, pageId:  { type: Schema.ObjectId, ref: 'GPASSO_PGDT006MB' }   
+  prtlPageGrpId:  { type: Schema.ObjectId, ref: 'GPASSO_PGGR005MB' }   
 , accessInd: { type: String, unique: false, required: false, default: 'N'  } 
 , mkrId: { type: Number, unique: false, required: false, default: ''  } 
 , dtCreated: { type: Date, unique: false, required: false, default: ''  } 
@@ -442,7 +420,8 @@ var Schema = mongoose.Schema;
  module.exports.GPASSO_PGPD009LB_Model = GPASSO_PGPD009LB_Model; 
  
  var GPASSO_RAPG004LB  = new Schema({
-  pageGrpId:  { type: Schema.ObjectId, ref: 'GPASSO_PGGR005MB' }   
+  pageGrpId: { type: Number, unique: false, required: false, default: ''  } 
+, prtlPageGrpId:  { type: Schema.ObjectId, ref: 'GPASSO_PGGR005MB' }   
 , roleId:  { type: Schema.ObjectId, ref: 'GPASSO_ROLE001MB' }   
 , dtCreated: { type: Date, unique: false, required: false, default: ''  } 
 , mkrId: { type: Number, unique: false, required: false, default: ''  } 

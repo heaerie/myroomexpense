@@ -6,6 +6,8 @@ var GPASSO_GTRN002MB_Model     = require('./libs/gpassov3').GPASSO_GTRN002MB_Mod
 var GPASSO_SID001MB_Model     = require('./libs/gpassov3').GPASSO_SID001MB_Model;
 var GPASSO_GRP001MB_Model     = require('./libs/gpassov3').GPASSO_GRP001MB_Model;
 var GPASSO_PGGR005MB_Model     = require('./libs/gpassov3').GPASSO_PGGR005MB_Model;
+var GPASSO_PROD001MB_Model   = require('./libs/gpassov3').GPASSO_PROD001MB_Model;
+var GPASSO_PRTL002MB_Model   = require('./libs/gpassov3').GPASSO_PRTL002MB_Model; 
 var AccessTokenModel    = require('./libs/mongoose').AccessTokenModel;
 var RefreshTokenModel   = require('./libs/mongoose').RefreshTokenModel;
 var faker               = require('Faker');
@@ -26,23 +28,36 @@ GPASSO_SID001MB_Model.findOne({username: inUsername ,password :inPassword } ,fun
 			callback && callback( false , {"message" :"Faliure"} , null );
 		}
 		else {
+
+			console.log("prodId:" +gid001mb.prodId);
+
+			GPASSO_PRTL002MB_Model.find({ prodId : gid001mb.prodId}  , function (err, prtl) {
+			
+				if(err) {
+					log.error("error on find prtl001mb :" + prtl);
+				} else {
+					console.log(" on find prtl001mb : [" + prtl + "]");
+						var findObj= { prtlId: prtl[0]._id};
+
+						console.log("findObj" );
+						console.log(findObj );
+
+						GPASSO_PGGR005MB_Model.find( findObj , function(err,objPggr005mb){
+
+							if(err) {
+								log.error("error on find pggr005mb :" + objPggr005mb);
+							} else {
+								console.log(" on find pggr005mb : [" + objPggr005mb + "]");
+							}
+
+						});
+
+				}
+				
+
+		}); 
 			console.log(gid001mb);
 			callback && callback(true , {"message" :"success"}, gid001mb);
-
-			var findObj= { prtlId: "5839a618e035c97b40000002"};
-
-			console.log("findObj" );
-			console.log(findObj );
-
-			GPASSO_PGGR005MB_Model.find( findObj , function(err,objPggr005mb){
-
-				if(err) {
-					log.error("error on find pggr005mb :" + objPggr005mb);
-				} else {
-					console.log(" on find pggr005mb : [" + objPggr005mb + "]");
-				}
-
-			});
 
 		}
         });

@@ -210,7 +210,6 @@ parseTableField = function (tableFieldStmt) {
 				if ((columLineArr[col] == "CONSTRAINT") ||  (columLineArr[col] == "PRIMARY")) {
 
 						if (columLineArr[col++] == "CONSTRAINT") {
-
 								columnForigenKeyName= columLineArr[col++];
 
 								if ((columLineArr.length>col+5) &&(columLineArr[col] == "FOREIGN") && (columLineArr[col+1] == "KEY") &&  (columLineArr[col+3] == "REFERENCES")) {
@@ -241,10 +240,6 @@ parseTableField = function (tableFieldStmt) {
 										}
 
 								}
-								} else {
-									console.error("Invalid formate:");
-									console.error(columLineArr);
-									process.exit(1);
 								}
 
 						} else {
@@ -262,9 +257,7 @@ parseTableField = function (tableFieldStmt) {
 												}
 										}
 								} else {
-									console.error("Invalid formate:");
-									console.error(columLineArr);
-									process.exit(1);
+								process.exit(1);
 								}
 
 						}
