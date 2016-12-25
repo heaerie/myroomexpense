@@ -51,7 +51,6 @@ fs.readFile(inputSqlFile, 'utf8', function (err,data) {
 				var conj=" ";
 				tableObj.fields.columns.forEach(function(column) {
 
-						
 					
 						column.Name=camleCase(column.Name);
 
@@ -63,11 +62,7 @@ fs.readFile(inputSqlFile, 'utf8', function (err,data) {
 												console.log("%s %s: { type: %s, unique: %s, required: %s, default: '%s'  } ", conj, column.Name, column.Type, column.Unique, column.Reqd, column.Dflt);
 										}
 								} else {
-									if(column.ReferanceKey == "Y") {
-										console.log("%s %s:  [{ type: Schema.ObjectId, ref: '%s_%s' }]   ", conj, column.Name,   column.ParantSchema,column.ParantTable);
-									} else {
 										console.log("%s %s:  { type: Schema.ObjectId, ref: '%s_%s' }   ", conj, column.Name,   column.ParantSchema,column.ParantTable);
-									}
 								}
 								conj=",";
 						}
@@ -238,12 +233,7 @@ parseTableField = function (tableFieldStmt) {
 
 								for (var i=0; i<columnList.length; i++) {
 										if (columnList[i].Name == columnName) {
-												var columnForigenKeyNameArr = columnForigenKeyName.split('_');
-												if(columnForigenKeyNameArr.length> 0) {
-													if(columnForigenKeyNameArr[0] == "RK")
-													columnList[i].ReferanceKey = "Y";
-												}
- 												columnList[i].ForigenKeyName = columnForigenKeyName;
+												columnList[i].ForigenKeyName = columnForigenKeyName;
 												columnList[i].ParantTable = columnParantTable;
 												columnList[i].ParantSchema = columnParantSchema;
 												columnList[i].ParantColumn = columnParantColumn;
@@ -333,7 +323,6 @@ parseTableField = function (tableFieldStmt) {
 						, "ParantSchema" : columnParantSchema
 						, "ParantTable" : columnParantTable
 						, "ParantColumn" : columnParantColumn
-						, "ReferanceKey" : ""
 						});
 
 				}

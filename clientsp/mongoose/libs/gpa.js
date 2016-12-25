@@ -1,20 +1,3 @@
-// Header
- // tomg.scr generated version 1.0
-var mongoose    = require('mongoose');
-var log         = require('./log')(module);
-var config      = require('./config');
-var crypto      = require('crypto');
-mongoose.connect(config.get('mongoose:uri'));
-var db = mongoose.connection;
-db.on('error', function (err) {
-    log.error('connection error:', err.message);
-});
-db.once('open', function callback () {
-    log.info("Connected to DB!i");
-});
-
-var Schema = mongoose.Schema;
-
 /* Generated from GPASSOV002.sql by n.js  Don't change */
 /* All copyrights © 2016 Heaerie Global solutions (P) Ltd.India  */
  var GPASSO_PAGE005MT  = new Schema({
@@ -130,6 +113,9 @@ var Schema = mongoose.Schema;
 , dtModified: { type: Date, unique: false, required: false, default: ''  } 
 });
 
+ GPASSO_mongoTables.index({ 
+    _id : 1 
+});
  var GPASSO_mongoTables_Model = mongoose.model('GPASSO_mongoTables', GPASSO_mongoTables); 
  module.exports.GPASSO_mongoTables_Model = GPASSO_mongoTables_Model; 
  
