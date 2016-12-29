@@ -1,4 +1,4 @@
-/* Generated from GPASSOV002.sql by n.js  Don't change */
+/* Generated from GPASSOV004.sql by n.js  Don't change */
 /* All copyrights © 2016 Heaerie Global solutions (P) Ltd.India  */
  var GPASSO_PAGE005MT  = new Schema({
   mkrId: { type: Number, unique: false, required: false, default: ''  } 
@@ -24,7 +24,7 @@
 , pageGrpKey: { type: String, unique: false, required: false, default: ''  } 
 , pageGrpTitle: { type: String, unique: false, required: false, default: ''  } 
 , dispOrder: { type: Number, unique: false, required: false, default: ''  } 
-, pageIds:  { type: Schema.ObjectId, ref: 'GPASSO_PAGE005MT' }   
+, pageIds:  [{ type: Schema.ObjectId, ref: 'GPASSO_PAGE005MT' }]   
 });
 
  GPASSO_PGGR004MT.index({ 
@@ -62,7 +62,8 @@
 , roleName: { type: String, unique: false, required: false, default: ''  } 
 , status: { type: String, unique: false, required: false, default: ''  } 
 , roleValue: { type: Number, unique: false, required: false, default: ''  } 
-, pageGrpIds:  [{ type: Schema.ObjectId, ref: 'GPASSO_SSID003MT' }]   
+, pageGrpIds:  [{ type: Schema.ObjectId, ref: 'GPASSO_PGGR004MT' }]   
+, usrIds:  [{ type: Schema.ObjectId, ref: 'GPASSO_SSID003MT' }]   
 });
 
  GPASSO_ROLE003MT.index({ 

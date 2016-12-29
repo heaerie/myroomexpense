@@ -15,7 +15,7 @@ db.once('open', function callback () {
 
 var Schema = mongoose.Schema;
 
-/* Generated from GPASSOV002.sql by n.js  Don't change */
+/* Generated from GPASSOV004.sql by n.js  Don't change */
 /* All copyrights © 2016 Heaerie Global solutions (P) Ltd.India  */
  var GPASSO_PAGE005MT  = new Schema({
   mkrId: { type: Number, unique: false, required: false, default: ''  } 
@@ -41,7 +41,7 @@ var Schema = mongoose.Schema;
 , pageGrpKey: { type: String, unique: false, required: false, default: ''  } 
 , pageGrpTitle: { type: String, unique: false, required: false, default: ''  } 
 , dispOrder: { type: Number, unique: false, required: false, default: ''  } 
-, pageIds:  { type: Schema.ObjectId, ref: 'GPASSO_PAGE005MT' }   
+, pageIds:  [{ type: Schema.ObjectId, ref: 'GPASSO_PAGE005MT' }]   
 });
 
  GPASSO_PGGR004MT.index({ 
@@ -79,7 +79,8 @@ var Schema = mongoose.Schema;
 , roleName: { type: String, unique: false, required: false, default: ''  } 
 , status: { type: String, unique: false, required: false, default: ''  } 
 , roleValue: { type: Number, unique: false, required: false, default: ''  } 
-, pageGrpIds:  [{ type: Schema.ObjectId, ref: 'GPASSO_SSID003MT' }]   
+, pageGrpIds:  [{ type: Schema.ObjectId, ref: 'GPASSO_PGGR004MT' }]   
+, usrIds:  [{ type: Schema.ObjectId, ref: 'GPASSO_SSID003MT' }]   
 });
 
  GPASSO_ROLE003MT.index({ 
@@ -130,6 +131,9 @@ var Schema = mongoose.Schema;
 , dtModified: { type: Date, unique: false, required: false, default: ''  } 
 });
 
+ GPASSO_mongoTables.index({ 
+    _id : 1 
+});
  var GPASSO_mongoTables_Model = mongoose.model('GPASSO_mongoTables', GPASSO_mongoTables); 
  module.exports.GPASSO_mongoTables_Model = GPASSO_mongoTables_Model; 
  

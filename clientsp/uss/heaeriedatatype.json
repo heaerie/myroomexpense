@@ -1,0 +1,52 @@
+[ 
+	{
+
+	"name" : "heaerie" 
+	,"dataType" : "namespace"
+	, "childs" : [
+			{ 
+				"name" : "system"
+			,	"dataType" : "package"
+			,	"childs"  : [
+					{
+					 "name" : "NUMBER"
+					,"dataType" : "primitive"
+					,"min" : "0"
+					,"max" : "10"
+					,"validate" : ""
+					}
+					,{
+					 "name" : "TIME"
+					,"dataType" : "primitive"
+					,"min" : "0"
+					,"max" : "1"
+					,"validate" : "/^\\d{1,2}:\\d{2}([ap]m)?$/"
+					}
+					,{
+					 "name" : "DATE"
+					,"dataType" : "primitive"
+					,"min" : "0"
+					,"max" : "1"
+					,"validate" : "/^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$/"
+					}
+					,{
+					 "name" : "CHAR"
+					,"dataType" : "primitive"
+					,"min" : "0"
+					,"max" : "1"
+					,"validate" : "/^[A-Za-z0-9_]$/"
+					}
+					,{
+					 "name" : "VARCHAR"
+					,"dataType" : "primitive"
+					,"min" : "0"
+					,"max" : "10"
+					,"validate" : "/^[A-Za-z0-9_]$/"
+					}
+				]
+			}
+
+		]
+
+	}
+]

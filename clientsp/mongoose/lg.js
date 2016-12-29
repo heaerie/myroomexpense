@@ -56,20 +56,6 @@ GPASSO_PROD001MT_Model.remove({}, function(err) {
 }
 );
 
-	var ssid1= new GPASSO_SSID003MT_Model({
-  userRole: 'Internal',
-  userType: 'Member',
-  empId: 'H1450002',
-  password: '1qaz2wsx',
-  username: 'H1450001',
-  middleName: '',
-  lastName: 'Govindaraj',
-  firstNane: 'Jayagopal',
-  dtModified: new Date(),
-  athId: 1,
-  dtCreated: new Date(),
-  mkrId: 1 }
-) ;
 	var ssid= new GPASSO_SSID003MT_Model({
   userRole: 'Internal',
   userType: 'Member',
@@ -116,12 +102,10 @@ GPASSO_PROD001MT_Model.remove({}, function(err) {
 		pggr.pageIds.push(page);
 		role.pageGrpIds.push(pggr);
 		role.usrIds.push(ssid);
-		role.usrIds.push(ssid1);
 		prtl.roleIds.push(role);
 		prtl.pageGrpIds.push(pggr);
 		prod.prtlIds.push(prtl);
 		prod.usrIds.push(ssid);
-		prod.usrIds.push(ssid1);
 		GPASSO_PAGE005MT_Model.remove({}, function(err) {
 			page.save(function(err) {
 				if(err) {
@@ -131,13 +115,6 @@ GPASSO_PROD001MT_Model.remove({}, function(err) {
 				console.log("ssid saved");
 			});
 		GPASSO_SSID003MT_Model.remove({}, function(err) {
-			ssid1.save(function(err) {
-				if(err) {
-					callback && callback(err,{"status" : "Unable to save ssid : [" + ssid + "]"});
-				}
-
-				console.log("ssid saved");
-				});
 			ssid.save(function(err) {
 				if(err) {
 					callback && callback(err,{"status" : "Unable to save ssid : [" + ssid + "]"});
@@ -191,9 +168,58 @@ GPASSO_PROD001MT_Model.remove({}, function(err) {
 });
 
 }
-	
 
-DataSetup(function(err,msg) {
+doLogin=function(loginDetails, callback) {
+
+		loginDetails= loginDetails|| {};
+
+			if (loginDetails.username != undefined ||  loginDetails.password  != undefined ||   loginDetails.prtlKey != undefined) {
+
+				console.log("Invalid validation");
+				callback&&callback( { "respCode"  : "400" , "respDesc" : "Invalid Parameter"} , {});
+			} else {
+		
+				GPASSO_SSID003MT_Model.findOne({"username": "H1450001"},function (err, ssid) {
+
+					if(err) {
+							callback&&callback( { "respCode"  : "500" , "respDesc" : "Internal Server Error"},{} );
+//					} else if (ssid){
+//						return		callback&&callback(  { "respCode"  : "400" , "respDesc" : "Invalid Parameter"}, {});
+					} else {
+
+					GPASSO_PROD001MT_Model.findOne({ "usrIds"  : { $in : [ssid._id] }}).populate("prtlIds").exec(function (err, prod) {
+							GPASSO_PRTL002MT_Model.find({_id : {$in : prod.prtlIds } , prtlName: 'Member Portal'}).exec(function(err,prtl) {
+								prtl.forEach(function(prtlObj) {
+										GPASSO_ROLE003MT_Model.findOne({ _id: {$in : prtlObj.roleIds} , usrIds : {$in : [ssid._id]}}).populate("pageGrpIds").exec(function(err,role) {
+
+												GPASSO_PGGR004MT_Model.find( { _id : { $in :role.pageGrpIds	} }).populate("pageIds").exec( function(err,pggr) {
+													
+														callback&&callback(  null, {"respCode" : "200", "respDesc" : "Success", "resp" : pggr});
+			
+															});
+													});
+											});
+
+								});
+				
+						});
+					}
+
+				});
+		}
+
+}
+	
+var input= {
+	loginDetails : {
+		username : "H1450001"
+		,password : "1qaz2wsx"
+		,prtlKey : "Member Portal"
+
+	}
+
+};
+doLogin( input, function(err,msg) {
 	if(err) {
 		console.log(err);
 
@@ -201,4 +227,6 @@ DataSetup(function(err,msg) {
 		console.log(msg);
 	}
 });
+
+
 
