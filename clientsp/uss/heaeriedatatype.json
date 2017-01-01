@@ -1,46 +1,81 @@
 [ 
 	{
-
-	"name" : "heaerie" 
-	,"dataType" : "namespace"
-	, "childs" : [
+ "htmlType"	:  "INPUT"
+,"dataType"	:  "namespace"
+,"cclass"	:  "cclass"
+,"min"		:  0
+,"max"		:  "unlimited"
+,"listVal"	:  ""
+,"helpLink"	:  ""
+,"name" 	: "heaerie" 
+, "childs" : [
 			{ 
-				"name" : "system"
-			,	"dataType" : "package"
-			,	"childs"  : [
+			 "htmlType"	:  "INPUT"
+			,"dataType"	:  "package"
+			,"cclass"	:  "cclass"
+			,"min"		:  0
+			,"max"		:  "unlimited"
+			,"listVal"	:  ""
+			,"helpLink"	:  ""
+			,"name"          :  "system"
+			,"childs"  : [
 					{
-					 "name" : "NUMBER"
-					,"dataType" : "primitive"
-					,"min" : "0"
-					,"max" : "10"
-					,"validate" : ""
+					 "name"		:  "NUMBER"
+					,"htmlType"	:  "INPUT"
+					,"dataType"	:  "primitive"
+					,"cclass"	:  "cclass"
+					,"min"		:  0
+					,"max"		:  10
+					,"listVal"	:  ""
+					,"helpLink"	:  ""
+					,"validate"     : "/^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$/"
 					}
-					,{
-					 "name" : "TIME"
-					,"dataType" : "primitive"
-					,"min" : "0"
-					,"max" : "1"
-					,"validate" : "/^\\d{1,2}:\\d{2}([ap]m)?$/"
+					,
+					{
+					 "name"		:  "TIME"
+					,"htmlType"	:  "INPUT"
+					,"dataType"	:  "primitive"
+					,"cclass"	:  "cclass"
+					,"min"		:  0
+					,"max"		:  1
+					,"listVal"	:  ""
+					,"helpLink"	:  ""
+					,"validate" 	: "/^\\d{1,2}:\\d{2}([ap]m)?$/"
 					}
-					,{
-					 "name" : "DATE"
-					,"dataType" : "primitive"
-					,"min" : "0"
-					,"max" : "1"
+					,
+					{
+					 "name"		:  "DATE"
+					,"htmlType"	:  "INPUT"
+					,"dataType"	:  "primitive"
+					,"cclass"	:  "cclass"
+					,"min"		:  0
+					,"max"		:  1
+					,"listVal"	:  ""
+					,"helpLink"	:  ""
 					,"validate" : "/^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$/"
 					}
-					,{
-					 "name" : "CHAR"
-					,"dataType" : "primitive"
-					,"min" : "0"
-					,"max" : "1"
+					,
+					{
+					 "name"		:  "CHAR"
+					,"htmlType"	:  "INPUT"
+					,"dataType"	:  "primitive"
+					,"cclass"	:  "cclass"
+					,"min"		:  0
+					,"max"		:  1
+					,"listVal"	:  ""
+					,"helpLink"	:  ""
 					,"validate" : "/^[A-Za-z0-9_]$/"
 					}
-					,{
-					 "name" : "VARCHAR"
-					,"dataType" : "primitive"
-					,"min" : "0"
-					,"max" : "10"
+					,
+					{
+					 "name"		:  "VARCHAR"
+					,"htmlType"	:  "INPUT"
+					,"dataType"	:  "primitive"
+					,"cclass"	:  "cclass"
+					,"min"		:  0
+					,"max"		:  1
+					,"listVal"	:  ""
+					,"helpLink"	:  ""
 					,"validate" : "/^[A-Za-z0-9_]$/"
 					}
 				]

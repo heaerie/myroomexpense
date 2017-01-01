@@ -1,7 +1,15 @@
 var ns= require("./heaeriedatatype.json" );
 var sjson= require("./loginApi.json" );
-
+var lgns = require("./logindatatype.json");
 //console.log(ns);
+console.log(lgns);
+
+lgns.forEach(function(lgnsObj) {
+	ns.push(lgnsObj);
+
+});
+console.log(ns);
+
 
 expandDataType= function(sjson, ns ) {
 
@@ -17,16 +25,16 @@ expandDataType= function(sjson, ns ) {
 			if ( dataTypeArr.length == 3 ) {
 			
 			     dataObj= {
-				"namespace" :  dataTypeArr[2]
+				"namespace" :  dataTypeArr[0]
 				, "package" :  dataTypeArr[1]
-				, "dataType" : dataTypeArr[0]
+				, "dataType" : dataTypeArr[2]
 				};
 			
 			} else if (dataTypeArr.length ==2 ){
 			     dataObj= {
 				 "namespace" :  "heaerie"
-				, "package" :  dataTypeArr[1]
-				, "dataType" : dataTypeArr[0]
+				, "package" :  dataTypeArr[0]
+				, "dataType" : dataTypeArr[1]
 				};
 
 			} else {
@@ -38,63 +46,36 @@ expandDataType= function(sjson, ns ) {
 				
 			}
 
+			console.log("dataObj = %s", JSON.stringify(dataObj));
+
 			if(hasChild(sjsonObj)) {
 
 		var rtData	=	expandDataType(sjsonObj.childs, ns );
 
-					console.log("rtData" );
-					console.log(rtData );
-
-					rpObj= {
-					  "name" : sjsonObj.name 
-					  ,"dataType" : sjsonObj.dataType 
-					  ,"min" : sjsonObj.min 
-					  ,"max" : sjsonObj.max 
-					  ,"validate" : sjsonObj.validate 
-					  ,"childs" : rtData
-					  };
-					 found = true;
-
-					
-
-
+					rpObj=copyObject(sjsonObj,sjsonObj);
+					rpObj.childs = rtData;
+					found = true;
 
 			} else {
 
 
 				ns.forEach(function(nameSpaceObj) {
-
-
+				console.log(" nameSpaceObj.name  = %s , dataObj.namespace = %s ", nameSpaceObj.name, dataObj.namespace );
 				if (nameSpaceObj.name == dataObj.namespace ) {
 					
 					if ( hasChild( nameSpaceObj)) {
 
 							nameSpaceObj.childs.forEach( function(packageObj) {
+								console.log(" dataObj.package  = %s , packageObj.name = %s ", dataObj.package, packageObj.name );
 
 									if ( dataObj.package  ==  packageObj.name )  {
 
 											if( hasChild(packageObj)) {
 											packageObj.childs.forEach( function(dataType) {
-
-												
-													console.log(" dataType.name : <%s> == sjsonObj.dataType : <%s>  " ,dataType.name, sjsonObj.dataType );
-
-					
-
-														if(dataType.name == sjsonObj.dataType) {
-														 rpObj= {
-															  "name" : sjsonObj.name 
-															  ,"dataType" : sjsonObj.dataType 
-															  ,"min" :sjsonObj.min 
-															  ,"max" : sjsonObj.max 
-															  ,"validate" : dataType.validate 
-															  };
-															 found = true;
-
-
-															  console.log("rtObj");
-															  console.log(rtObj);
-
+														console.log(" dataType.name = %s , sjsonObj.dataType = %s ", dataType.name, sjsonObj.dataType );
+														if(dataType.name == dataObj.dataType) {
+														rpObj=copyObject(sjsonObj,dataType);
+														found = true;
 														}
 													
 											});
@@ -113,8 +94,6 @@ expandDataType= function(sjson, ns ) {
 
 			}
 			
-			console.log("found: " + found);
-
 			if ( found ) { 
 				rtObj.push(rpObj);
 			} else {
@@ -125,6 +104,57 @@ expandDataType= function(sjson, ns ) {
 	});
 
  return rtObj;
+
+}
+
+copyObject=function(sjsonObj,dataType) {
+
+//console.log('dataType');
+//console.log(dataType);
+
+var obj =  {
+ "group"	:  sjsonObj.group
+,"name"		:  sjsonObj.name
+,"label"	:  sjsonObj.label
+,"task"		:  sjsonObj.task
+,"desc"		:  sjsonObj.desc
+,"htmlType"	:  dataType.htmlType
+,"entitle"	:  sjsonObj.entitle
+,"enttlname"	:  sjsonObj.enttlname
+,"mndf"		:  sjsonObj.mndf
+,"dataType"	:  dataType.name
+,"cclass"	:  dataType.cclass
+,"parent"	:  sjsonObj.parent
+,"parentHtmlType":  sjsonObj.parentHtmlType
+,"validate"	:  dataType.validate
+,"dflt"		:  sjsonObj.dflt
+,"min"		:  dataType.min
+,"max"		:  dataType.max
+,"tips"		:  sjsonObj.tips
+,"onkeyup"	: 'onKeyUp(this);'
+,"onchange"	: 'onChange(this);'
+,"onkeydown"	: 'onKeyDown(this);'
+,"onkeypress"	: 'onKeyPress(this);'
+,"onclick"	: 'onClick(this);'
+,"onblure"	: 'onBlure(this);'
+,"listVal"	:  dataType.listVal
+,"help"		:  sjsonObj.help
+,"helpLink"	:  dataType.helpLink
+,"xml"		:  sjsonObj.xml
+,"xmlname"	:  sjsonObj.xmlname
+,"Xpath"	:  sjsonObj.Xpath
+,"maxCol"	:  sjsonObj.maxCol
+,"col"		:  sjsonObj.col
+,"childs": []	
+	};
+
+	if (hasChild(dataType)) {
+		obj.childs.push(dataType.childs);
+
+	}
+
+
+return obj;
 
 }
 
