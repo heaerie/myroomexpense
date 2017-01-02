@@ -1861,6 +1861,12 @@ USS.prototype.valWithSch= 	function (rec,recSch)
 					}
 				}
 				*/
+
+
+		if (validateSch(recSch) {
+
+
+		}
 				
 				
 		for ( var r=0; r<rec.length; r++)
@@ -2002,120 +2008,7 @@ USS.prototype.valWithSch= 	function (rec,recSch)
 		}
 		
 	}
-		
-		var PersonalInfo =[ 
-			{
-			psnlInfo:[ 
-				{
-					BasicDet:[
-					{
-					name:"durai"
-
-					},
-					{
-					name:"Akbar"
-
-					}
-					]
-			}
-				]
-								}
-					];
-			
-	
-			var PersonalInfoSch = [
-									{
-	group:'ussms',
-	name:'psnlInfo',
-	label:'Personal Information ',
-	task:'NONE',
-	desc:'VARCHAR',
-	htmlType:'TAP',
-	entitle:'N',
-	enttlname:'',
-	mndf:'N',
-	dataType:'CONTAINER',
-	cclass:'ctext',
-	validate:'',
-	dflt:'',
-	min:'0',
-	max:'60',
-	tips:'',
-	onkeyup:'',
-	onchange:'',
-	onkeydown:'',
-	onkeypress:'',
-	onclick:'',
-	listVal:'""',
-	help:'N',
-	helpLink:'',
-	xml:'N',
-	Xpath:'N' ,
-	childs:[ 
-			{
-				group:'ussms',
-			name:'BasicDet',
-			label:'Basic Details',
-			task:'NONE',
-			desc:'VARCHAR',
-			htmlType:'CONTAINER',
-			entitle:'N',
-			enttlname:'',
-			mndf:'N',
-			dataType:'COLLECTION',
-			cclass:'ctext',
-			validate:'',
-			dflt:'',
-			min:'0',
-			max:'2',
-			tips:'',
-			onkeyup:'',
-			onchange:'',
-			onkeydown:'',
-			onkeypress:'',
-			onclick:'',
-			listVal:'',
-			help:'N',
-			helpLink:'',
-			xml:'N',
-			Xpath:'N' ,
-			childs:[
-			{group:'ussms',
-			name:'name',
-			label:'Name ',
-			task:'NONE',
-			desc:'VARCHAR',
-			htmlType:'TEXT',
-			entitle:'N',
-			enttlname:'',
-			mndf:'N',
-			dataType:'VARCHAR',
-			cclass:'ctext',
-			validate:'',
-			dflt:'',
-			min:'0',
-			max:'2',
-			tips:'',
-			onkeyup:'',
-			onchange:'',
-			onkeydown:'',
-			onkeypress:'',
-			onclick:'',
-			listVal:'',
-			help:'N',
-			helpLink:'',
-			xml:'N',
-			Xpath:'N' ,
-			childs:'N' }
-		
-						]
-				}
-					]
-	}
-	]
-;			
-			//valWithSch(PersonalInfo,PersonalInfoSch);	
-									
+								
 
 var ussModule= new USS();
 

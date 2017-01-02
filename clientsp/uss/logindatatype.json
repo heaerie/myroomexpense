@@ -68,7 +68,7 @@
 					{
 					 "name"		:  "login"
 					,"htmlType"	:  "INPUT"
-					,"dataType"	:  "constrictive"
+					,"dataType"	:  "CONTAINER"
 					,"cclass"	:  "cclass"
 					,"min"		:  0
 					,"max"		:  10
